@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Galactic Standings · Starverse Infinitas</title>
+<meta name="description" content="The great powers of the Infinitas Galaxy, ranked each turn, with every treaty in force and every partnership running.">
+<meta name="theme-color" content="#05080D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05080D;--band1:#0C1420;--band2:#132033;--head:#13233A;--line:#2C4A68;--line2:#1B2D44;--text:#D3DEEA;--bright:#E8F0F8;--chrome:#B9D3EA;--steel:#8FB3D4;--muted:#7F95AB;--gold:#F2C76B;--silver:#C9D6E3;--bronze:#D49A6A}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 Lato,Calibri,"Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(1100px 520px at 80% -10%,rgba(44,74,104,.3),transparent 60%),radial-gradient(900px 500px at 0% 110%,rgba(44,74,104,.18),transparent 60%),radial-gradient(1px 1px at 20% 30%,#5d7590 50%,transparent 51%),radial-gradient(1px 1px at 70% 60%,#4a6280 50%,transparent 51%),radial-gradient(1px 1px at 40% 80%,#3d5470 50%,transparent 51%);background-size:auto,auto,340px 340px,420px 420px,380px 380px}
+a{color:var(--steel)}
+:focus-visible{outline:2px solid var(--steel);outline-offset:2px;border-radius:4px}
+.top{position:sticky;top:0;z-index:10;background:rgba(5,8,13,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line2)}
+.top .in{max-width:1180px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:18px}
+.top img{height:30px;width:auto}
+.top nav{display:flex;gap:4px;margin-left:auto}
+.top nav a{padding:6px 12px;border-radius:8px;text-decoration:none;color:var(--muted);font-weight:700;font-size:14px}
+.top nav a:hover{color:var(--bright);background:var(--band1)}
+.top nav a.on{color:var(--bright);background:var(--head)}
+main{max-width:1180px;margin:0 auto;padding:34px 20px 80px}
+.hero{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px}
+.kicker{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--steel);font-weight:700}
+h1{margin:4px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.1;color:var(--bright);font-weight:900}
+.lede{margin:0;color:var(--text);max-width:640px}
+.stamp{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.stamp .dot{width:8px;height:8px;border-radius:50%;background:#4a6280}
+.stamp.live .dot{background:#5FD38D;box-shadow:0 0 8px #5FD38D}
+.stamp.err .dot{background:#E06666}
+.stamp button{font:inherit;font-size:12px;background:none;border:1px solid var(--line);border-radius:6px;color:var(--chrome);padding:1px 8px;cursor:pointer}
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:26px;overflow-x:auto}
+.tab{font:inherit;font-weight:700;font-size:15px;background:none;border:0;border-bottom:2px solid transparent;color:var(--muted);padding:10px 14px;cursor:pointer;white-space:nowrap}
+.tab:hover{color:var(--bright)}
+.tab[aria-selected=true]{color:var(--bright);border-bottom-color:var(--steel)}
+.tab .n{font-size:12px;color:var(--steel);margin-left:6px;font-weight:400}
+.group{margin:0 0 34px}
+.group h2{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--steel);margin:0 0 12px;font-weight:900}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.board{background:linear-gradient(165deg,var(--band2),var(--band1));border:1px solid var(--line2);border-radius:12px;padding:16px 16px 12px}
+.board h3{margin:0;font-size:18px;color:var(--bright);line-height:1.25}
+.board .desc{margin:2px 0 12px;font-size:12.5px;color:var(--muted)}
+.board ol{list-style:none;margin:0;padding:0}
+.board li{display:flex;align-items:center;gap:10px;padding:6px 8px;border-radius:8px;font-size:14.5px}
+.board li+li{border-top:1px solid rgba(27,45,68,.6)}
+.rank{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:900;color:var(--muted);border:1px solid var(--line2);flex:none;font-variant-numeric:tabular-nums}
+li.r1 .rank{color:#1a1206;background:radial-gradient(circle at 35% 30%,#fff3cf,var(--gold));border:0;box-shadow:0 0 12px rgba(242,199,107,.45)}
+li.r2 .rank{color:#0f1720;background:radial-gradient(circle at 35% 30%,#fff,var(--silver));border:0}
+li.r3 .rank{color:#1d1006;background:radial-gradient(circle at 35% 30%,#ffe2c8,var(--bronze));border:0}
+li.r1{background:rgba(242,199,107,.07)}
+li.r1 .nm{color:var(--bright);font-weight:700}
+.sw{width:10px;height:10px;border-radius:50%;flex:none;box-shadow:0 0 6px currentColor}
+.nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.val{color:var(--chrome);font-variant-numeric:tabular-nums;font-size:13.5px}
+.empty{font-size:13.5px;color:var(--muted);font-style:italic;padding:6px 8px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:16px}
+.chip{font:inherit;font-size:13px;padding:5px 12px;border:1px solid var(--line2);border-radius:999px;background:var(--band1);color:var(--muted);cursor:pointer}
+.chip:hover{color:var(--bright)}
+.chip[aria-pressed=true]{border-color:var(--steel);color:var(--bright);background:var(--head)}
+.find{margin-left:auto;background:var(--band1);border:1px solid var(--line);border-radius:8px;color:var(--bright);font:inherit;font-size:14px;padding:7px 11px;min-width:220px}
+.find::placeholder{color:var(--muted)}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.5}
+th{background:var(--head);color:var(--bright);text-align:left;font-weight:700;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 12px;border-top:1px solid var(--line2);vertical-align:top}
+tbody tr:nth-child(odd){background:var(--band1)}
+tbody tr:nth-child(even){background:var(--band2)}
+.ty{display:inline-block;font-size:12px;padding:2px 9px;border-radius:999px;border:1px solid var(--line);color:var(--chrome);white-space:nowrap}
+.party{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.none{padding:28px 18px;text-align:center;color:var(--muted);font-style:italic;border:1px dashed var(--line2);border-radius:12px}
+.foot{margin-top:40px;color:var(--muted);font-size:13px;text-align:center}
+@media (max-width:640px){.top img{height:24px}.top nav a{padding:6px 8px;font-size:13px}.find{margin-left:0;width:100%}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <a href="./"><img src="assets/wordmark.png" alt="Starverse Infinitas" width="1000" height="235"></a>
+  <nav><a href="./">Rules</a><a href="map.html">Star map</a><a href="standings.html" class="on">Standings</a></nav>
+</div></header>
+<main>
+  <div class="hero">
+    <div><span class="kicker" id="turn">The Infinitas Galaxy</span><h1>Galactic Standings</h1>
+    <p class="lede">The great powers ranked from the record at the close of each turn. Equal standings share a rank.</p></div>
+    <div class="stamp" id="stamp"><span class="dot"></span><span id="stampText">Reading the record…</span></div>
+  </div>
+  <div class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-p="boards">Standings</button>
+    <button class="tab" role="tab" aria-selected="false" data-p="treaties">Treaties in Force<span class="n" id="nT"></span></button>
+    <button class="tab" role="tab" aria-selected="false" data-p="contracts">Contracts Board<span class="n" id="nC"></span></button>
+  </div>
+  <section id="p-boards"></section>
+  <section id="p-treaties" hidden>
+    <div class="filters" id="fT"></div>
+    <div id="tT"></div>
+  </section>
+  <section id="p-contracts" hidden>
+    <div class="filters" id="fC"></div>
+    <div id="tC"></div>
+  </section>
+  <p class="foot">Lore decides who you are; your choices decide what you become.</p>
+</main>
+<script>
+(function () {
+  var SID = '1tZyLl3OV1e-KIRukMT3QKZg-dm4MxNYzfA4-bwV0rPw';
+  var PALETTE = ['#D7263D','#F49D37','#F6D743','#9BE564','#1B998B','#2EC4B6','#3FC1F0','#2F6FED','#5B4BDB','#9B5DE5','#E040A0','#F78FB3','#FF7F6B','#B5532A','#8A9A3B','#4FBF7A','#BDE6F7','#C3B1E1','#D9C089','#C77D4A','#7E3F8F','#6C8EA4','#EDE6D6','#FF4E1F','#A3E4D7','#F5B7B1','#D2B4DE','#AED6F1','#F9E79F','#ABEBC6'];
+  var GROUPS = [
+    ['The great powers', ['Economy', 'Military', 'Stability', 'Systems held', 'Research', 'Technology']],
+    ['Technology', ['Military technology', 'Industry technology', 'Society technology', 'Logistics technology']],
+    ['Honours', ['The Explorer', 'The Diplomat', 'The Trade Magnate', 'Jewel of the Galaxy', 'Rare Riches', 'The Suzerain', 'The Indispensable', 'The Creditworthy']]
+  ];
+  var $ = function (s) { return document.querySelector(s); };
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function url(sheet, range) { return 'https://docs.google.com/spreadsheets/d/' + SID + '/gviz/tq?tqx=out:csv&headers=1&sheet=' + encodeURIComponent(sheet) + (range ? '&range=' + range : '') + '&t=' + Date.now(); }
+  function parseCSV(text) {
+    var rows = [], row = [], cur = '', q = false;
+    for (var i = 0; i < text.length; i++) {
+      var ch = text[i];
+      if (q) { if (ch === '"') { if (text[i + 1] === '"') { cur += '"'; i++; } else q = false; } else cur += ch; }
+      else if (ch === '"') q = true;
+      else if (ch === ',') { row.push(cur); cur = ''; }
+      else if (ch === '\n' || ch === '\r') { if (ch === '\r' && text[i + 1] === '\n') i++; row.push(cur); rows.push(row); row = []; cur = ''; }
+      else cur += ch;
+    }
+    if (cur || row.length) { row.push(cur); rows.push(row); }
+    return rows.map(function (r) { return r.map(function (v) { return v.trim(); }); });
+  }
+  function get(sheet, range) { return fetch(url(sheet, range)).then(function (r) { if (!r.ok) throw r.status; return r.text(); }).then(parseCSV); }
+  var colours = {};
+  function dot(n) { var c = colours[n]; return c ? '<span class="sw" style="background:' + c + ';color:' + c + '"></span>' : '<span class="sw" style="background:#4a6280;color:transparent"></span>'; }
+  function party(n) { return n ? '<span class="party">' + dot(n) + esc(n) + '</span>' : ''; }
+  var isNum = function (v) { return v !== '' && !isNaN(Number(v)); };
+
+  /* boards */
+  function boards(rows) {
+    var by = {}, turn = 0;
+    rows.slice(1).forEach(function (r) {
+      if (r[0] === 'Turn') { turn = Number(r[2]) || 0; return; }
+      if (!r[0]) return;
+      (by[r[0]] = by[r[0]] || { desc: r[1], list: [] }).list.push({ rank: r[2], nation: r[3], value: r[4] });
+    });
+    $('#turn').textContent = turn > 0 ? 'Turn ' + turn : 'Before the first turn';
+    var html = GROUPS.map(function (g) {
+      return '<div class="group"><h2>' + esc(g[0]) + '</h2><div class="grid">' + g[1].filter(function (b) { return by[b]; }).map(function (b) {
+        var B = by[b], real = B.list.filter(function (x) { return isNum(x.rank); });
+        var body = real.length ? '<ol>' + real.map(function (x) {
+          var r = Number(x.rank); return '<li class="' + (r <= 3 ? 'r' + r : '') + '"><span class="rank">' + r + '</span>' + dot(x.nation) + '<span class="nm">' + esc(x.nation) + '</span>' + (x.value ? '<span class="val">' + esc(x.value) + '</span>' : '') + '</li>';
+        }).join('') + '</ol>' : '<div class="empty">' + esc((B.list[0] && B.list[0].nation) || 'Awaiting nations') + '</div>';
+        return '<article class="board"><h3>' + esc(b) + '</h3><p class="desc">' + esc(B.desc) + '</p>' + body + '</article>';
+      }).join('') + '</div></div>';
+    }).join('');
+    $('#p-boards').innerHTML = html;
+  }
+
+  /* tables with type filters and a nation search */
+  function table(rows, opts) {
+    var head = rows[0] || [], data = rows.slice(1).filter(function (r) { return r[0] && r[0] !== opts.emptyMark; });
+    $(opts.count).textContent = data.length ? data.length : '';
+    var types = [], active = null, q = '';
+    data.forEach(function (r) { if (types.indexOf(r[0]) < 0) types.push(r[0]); });
+    function draw() {
+      var list = data.filter(function (r) { return (!active || r[0] === active) && (!q || r.join(' ').toLowerCase().indexOf(q) > -1); });
+      if (!data.length) { $(opts.out).innerHTML = '<div class="none">' + esc(opts.emptyText) + '</div>'; return; }
+      $(opts.out).innerHTML = list.length ? '<div class="tbl"><table><thead><tr>' + head.map(function (h) { return '<th>' + esc(h) + '</th>'; }).join('') + '</tr></thead><tbody>' +
+        list.map(function (r) { return '<tr>' + r.map(function (v, i) { return '<td>' + opts.cell(v, i) + '</td>'; }).join('') + '</tr>'; }).join('') + '</tbody></table></div>'
+        : '<div class="none">Nothing matches.</div>';
+    }
+    var f = $(opts.filters);
+    f.innerHTML = data.length ? '<button class="chip" aria-pressed="true" data-t="">All</button>' + types.map(function (t) { return '<button class="chip" aria-pressed="false" data-t="' + esc(t) + '">' + esc(t) + '</button>'; }).join('') + '<input class="find" type="search" placeholder="Find a nation" aria-label="Find a nation">' : '';
+    f.querySelectorAll('.chip').forEach(function (b) { b.onclick = function () { active = b.dataset.t || null; f.querySelectorAll('.chip').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); draw(); }; });
+    var inp = f.querySelector('.find'); if (inp) inp.oninput = function () { q = inp.value.trim().toLowerCase(); draw(); };
+    draw();
+  }
+  function treaties(rows) {
+    table(rows.map(function (r) { return r.slice(0, 5); }), {
+      out: '#tT', filters: '#fT', count: '#nT', emptyMark: 'No treaties in force', emptyText: 'No treaties are in force yet.',
+      cell: function (v, i) { return i === 0 ? '<span class="ty">' + esc(v) + '</span>' : (i === 1 || i === 2) ? party(v) : i === 3 ? '<span class="num">' + esc(v) + '</span>' : esc(v); }
+    });
+  }
+  function contracts(rows) {
+    table(rows.map(function (r) { return r.slice(0, 8); }), {
+      out: '#tC', filters: '#fC', count: '#nC', emptyMark: 'No partnerships running yet', emptyText: 'No partnerships are running yet.',
+      cell: function (v, i) { return i === 0 ? '<span class="ty">' + esc(v) + '</span>' : (i === 1 || i === 2 || i === 5) ? party(v) : (i === 3 || i === 6) ? '<span class="num">' + esc(v) + '</span>' : esc(v); }
+    });
+  }
+
+  function stamp(kind, text, retry) {
+    $('#stamp').className = 'stamp ' + kind; $('#stampText').textContent = text;
+    var old = $('#stamp button'); if (old) old.remove();
+    if (retry) { var b = document.createElement('button'); b.textContent = 'Retry'; b.onclick = load; $('#stamp').appendChild(b); }
+  }
+  var loaded = false;
+  function load() {
+    Promise.all([get('Feed', 'A1:E120'), get('Feed', 'G1:K520'), get('Feed', 'M1:T520'), get('Star Chart').catch(function () { return []; })])
+      .then(function (res) {
+        var chart = res[3], h = chart[0] || [], io = h.indexOf('Owner'), ic = h.indexOf('Colour');
+        chart.slice(1).forEach(function (r) { if (r[io]) { var i = Number(r[ic]); colours[r[io]] = i >= 1 ? PALETTE[(i - 1) % PALETTE.length] : colours[r[io]]; } });
+        boards(res[0]); treaties(res[1]); contracts(res[2]); loaded = true;
+        stamp('live', 'Read ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+      })
+      .catch(function () {
+        if (!loaded) $('#p-boards').innerHTML = '<div class="none">The record could not be read just now. Please try again shortly.</div>';
+        stamp('err', loaded ? 'Could not refresh; showing the last reading' : 'The record could not be read', true);
+      });
+  }
+  document.querySelectorAll('.tab').forEach(function (t) {
+    t.onclick = function () {
+      document.querySelectorAll('.tab').forEach(function (x) { x.setAttribute('aria-selected', x === t); });
+      ['boards', 'treaties', 'contracts'].forEach(function (p) { $('#p-' + p).hidden = p !== t.dataset.p; });
+      history.replaceState(null, '', t.dataset.p === 'boards' ? location.pathname : '#' + t.dataset.p);
+    };
+  });
+  var h = location.hash.slice(1); if (h === 'treaties' || h === 'contracts') document.querySelector('.tab[data-p="' + h + '"]').click();
+  load(); setInterval(load, 5 * 60 * 1000);
+})();
+</script>
+</body>
+</html>
