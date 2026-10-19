@@ -108,7 +108,7 @@ h1{margin:4px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.1;color:var(--b
 <body>
 <header class="top"><div class="in">
   <a href="./" target="si-rules"><img src="assets/wordmark.png" alt="Starverse Infinitas" width="1000" height="235"></a>
-  <nav><a href="./" target="si-rules">Rules</a><a href="map.html" target="si-map">Star map</a><a href="standings.html" target="si-standings">Standings</a><a href="archives.html" class="on">Archives</a></nav>
+  <nav><a href="./" target="si-rules">Rules</a><a href="map.html" target="si-map">Star map</a><a href="standings.html" target="si-standings">Standings</a><a href="archives.html" class="on">Archives</a><a href="herald.html" target="si-herald">Herald</a></nav>
 </div></header>
 <main id="main"></main>
 <script>
@@ -117,7 +117,7 @@ h1{margin:4px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.1;color:var(--b
   var PALETTE = ['#D7263D','#F49D37','#F6D743','#9BE564','#1B998B','#2EC4B6','#3FC1F0','#2F6FED','#5B4BDB','#9B5DE5','#E040A0','#F78FB3','#FF7F6B','#B5532A','#8A9A3B','#4FBF7A','#BDE6F7','#C3B1E1','#D9C089','#C77D4A','#7E3F8F','#6C8EA4','#EDE6D6','#FF4E1F','#A3E4D7','#F5B7B1','#D2B4DE','#AED6F1','#F9E79F','#ABEBC6'];
   var LORE = ['History', 'Legend or myth', 'Faith and philosophy', 'Custom and daily life', 'Language'];
   var main = document.getElementById('main');
-  var D = { civs: [], works: [], chron: [], loaded: false, error: false };
+  var D = { civs: [], works: [], chron: [], wars: [], loaded: false, error: false };
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function paras(s) { return String(s || '').split(/\n\s*\n|\r\n\s*\r\n/).map(function (p) { return '<p>' + esc(p.trim()).replace(/\n/g, '<br>') + '</p>'; }).join(''); }
   function parseCSV(text) {
@@ -134,7 +134,7 @@ h1{margin:4px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.1;color:var(--b
     return rows;
   }
   function objs(rows) { var h = (rows[0] || []).map(function (x) { return x.trim(); }); return rows.slice(1).filter(function (r) { return r[0] && r[0].trim(); }).map(function (r) { var o = {}; h.forEach(function (k, i) { o[k] = (r[i] || '').trim(); }); return o; }); }
-  function get(range) { return fetch('https://docs.google.com/spreadsheets/d/' + SID + '/gviz/tq?tqx=out:csv&headers=1&sheet=' + encodeURIComponent('Archive Feed') + '&range=' + range + '&t=' + Date.now()).then(function (r) { if (!r.ok) throw r.status; return r.text(); }).then(parseCSV).then(objs); }
+  function get(range, sheet) { return fetch('https://docs.google.com/spreadsheets/d/' + SID + '/gviz/tq?tqx=out:csv&headers=1&sheet=' + encodeURIComponent(sheet || 'Archive Feed') + '&range=' + range + '&t=' + Date.now()).then(function (r) { if (!r.ok) throw r.status; return r.text(); }).then(parseCSV).then(objs); }
   function slug(s) { return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60); }
   function civColour(c) { var i = Number(c['Colour']); return i >= 1 ? PALETTE[(i - 1) % PALETTE.length] : '#8FB3D4'; }
   function civByName(n) { return D.civs.filter(function (c) { return c['Nation'] === n; })[0]; }
@@ -181,7 +181,9 @@ h1{margin:4px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.1;color:var(--b
     var lore = works.filter(function (w) { return LORE.indexOf(w['Kind']) > -1; }), arts = works.filter(function (w) { return LORE.indexOf(w['Kind']) < 0; });
     var chron = D.chron.filter(function (e) { return e['Nation'] === c['Nation']; });
     tab = tab || 'overview';
-    var tabs = [['overview', 'Overview', ''], ['chronicle', 'Chronicle', chron.length], ['lore', 'Lore', lore.length], ['works', 'Works', arts.length]];
+    var inW = function (w) { return (w['Side A'] + ',' + w['Side B'] + ',' + w['Joined later']).split(/[,;:]/).map(function (x) { return x.trim(); }).indexOf(id) > -1; };
+    var cwars = D.wars.filter(inW);
+    var tabs = [['overview', 'Overview', ''], ['chronicle', 'Chronicle', chron.length], ['lore', 'Lore', lore.length], ['works', 'Works', arts.length], ['wars', 'Wars', cwars.length]];
     var base = '#civ/' + encodeURIComponent(id);
     var html = '<a class="back" href="#">← All civilizations</a><div style="--c:' + col + '"><section class="banner">' + flag(c) +
       '<div><span class="kicker">' + esc(c['Status'] === 'Fallen' ? 'A fallen civilization' : (c['Government style'] || c['Government'] || 'Civilization')) + '</span><h1>' + esc(c['Official name'] || c['Nation']) + '</h1>' + (c['Motto'] ? '<div class="motto">“' + esc(c['Motto']) + '”</div>' : '') + '</div></section>' +
@@ -195,6 +197,8 @@ h1{margin:4px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.1;color:var(--b
         '<div class="facts"><h4>Elsewhere</h4><dl><dt>Territory</dt><dd><a href="map.html" target="si-map">Star map</a></dd><dt>Standing</dt><dd><a href="standings.html" target="si-standings">Galactic Standings</a></dd></dl></div></aside></div>';
     } else if (tab === 'chronicle') {
       html += chron.length ? '<ol class="timeline">' + chron.map(function (e) { return '<li><div class="t">Turn ' + esc(e['Turn']) + '</div>' + paras(e['Entry']) + '</li>'; }).join('') + '</ol>' : '<div class="none">The chronicle begins with its first turn among the stars.</div>';
+    } else if (tab === 'wars') {
+      html += cwars.length ? '<div class="works">' + cwars.map(function (w) { var on = w['Status'] !== 'Ended'; return '<a class="work" href="herald.html#war/' + encodeURIComponent(w['War ID']) + '" target="si-herald"><div class="body"><div class="k">' + (on ? 'Ongoing' : 'Ended') + ' · from turn ' + esc(w['Start turn']) + '</div><h3>' + esc(w['Name'] || 'War ' + w['War ID']) + '</h3><div class="by">' + esc(w['Casus belli']) + '</div>' + (w['Outcome'] ? '<div class="ex">' + esc(w['Outcome']) + '</div>' : '') + '</div></a>'; }).join('') + '</div>' : '<div class="none">It has fought no wars.</div>';
     } else {
       var list = tab === 'lore' ? lore : arts;
       html += list.length ? '<div class="works">' + list.map(workCard).join('') + '</div>' : '<div class="none">' + (tab === 'lore' ? 'No histories, legends or beliefs are yet in the Archives.' : 'No works are yet in the Archives.') + '</div>';
@@ -239,9 +243,9 @@ h1{margin:4px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.1;color:var(--b
   }
   addEventListener('hashchange', route);
   route();
-  Promise.all([get('A1:Z200'), get('AB1:AH3000'), get('AJ1:AL5000')]).then(function (r) {
+  Promise.all([get('A1:Z200'), get('AB1:AH3000'), get('AJ1:AL5000'), get('V1:AF300', 'Herald Feed').catch(function () { return []; })]).then(function (r) {
     D.civs = r[0].sort(function (a, b) { return (a['Status'] === 'Fallen') - (b['Status'] === 'Fallen') || a['Nation'].localeCompare(b['Nation']); });
-    D.works = r[1]; D.chron = r[2]; D.loaded = true; route();
+    D.works = r[1]; D.chron = r[2]; D.wars = r[3] || []; D.loaded = true; route();
   }).catch(function () { D.error = true; route(); });
 })();
 </script>

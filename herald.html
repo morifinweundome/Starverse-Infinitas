@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Galactic Herald · Starverse Infinitas</title>
+<meta name="description" content="News, battles, wars and the timeline of the Infinitas Galaxy.">
+<meta name="theme-color" content="#05080D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05080D;--band1:#0C1420;--band2:#132033;--head:#13233A;--line:#2C4A68;--line2:#1B2D44;--text:#D3DEEA;--bright:#E8F0F8;--chrome:#B9D3EA;--steel:#8FB3D4;--muted:#7F95AB;--gold:#F2C76B;--red:#E07A6E}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.65 Lato,Calibri,"Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(1100px 520px at 80% -10%,rgba(44,74,104,.3),transparent 60%),radial-gradient(900px 500px at 0% 110%,rgba(44,74,104,.18),transparent 60%),radial-gradient(1px 1px at 20% 30%,#5d7590 50%,transparent 51%),radial-gradient(1px 1px at 70% 60%,#4a6280 50%,transparent 51%),radial-gradient(1px 1px at 40% 80%,#3d5470 50%,transparent 51%);background-size:auto,auto,340px 340px,420px 420px,380px 380px}
+a{color:var(--steel)}
+:focus-visible{outline:2px solid var(--steel);outline-offset:2px;border-radius:4px}
+.top{position:sticky;top:0;z-index:10;background:rgba(5,8,13,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line2)}
+.top .in{max-width:1180px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:18px}
+.top img{height:30px;width:auto}
+.top nav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.top nav a{padding:6px 12px;border-radius:8px;text-decoration:none;color:var(--muted);font-weight:700;font-size:14px}
+.top nav a:hover{color:var(--bright);background:var(--band1)}
+.top nav a.on{color:var(--bright);background:var(--head)}
+main{max-width:1180px;margin:0 auto;padding:30px 20px 80px}
+.serif{font-family:"Cormorant Garamond",Georgia,serif}
+.mast{text-align:center;padding:6px 0 14px;border-bottom:3px double var(--line);margin-bottom:10px}
+.mast .name{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:clamp(40px,7vw,72px);line-height:1;color:var(--bright);letter-spacing:.01em}
+.mast .sub{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--steel);margin-top:8px;font-weight:700}
+.sections{display:flex;justify-content:center;gap:4px;flex-wrap:wrap;padding:8px 0 10px;border-bottom:1px solid var(--line2);margin-bottom:22px}
+.sections a{padding:6px 14px;border-radius:999px;text-decoration:none;color:var(--muted);font-weight:700;font-size:14px}
+.sections a:hover{color:var(--bright)}
+.sections a.on{background:var(--head);color:var(--bright)}
+.issue{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-bottom:22px}
+.issue .nav a{display:inline-block;padding:4px 12px;border:1px solid var(--line2);border-radius:8px;text-decoration:none;color:var(--chrome);margin-left:6px}
+.issue .nav a.off{opacity:.35;pointer-events:none}
+.issue b{color:var(--bright)}
+.stamp{display:inline-flex;align-items:center;gap:8px}
+.stamp .dot{width:8px;height:8px;border-radius:50%;background:#4a6280}
+.stamp.live .dot{background:#5FD38D;box-shadow:0 0 8px #5FD38D}
+.stamp.err .dot{background:#E06666}
+.lead{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:28px;margin-bottom:30px}
+.lead h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:clamp(32px,4.6vw,52px);line-height:1.05;margin:4px 0 12px;color:var(--bright)}
+.lead .body{font-size:16.5px;line-height:1.75}
+.lead .body p{margin:0 0 12px}
+.kicker{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--steel);font-weight:700}
+.col h2,.blk h2{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--steel);margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line2);font-weight:900}
+.story{padding:0 0 14px;margin:0 0 14px;border-bottom:1px solid var(--line2)}
+.story:last-child{border-bottom:0}
+.story h3{font-family:"Cormorant Garamond",Georgia,serif;font-size:23px;line-height:1.15;margin:0 0 6px;color:var(--bright)}
+.story p{margin:0 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:2px 9px;border-radius:999px;border:1px solid var(--line);color:var(--chrome);text-decoration:none;white-space:nowrap}
+.pill:hover{border-color:var(--steel);color:var(--bright)}
+.sw{width:9px;height:9px;border-radius:50%;flex:none;box-shadow:0 0 6px currentColor}
+.blk{margin:0 0 30px}
+.results{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.result{border:1px solid var(--line2);border-radius:10px;background:var(--band1);padding:12px 14px}
+.result b{color:var(--bright)}
+.battles{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:14px}
+.battle{border:1px solid var(--line2);border-radius:12px;background:linear-gradient(165deg,var(--band2),var(--band1));overflow:hidden}
+.battle .hd{padding:12px 16px 10px;border-bottom:1px solid var(--line2);display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.battle .hd h3{margin:0;font-family:"Cormorant Garamond",Georgia,serif;font-size:22px;color:var(--bright);line-height:1.15}
+.battle .hd .when{font-size:12px;color:var(--muted);white-space:nowrap}
+.sides{display:grid;grid-template-columns:1fr auto 1fr;align-items:stretch}
+.side{padding:12px 16px;border-top:3px solid var(--c)}
+.side.win{background:color-mix(in srgb,var(--c) 10%,transparent)}
+.side .who{font-weight:900;color:var(--bright);font-size:14.5px;line-height:1.25}
+.side .role{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.side .score{font-size:30px;font-weight:900;color:var(--bright);line-height:1.1;margin-top:6px;font-variant-numeric:tabular-nums}
+.side .score small{font-size:12px;color:var(--muted);font-weight:400;margin-left:6px}
+.side .loss{font-size:12.5px;color:var(--red);margin-top:4px}
+.vs{display:flex;align-items:center;padding:0 4px;color:var(--muted);font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-size:18px}
+.battle .ft{padding:10px 16px 14px;border-top:1px solid var(--line2);font-size:14px}
+.outcome{display:inline-block;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:900;color:var(--gold);margin-bottom:4px}
+.battle .ft p{margin:4px 0 8px}
+.wars{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.war{display:block;border:1px solid var(--line2);border-radius:12px;background:linear-gradient(165deg,var(--band2),var(--band1));padding:16px 18px;text-decoration:none;color:var(--text);transition:border-color .15s}
+.war:hover{border-color:var(--steel)}
+.war h3{font-family:"Cormorant Garamond",Georgia,serif;font-size:25px;line-height:1.1;margin:4px 0 6px;color:var(--bright)}
+.status{display:inline-block;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:900;padding:2px 8px;border-radius:999px;border:1px solid}
+.status.on{color:var(--red);border-color:#6a3a3a}
+.status.done{color:var(--muted);border-color:var(--line)}
+.vsline{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin:6px 0}
+.tally{display:flex;gap:18px;margin-top:8px;font-size:13px;color:var(--muted)}
+.tally b{color:var(--bright);font-size:16px}
+.warpage .title{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;font-size:clamp(34px,5vw,56px);line-height:1.05;margin:6px 0 4px;color:var(--bright)}
+.warpage .dates{color:var(--muted);margin-bottom:18px}
+.warhead{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:26px;margin-bottom:28px}
+.belligerents{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:start}
+.bside{border:1px solid var(--line2);border-radius:12px;background:var(--band1);padding:14px 16px}
+.bside h4{margin:0 0 8px;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--steel)}
+.bside .m{display:flex;align-items:center;gap:8px;margin:4px 0;font-weight:700;color:var(--bright)}
+.bside .m small{font-weight:400;color:var(--muted)}
+.bside .won{font-size:28px;font-weight:900;color:var(--bright);margin-top:8px}
+.bside .won small{font-size:12px;color:var(--muted);font-weight:400;margin-left:6px}
+.facts{border:1px solid var(--line2);border-radius:12px;background:var(--band1);padding:14px 16px;margin-top:14px}
+.facts dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:14px}
+.facts dt{color:var(--muted)}
+.facts dd{margin:0;color:var(--bright)}
+.minimap{border:1px solid var(--line2);border-radius:12px;background:#060b13}
+.minimap svg{display:block;width:100%;height:auto}
+.mapkey{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted);padding:8px 12px;border-top:1px solid var(--line2)}
+.timeline{position:relative;margin:0 auto;max-width:860px}
+.year{display:grid;grid-template-columns:150px 1fr;gap:22px;position:relative}
+.year::before{content:"";position:absolute;left:161px;top:0;bottom:0;width:2px;background:var(--line2)}
+.year .y{text-align:right;padding-top:2px}
+.year .y b{display:block;font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;color:var(--bright);line-height:1}
+.year .y small{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+.year .ev{padding:0 0 26px 18px}
+.event{position:relative;margin:0 0 12px}
+.event::before{content:"";position:absolute;left:-24px;top:7px;width:12px;height:12px;border-radius:50%;background:var(--c,var(--steel));box-shadow:0 0 10px var(--c,var(--steel))}
+.event .k{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--steel);font-weight:700}
+.event .t{color:var(--bright)}
+.event a{color:var(--bright)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:0 0 24px}
+.chip{font:inherit;font-size:13px;padding:5px 12px;border:1px solid var(--line2);border-radius:999px;background:var(--band1);color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;gap:6px}
+.chip:hover{color:var(--bright)}
+.chip[aria-pressed=true]{border-color:var(--steel);color:var(--bright);background:var(--head)}
+.none{padding:34px 18px;text-align:center;color:var(--muted);font-style:italic;border:1px dashed var(--line2);border-radius:12px}
+.back{display:inline-block;margin-bottom:10px;font-size:13.5px;text-decoration:none;color:var(--muted)}
+.foot{margin-top:44px;color:var(--muted);font-size:13px;text-align:center}
+@media (max-width:900px){.lead,.warhead{grid-template-columns:1fr}.battles{grid-template-columns:1fr}}
+@media (max-width:640px){.top img{height:24px}.top nav a{padding:6px 8px;font-size:13px}.belligerents{grid-template-columns:1fr}.vs{justify-content:center}.year{grid-template-columns:76px 1fr;gap:14px}.year::before{left:87px}.year .y b{font-size:20px}.battles{grid-template-columns:1fr}.sides .side{padding:10px 12px}.side .score{font-size:24px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <a href="./" target="si-rules"><img src="assets/wordmark.png" alt="Starverse Infinitas" width="1000" height="235"></a>
+  <nav><a href="./" target="si-rules">Rules</a><a href="map.html" target="si-map">Star map</a><a href="standings.html" target="si-standings">Standings</a><a href="archives.html" target="si-archives">Archives</a><a href="herald.html" class="on">Herald</a></nav>
+</div></header>
+<main>
+  <div class="mast"><div class="name">The Galactic Herald</div><div class="sub">News of the Infinitas Galaxy</div></div>
+  <nav class="sections" id="sections"><a href="#" data-s="edition">This turn</a><a href="#wars" data-s="wars">Wars</a><a href="#timeline" data-s="timeline">Galactic Timeline</a></nav>
+  <div id="view"></div>
+  <p class="foot">Lore decides who you are; your choices decide what you become.</p>
+</main>
+<script>
+(function () {
+  var SID = '1tZyLl3OV1e-KIRukMT3QKZg-dm4MxNYzfA4-bwV0rPw';
+  var PALETTE = ['#D7263D','#F49D37','#F6D743','#9BE564','#1B998B','#2EC4B6','#3FC1F0','#2F6FED','#5B4BDB','#9B5DE5','#E040A0','#F78FB3','#FF7F6B','#B5532A','#8A9A3B','#4FBF7A','#BDE6F7','#C3B1E1','#D9C089','#C77D4A','#7E3F8F','#6C8EA4','#EDE6D6','#FF4E1F','#A3E4D7','#F5B7B1','#D2B4DE','#AED6F1','#F9E79F','#ABEBC6'];
+  var view = document.getElementById('view');
+  var D = { news: [], battles: [], wars: [], tl: [], civs: {}, sys: {}, cal: { ypt: 5, y1: 1, era: 'GS' }, loaded: false, error: false };
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function paras(s) { return String(s || '').split(/\n\s*\n/).filter(function (p) { return p.trim(); }).map(function (p) { return '<p>' + esc(p.trim()).replace(/\n/g, '<br>') + '</p>'; }).join(''); }
+  function parseCSV(text) {
+    var rows = [], row = [], cur = '', q = false;
+    for (var i = 0; i < text.length; i++) {
+      var ch = text[i];
+      if (q) { if (ch === '"') { if (text[i + 1] === '"') { cur += '"'; i++; } else q = false; } else cur += ch; }
+      else if (ch === '"') q = true;
+      else if (ch === ',') { row.push(cur); cur = ''; }
+      else if (ch === '\n' || ch === '\r') { if (ch === '\r' && text[i + 1] === '\n') i++; row.push(cur); rows.push(row); row = []; cur = ''; }
+      else cur += ch;
+    }
+    if (cur || row.length) { row.push(cur); rows.push(row); }
+    return rows;
+  }
+  function objs(rows) { var h = (rows[0] || []).map(function (x) { return x.trim(); }); return rows.slice(1).filter(function (r) { return r[0] && r[0].trim(); }).map(function (r) { var o = {}; h.forEach(function (k, i) { o[k] = (r[i] || '').trim(); }); return o; }); }
+  function get(sheet, range) { return fetch('https://docs.google.com/spreadsheets/d/' + SID + '/gviz/tq?tqx=out:csv&headers=1&sheet=' + encodeURIComponent(sheet) + (range ? '&range=' + range : '') + '&t=' + Date.now()).then(function (r) { if (!r.ok) throw r.status; return r.text(); }).then(parseCSV).then(objs); }
+  function ids(s) { return String(s || '').split(/[,;]/).map(function (x) { return x.trim(); }).filter(Boolean); }
+  function civ(id) { return D.civs[id] || { name: id, colour: '#8FB3D4', id: id }; }
+  function party(id) { var c = civ(id); return '<a class="pill" href="archives.html#civ/' + encodeURIComponent(id) + '" target="si-archives"><span class="sw" style="background:' + c.colour + ';color:' + c.colour + '"></span>' + esc(c.name) + '</a>'; }
+  function sysName(id) { var s = D.sys[id]; return s && s.name ? s.name : id; }
+  function sysPill(id) { return '<a class="pill" href="map.html" target="si-map">✦ ' + esc(sysName(id)) + (D.sys[id] && D.sys[id].name ? ' · ' + esc(id) : '') + '</a>'; }
+  function year(t) { t = Number(t); return D.cal.y1 + (t - 1) * D.cal.ypt; }
+  function when(t) { return 'Turn ' + esc(t) + ' · Year ' + year(t) + ' ' + esc(D.cal.era); }
+  function warSides(w) {
+    var a = ids(w['Side A']).map(function (x) { return { id: x, from: Number(w['Start turn']) }; }), b = ids(w['Side B']).map(function (x) { return { id: x, from: Number(w['Start turn']) }; });
+    String(w['Joined later'] || '').split(';').forEach(function (j) { var p = j.split(':').map(function (x) { return x.trim(); }); if (p[0]) (p[1] === 'B' ? b : a).push({ id: p[0], from: Number(p[2]) || null }); });
+    return { a: a, b: b };
+  }
+  function warTitle(w) {
+    if (w['Name']) return w['Name'];
+    var s = warSides(w), n = function (l) { return l.length ? (civ(l[0].id).short || civ(l[0].id).name.replace(/^The /, '')) : '?'; };
+    return 'The ' + n(s.a) + '–' + n(s.b) + ' War';
+  }
+  function sideOf(w, id) { var s = warSides(w); if (s.a.some(function (x) { return x.id === id; })) return 'a'; if (s.b.some(function (x) { return x.id === id; })) return 'b'; return null; }
+  function winner(b) { var o = (b['Outcome'] || '').toLowerCase(); return o.indexOf('attacker') > -1 ? 'att' : o.indexOf('defender') > -1 ? 'def' : null; }
+  function warBattles(id) { return D.battles.filter(function (b) { return b['War ID'] === id; }).sort(function (x, y) { return x['Turn'] - y['Turn']; }); }
+  function tally(w) {
+    var t = { a: 0, b: 0, n: 0 };
+    warBattles(w['War ID']).forEach(function (b) { t.n++; var win = winner(b); if (!win) return; var sid = win === 'att' ? b['Attacker'] : b['Defender']; var s = sideOf(w, sid); if (s) t[s]++; });
+    return t;
+  }
+  function stamp() { return '<span class="stamp ' + (D.error ? 'err' : D.loaded ? 'live' : '') + '"><span class="dot"></span>' + (D.error ? 'The Herald could not be read just now' : D.loaded ? 'Latest dispatches' : 'Gathering dispatches…') + '</span>'; }
+  function setSection(s) { document.querySelectorAll('#sections a').forEach(function (a) { a.classList.toggle('on', a.dataset.s === s); }); }
+
+  function battleCard(b) {
+    var win = winner(b), a = civ(b['Attacker']), d = civ(b['Defender']), war = D.wars.filter(function (w) { return w['War ID'] === b['War ID']; })[0];
+    var side = function (c, role, roll, total, loss, won) { return '<div class="side' + (won ? ' win' : '') + '" style="--c:' + c.colour + '"><div class="role">' + role + '</div><div class="who">' + esc(c.name) + '</div><div class="score">' + esc(total || '–') + (roll ? '<small>roll ' + esc(roll) + '</small>' : '') + '</div>' + (loss ? '<div class="loss">Lost ' + esc(loss) + '</div>' : '') + '</div>'; };
+    return '<article class="battle"><div class="hd"><h3>Battle of ' + esc(sysName(b['System'])) + '</h3><span class="when">' + when(b['Turn']) + '</span></div>' +
+      '<div class="sides">' + side(a, 'Attacker', b['Attacker roll'], b['Attacker total'], b['Attacker losses'], win === 'att') + '<div class="vs">vs</div>' + side(d, 'Defender', b['Defender roll'], b['Defender total'], b['Defender losses'], win === 'def') + '</div>' +
+      '<div class="ft">' + (b['Outcome'] ? '<div class="outcome">' + esc(b['Outcome']) + '</div>' : '') + paras(b['Report']) +
+      '<div class="chips">' + sysPill(b['System']) + (war ? '<a class="pill" href="#war/' + encodeURIComponent(war['War ID']) + '">⚔ ' + esc(warTitle(war)) + '</a>' : '') + '</div></div></article>';
+  }
+
+  /* ---------- this turn / back issues ---------- */
+  function turns() { var s = {}; D.news.concat(D.battles).forEach(function (x) { if (x['Turn']) s[Number(x['Turn'])] = 1; }); return Object.keys(s).map(Number).sort(function (a, b) { return b - a; }); }
+  function edition(t) {
+    setSection('edition');
+    var all = turns(); if (!t) t = all[0];
+    var head = '<div class="issue"><div>' + (t ? '<b>Edition of Turn ' + t + '</b> · Year ' + year(t) + ' ' + esc(D.cal.era) : '') + ' &nbsp; ' + stamp() + '</div>';
+    if (t) { var i = all.indexOf(t); head += '<div class="nav"><a class="' + (i < all.length - 1 ? '' : 'off') + '" href="#turn/' + all[i + 1] + '">← Earlier</a><a class="' + (i > 0 ? '' : 'off') + '" href="' + (i === 1 ? '#' : '#turn/' + all[i - 1]) + '">Later →</a></div>'; }
+    head += '</div>';
+    if (!t) { view.innerHTML = head + '<div class="none">' + (D.loaded ? 'The first edition goes to press when the first turn opens.' : D.error ? 'Please try again shortly.' : 'Gathering dispatches…') + '</div>'; return; }
+    var news = D.news.filter(function (n) { return Number(n['Turn']) === t; }), lead = news.filter(function (n) { return n['Kind'] === 'Headline'; })[0] || news.filter(function (n) { return n['Kind'] === 'News'; })[0];
+    var rest = news.filter(function (n) { return n !== lead && n['Kind'] !== 'Result'; }), results = news.filter(function (n) { return n['Kind'] === 'Result' && n !== lead; });
+    var bats = D.battles.filter(function (b) { return Number(b['Turn']) === t; });
+    var chips = function (n) { return '<div class="chips">' + ids(n['Nations']).map(party).join('') + ids(n['Systems']).map(sysPill).join('') + '</div>'; };
+    var html = head;
+    if (lead) html += '<section class="lead"><div><span class="kicker">' + esc(lead['Kind'] === 'Headline' ? 'Headline' : 'News') + '</span><h1>' + esc(lead['Headline']) + '</h1><div class="body">' + paras(lead['Body']) + '</div>' + chips(lead) + '</div>' +
+      '<div class="col"><h2>Also this turn</h2>' + (rest.length ? rest.map(function (n) { return '<div class="story"><h3>' + esc(n['Headline']) + '</h3>' + paras(n['Body']) + chips(n) + '</div>'; }).join('') : '<p style="color:var(--muted)">No further dispatches.</p>') + '</div></section>';
+    if (bats.length) html += '<section class="blk"><h2>Battle reports · ' + bats.length + '</h2><div class="battles">' + bats.map(battleCard).join('') + '</div></section>';
+    if (results.length) html += '<section class="blk"><h2>Results</h2><div class="results">' + results.map(function (n) { return '<div class="result"><b>' + esc(n['Headline']) + '</b>' + paras(n['Body']) + chips(n) + '</div>'; }).join('') + '</div></section>';
+    view.innerHTML = html;
+  }
+
+  /* ---------- wars ---------- */
+  function wars() {
+    setSection('wars');
+    var html = '<div class="issue"><div><b>Wars of the galaxy</b> · ongoing first &nbsp; ' + stamp() + '</div></div>';
+    if (!D.wars.length) { view.innerHTML = html + '<div class="none">' + (D.loaded ? 'The galaxy is at peace. For now.' : 'Gathering dispatches…') + '</div>'; return; }
+    var list = D.wars.slice().sort(function (x, y) { return (x['Status'] === 'Ended') - (y['Status'] === 'Ended') || y['Start turn'] - x['Start turn']; });
+    html += '<div class="wars">' + list.map(function (w) {
+      var s = warSides(w), t = tally(w), on = w['Status'] !== 'Ended';
+      return '<a class="war" href="#war/' + encodeURIComponent(w['War ID']) + '"><span class="status ' + (on ? 'on' : 'done') + '">' + (on ? 'Ongoing' : 'Ended') + '</span><h3>' + esc(warTitle(w)) + '</h3>' +
+        '<div class="kicker" style="letter-spacing:.14em">Turns ' + esc(w['Start turn']) + (on ? ' – ' : '–' + esc(w['End turn'])) + ' · Years ' + year(w['Start turn']) + (on ? ' – ' : '–' + year(w['End turn'])) + ' ' + esc(D.cal.era) + '</div>' +
+        '<div class="vsline">' + s.a.map(function (x) { return party(x.id); }).join('') + '<span style="color:var(--muted);font-style:italic">against</span>' + s.b.map(function (x) { return party(x.id); }).join('') + '</div>' +
+        '<div class="tally"><span><b>' + t.n + '</b> battles</span><span><b>' + t.a + '</b>–<b>' + t.b + '</b> won</span>' + (w['Outcome'] ? '<span>' + esc(w['Outcome']) + '</span>' : '') + '</div></a>';
+    }).join('') + '</div>';
+    view.innerHTML = html;
+  }
+  function minimap(w, bats) {
+    var pts = Object.keys(D.sys).map(function (k) { return D.sys[k]; }).filter(function (s) { return isFinite(s.x); });
+    if (!pts.length) return '';
+    var last = {}; bats.forEach(function (b) { var win = winner(b); last[b['System']] = win === 'att' ? b['Attacker'] : win === 'def' ? b['Defender'] : (last[b['System']] || null); });
+    var X = function (x) { return 20 + (x + 1) * 170; }, Y = function (y) { return 20 + (1 - y) * 170; };
+    var svg = '<svg viewBox="0 0 380 380" role="img" aria-label="Systems fought over in this war">';
+    pts.forEach(function (s) { svg += '<circle cx="' + X(s.x).toFixed(1) + '" cy="' + Y(s.y).toFixed(1) + '" r="1.6" fill="#3d5470"/>'; });
+    Object.keys(last).forEach(function (id) { var s = D.sys[id]; if (!s) return; var c = last[id] ? civ(last[id]).colour : '#8FB3D4'; svg += '<circle cx="' + X(s.x).toFixed(1) + '" cy="' + Y(s.y).toFixed(1) + '" r="9" fill="' + c + '" opacity=".22"/><circle cx="' + X(s.x).toFixed(1) + '" cy="' + Y(s.y).toFixed(1) + '" r="4.2" fill="' + c + '" stroke="#05080D" stroke-width="1.2"><title>' + esc(sysName(id)) + '</title></circle>'; });
+    return '<div class="minimap">' + svg + '</svg><div class="mapkey"><span>Systems fought over, in the colour of the last side to win there</span></div></div>';
+  }
+  function warPage(id) {
+    setSection('wars');
+    var w = D.wars.filter(function (x) { return x['War ID'] === id; })[0];
+    if (!w) { view.innerHTML = '<a class="back" href="#wars">← All wars</a><div class="none">' + (D.loaded ? 'No such war is on record.' : 'Gathering dispatches…') + '</div>'; return; }
+    var s = warSides(w), t = tally(w), on = w['Status'] !== 'Ended', bats = warBattles(id);
+    var bside = function (l, label, won) { return '<div class="bside"><h4>' + label + '</h4>' + l.map(function (x) { var c = civ(x.id); return '<div class="m"><span class="sw" style="background:' + c.colour + ';color:' + c.colour + '"></span><a href="archives.html#civ/' + encodeURIComponent(x.id) + '" target="si-archives" style="color:inherit;text-decoration:none">' + esc(c.name) + '</a>' + (x.from && x.from > Number(w['Start turn']) ? ' <small>joined turn ' + x.from + '</small>' : '') + '</div>'; }).join('') + '<div class="won">' + won + '<small>battles won</small></div></div>'; };
+    var row = function (k, v) { return v ? '<dt>' + esc(k) + '</dt><dd>' + esc(v) + '</dd>' : ''; };
+    view.innerHTML = '<a class="back" href="#wars">← All wars</a><article class="warpage"><span class="status ' + (on ? 'on' : 'done') + '">' + (on ? 'Ongoing' : 'Ended') + '</span>' +
+      '<h1 class="title">' + esc(warTitle(w)) + '</h1><div class="dates">Turns ' + esc(w['Start turn']) + (on ? ' to the present' : ' to ' + esc(w['End turn'])) + ' · Years ' + year(w['Start turn']) + (on ? ' to the present' : '–' + year(w['End turn'])) + ' ' + esc(D.cal.era) + '</div>' +
+      '<div class="warhead"><div><div class="belligerents">' + bside(s.a, 'The aggressors', t.a) + '<div class="vs">against</div>' + bside(s.b, 'The defenders', t.b) + '</div>' +
+      '<div class="facts"><dl>' + row('Cause', w['Casus belli']) + row('Battles', String(t.n)) + row('Outcome', w['Outcome'] || (on ? 'Undecided' : '')) + row('Peace terms', w['Peace terms']) + '</dl></div></div>' + minimap(w, bats) + '</div>' +
+      '<section class="blk"><h2>The battles, in order</h2>' + (bats.length ? '<div class="battles">' + bats.map(battleCard).join('') + '</div>' : '<div class="none">No battle has yet been fought.</div>') + '</section></article>';
+    scrollTo(0, 0);
+  }
+
+  /* ---------- timeline ---------- */
+  var tlFilter = '';
+  function timeline() {
+    setSection('timeline');
+    var ev = [];
+    Object.keys(D.civs).forEach(function (k) { var c = D.civs[k]; if (c.founded) ev.push({ t: c.founded, k: 'Founding', html: '<a href="archives.html#civ/' + encodeURIComponent(k) + '" target="si-archives">' + esc(c.official || c.name) + '</a> is founded.', n: [k] }); });
+    D.wars.forEach(function (w) {
+      var s = warSides(w), all = s.a.concat(s.b).map(function (x) { return x.id; }), link = '<a href="#war/' + encodeURIComponent(w['War ID']) + '">' + esc(warTitle(w)) + '</a>';
+      ev.push({ t: Number(w['Start turn']), k: 'War', html: link + ' begins' + (w['Casus belli'] ? ': ' + esc(w['Casus belli']) : '') + '.', n: all, c: '#E07A6E' });
+      if (w['Status'] === 'Ended' && w['End turn']) ev.push({ t: Number(w['End turn']), k: 'Peace', html: link + ' ends' + (w['Outcome'] ? ': ' + esc(w['Outcome']) : '') + '.', n: all, c: '#8FB3D4' });
+    });
+    D.tl.forEach(function (e) { ev.push({ t: Number(e['Turn']), k: 'Event', html: esc(e['Event']), n: ids(e['Nations']) }); });
+    D.news.filter(function (n) { return n['Kind'] === 'Headline'; }).forEach(function (n) { ev.push({ t: Number(n['Turn']), k: 'Headline', html: '<a href="#turn/' + n['Turn'] + '">' + esc(n['Headline']) + '</a>', n: ids(n['Nations']) }); });
+    var nations = Object.keys(D.civs);
+    var html = '<div class="issue"><div><b>The Galactic Timeline</b> · Year ' + esc(D.cal.y1) + ' ' + esc(D.cal.era) + ' is the first turn; each turn is ' + esc(D.cal.ypt) + ' years &nbsp; ' + stamp() + '</div></div>';
+    if (nations.length) html += '<div class="filters"><button class="chip" aria-pressed="' + (!tlFilter) + '" data-n="">All the galaxy</button>' + nations.map(function (k) { var c = D.civs[k]; return '<button class="chip" aria-pressed="' + (tlFilter === k) + '" data-n="' + esc(k) + '"><span class="sw" style="background:' + c.colour + ';color:' + c.colour + '"></span>' + esc(c.name) + '</button>'; }).join('') + '</div>';
+    ev = ev.filter(function (e) { return isFinite(e.t) && (!tlFilter || e.n.indexOf(tlFilter) > -1); }).sort(function (a, b) { return a.t - b.t; });
+    if (!ev.length) html += '<div class="none">' + (D.loaded ? 'History has yet to begin.' : 'Gathering dispatches…') + '</div>';
+    else {
+      var by = {}; ev.forEach(function (e) { (by[e.t] = by[e.t] || []).push(e); });
+      html += '<div class="timeline">' + Object.keys(by).map(Number).sort(function (a, b) { return a - b; }).map(function (t) {
+        return '<div class="year"><div class="y"><b>' + year(t) + ' ' + esc(D.cal.era) + '</b><small>Turn ' + t + '</small></div><div class="ev">' + by[t].map(function (e) { var c = e.c || (e.n[0] ? civ(e.n[0]).colour : '#8FB3D4'); return '<div class="event" style="--c:' + c + '"><div class="k">' + e.k + '</div><div class="t">' + e.html + '</div></div>'; }).join('') + '</div></div>';
+      }).join('') + '</div>';
+    }
+    view.innerHTML = html;
+    view.querySelectorAll('.filters .chip').forEach(function (b) { b.onclick = function () { tlFilter = b.dataset.n; timeline(); }; });
+  }
+
+  function route() {
+    var h = decodeURIComponent(location.hash.slice(1)), p = h.split('/');
+    if (p[0] === 'wars') wars();
+    else if (p[0] === 'war' && p[1]) warPage(p[1]);
+    else if (p[0] === 'timeline') timeline();
+    else if (p[0] === 'turn' && p[1]) edition(Number(p[1]));
+    else edition();
+    if (p[0] !== 'war') scrollTo(0, 0);
+  }
+  addEventListener('hashchange', route);
+  route();
+  Promise.all([get('Herald Feed', 'A1:F3000'), get('Herald Feed', 'H1:T3000'), get('Herald Feed', 'V1:AF300'), get('Herald Feed', 'AH1:AJ1000'), get('Herald Feed', 'AK1:AL4'),
+    get('Archive Feed', 'A1:Z200').catch(function () { return []; }), get('Star Chart').catch(function () { return []; })]).then(function (r) {
+    D.news = r[0]; D.battles = r[1]; D.wars = r[2]; D.tl = r[3];
+    r[4].forEach(function (s) { if (s['Setting'] === 'Years per turn') D.cal.ypt = Number(s['Value']) || 5; if (s['Setting'] === 'Year of turn 1') D.cal.y1 = Number(s['Value']) || 1; if (s['Setting'] === 'Era') D.cal.era = s['Value'] || ''; });
+    r[5].forEach(function (c) { var i = Number(c['Colour']); D.civs[c['Nation ID']] = { id: c['Nation ID'], name: c['Nation'], short: c['Short name'], official: c['Official name'], colour: i >= 1 ? PALETTE[(i - 1) % PALETTE.length] : '#8FB3D4', founded: Number(c['Founded']) || null }; });
+    r[6].forEach(function (s) { D.sys[s['System ID']] = { name: s['Name'], x: parseFloat(s['x']), y: parseFloat(s['y']) }; });
+    D.loaded = true; route();
+  }).catch(function () { D.error = true; route(); });
+})();
+</script>
+</body>
+</html>
