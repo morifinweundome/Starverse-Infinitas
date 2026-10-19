@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Galactic Archives · Starverse Infinitas</title>
+<meta name="description" content="The civilizations of the Infinitas Galaxy: their histories, legends, arts and works.">
+<meta name="theme-color" content="#05080D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05080D;--band1:#0C1420;--band2:#132033;--head:#13233A;--line:#2C4A68;--line2:#1B2D44;--text:#D3DEEA;--bright:#E8F0F8;--chrome:#B9D3EA;--steel:#8FB3D4;--muted:#7F95AB;--gold:#F2C76B;--accent:#8FB3D4}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.65 Lato,Calibri,"Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(1100px 520px at 80% -10%,rgba(44,74,104,.3),transparent 60%),radial-gradient(900px 500px at 0% 110%,rgba(44,74,104,.18),transparent 60%),radial-gradient(1px 1px at 20% 30%,#5d7590 50%,transparent 51%),radial-gradient(1px 1px at 70% 60%,#4a6280 50%,transparent 51%),radial-gradient(1px 1px at 40% 80%,#3d5470 50%,transparent 51%);background-size:auto,auto,340px 340px,420px 420px,380px 380px}
+a{color:var(--steel)}
+:focus-visible{outline:2px solid var(--steel);outline-offset:2px;border-radius:4px}
+.top{position:sticky;top:0;z-index:10;background:rgba(5,8,13,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line2)}
+.top .in{max-width:1180px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:18px}
+.top img{height:30px;width:auto}
+.top nav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.top nav a{padding:6px 12px;border-radius:8px;text-decoration:none;color:var(--muted);font-weight:700;font-size:14px}
+.top nav a:hover{color:var(--bright);background:var(--band1)}
+.top nav a.on{color:var(--bright);background:var(--head)}
+main{max-width:1180px;margin:0 auto;padding:34px 20px 80px}
+.kicker{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--steel);font-weight:700}
+h1{margin:4px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.1;color:var(--bright);font-weight:900}
+.lede{margin:0;max-width:680px}
+.hero{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:24px}
+.stamp{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.stamp .dot{width:8px;height:8px;border-radius:50%;background:#4a6280}
+.stamp.live .dot{background:#5FD38D;box-shadow:0 0 8px #5FD38D}
+.stamp.err .dot{background:#E06666}
+.stamp button{font:inherit;font-size:12px;background:none;border:1px solid var(--line);border-radius:6px;color:var(--chrome);padding:1px 8px;cursor:pointer}
+.bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:0 0 20px}
+.chip{font:inherit;font-size:13px;padding:5px 12px;border:1px solid var(--line2);border-radius:999px;background:var(--band1);color:var(--muted);cursor:pointer;text-decoration:none}
+.chip:hover{color:var(--bright)}
+.chip[aria-pressed=true]{border-color:var(--steel);color:var(--bright);background:var(--head)}
+.find{margin-left:auto;background:var(--band1);border:1px solid var(--line);border-radius:8px;color:var(--bright);font:inherit;font-size:14px;padding:7px 11px;min-width:240px}
+.find::placeholder{color:var(--muted)}
+.none{padding:34px 18px;text-align:center;color:var(--muted);font-style:italic;border:1px dashed var(--line2);border-radius:12px}
+
+/* hall */
+.hall{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.civ{position:relative;display:flex;flex-direction:column;gap:8px;padding:18px 18px 16px;border:1px solid var(--line2);border-radius:14px;background:linear-gradient(165deg,var(--band2),var(--band1));text-decoration:none;color:var(--text);overflow:hidden;transition:border-color .15s,transform .15s}
+.civ::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:var(--c)}
+.civ:hover{border-color:var(--c);transform:translateY(-2px)}
+.civ .flag{width:56px;height:56px;border-radius:10px;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.25),transparent 60%),var(--c);display:flex;align-items:center;justify-content:center;font-weight:900;color:#05080D;font-size:22px;overflow:hidden;flex:none}
+.civ .flag img{width:100%;height:100%;object-fit:cover}
+.civ h3{margin:2px 0 0;font-size:19px;line-height:1.25;color:var(--bright)}
+.civ .off{font-size:13px;color:var(--muted)}
+.civ .motto{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-size:17px;color:var(--chrome);line-height:1.35}
+.civ .meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:auto;padding-top:6px}
+.tag{font-size:11.5px;padding:2px 9px;border-radius:999px;border:1px solid var(--line);color:var(--chrome)}
+.tag.fallen{border-color:#6a3a3a;color:#E0A0A0}
+.civ.fallen{filter:grayscale(.7);opacity:.8}
+
+/* civ page */
+.back{display:inline-block;margin-bottom:14px;font-size:13.5px;text-decoration:none;color:var(--muted)}
+.back:hover{color:var(--chrome)}
+.banner{display:flex;gap:22px;align-items:center;padding:24px;border:1px solid var(--line2);border-radius:16px;background:linear-gradient(120deg,color-mix(in srgb,var(--c) 22%,var(--band2)),var(--band1) 60%);margin-bottom:22px;position:relative;overflow:hidden}
+.banner .flag{width:96px;height:96px;border-radius:14px;flex:none;background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.3),transparent 60%),var(--c);display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:900;color:#05080D;overflow:hidden;box-shadow:0 0 30px color-mix(in srgb,var(--c) 40%,transparent)}
+.banner .flag img{width:100%;height:100%;object-fit:cover}
+.banner h1{font-size:clamp(26px,4.4vw,40px);margin:2px 0 4px}
+.banner .motto{font-family:"Cormorant Garamond",Georgia,serif;font-style:italic;font-size:21px;color:var(--chrome)}
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:24px;overflow-x:auto}
+.tab{font:inherit;font-weight:700;font-size:15px;background:none;border:0;border-bottom:2px solid transparent;color:var(--muted);padding:10px 14px;cursor:pointer;white-space:nowrap;text-decoration:none}
+.tab:hover{color:var(--bright)}
+.tab[aria-selected=true]{color:var(--bright);border-bottom-color:var(--c,var(--steel))}
+.tab .n{font-size:12px;color:var(--steel);margin-left:6px;font-weight:400}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:28px;align-items:start}
+.prose{font-size:16px;line-height:1.75;max-width:720px}
+.prose p{margin:0 0 14px}
+.facts{border:1px solid var(--line2);border-radius:12px;background:var(--band1);padding:16px 18px}
+.facts h4{margin:0 0 10px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--steel)}
+.facts dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:14px}
+.facts dt{color:var(--muted)}
+.facts dd{margin:0;color:var(--bright)}
+.facts + .facts{margin-top:14px}
+.timeline{list-style:none;margin:0;padding:0 0 0 22px;border-left:2px solid var(--line2);max-width:760px}
+.timeline li{position:relative;margin:0 0 18px;padding-left:4px}
+.timeline li::before{content:"";position:absolute;left:-29px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--c,var(--steel));box-shadow:0 0 10px var(--c,var(--steel))}
+.timeline .t{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--steel);font-weight:700}
+.works{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.work{display:flex;flex-direction:column;border:1px solid var(--line2);border-radius:12px;background:linear-gradient(165deg,var(--band2),var(--band1));text-decoration:none;color:var(--text);overflow:hidden;transition:border-color .15s}
+.work:hover{border-color:var(--steel)}
+.work .pic{aspect-ratio:16/9;background:#0a121d center/cover no-repeat;border-bottom:1px solid var(--line2)}
+.work .body{padding:14px 16px 16px}
+.work .k{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--steel);font-weight:700}
+.work h3{margin:4px 0 4px;font-size:17px;color:var(--bright);line-height:1.3}
+.work .by{font-size:12.5px;color:var(--muted)}
+.work .ex{font-size:13.5px;margin-top:8px;color:var(--text);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.reader{max-width:760px;margin:0 auto}
+.reader .k{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--steel);font-weight:700}
+.reader h1{font-family:"Cormorant Garamond",Georgia,serif;font-weight:600;font-size:clamp(32px,5vw,48px);margin:6px 0 4px}
+.reader .by{color:var(--muted);margin-bottom:22px}
+.reader figure{margin:0 0 24px}
+.reader figure img{width:100%;border-radius:12px;border:1px solid var(--line2)}
+.reader .text{font-family:"Cormorant Garamond",Georgia,serif;font-size:21px;line-height:1.6;color:var(--bright)}
+.reader .text p{margin:0 0 16px}
+.reader .from{margin-top:28px;padding-top:16px;border-top:1px solid var(--line2);font-size:14px}
+.foot{margin-top:44px;color:var(--muted);font-size:13px;text-align:center}
+@media (max-width:860px){.cols{grid-template-columns:1fr}.banner{flex-direction:column;align-items:flex-start}}
+@media (max-width:640px){.top img{height:24px}.top nav a{padding:6px 8px;font-size:13px}.find{margin-left:0;width:100%}}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <a href="./" target="si-rules"><img src="assets/wordmark.png" alt="Starverse Infinitas" width="1000" height="235"></a>
+  <nav><a href="./" target="si-rules">Rules</a><a href="map.html" target="si-map">Star map</a><a href="standings.html" target="si-standings">Standings</a><a href="archives.html" class="on">Archives</a></nav>
+</div></header>
+<main id="main"></main>
+<script>
+(function () {
+  var SID = '1tZyLl3OV1e-KIRukMT3QKZg-dm4MxNYzfA4-bwV0rPw';
+  var PALETTE = ['#D7263D','#F49D37','#F6D743','#9BE564','#1B998B','#2EC4B6','#3FC1F0','#2F6FED','#5B4BDB','#9B5DE5','#E040A0','#F78FB3','#FF7F6B','#B5532A','#8A9A3B','#4FBF7A','#BDE6F7','#C3B1E1','#D9C089','#C77D4A','#7E3F8F','#6C8EA4','#EDE6D6','#FF4E1F','#A3E4D7','#F5B7B1','#D2B4DE','#AED6F1','#F9E79F','#ABEBC6'];
+  var LORE = ['History', 'Legend or myth', 'Faith and philosophy', 'Custom and daily life', 'Language'];
+  var main = document.getElementById('main');
+  var D = { civs: [], works: [], chron: [], loaded: false, error: false };
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function paras(s) { return String(s || '').split(/\n\s*\n|\r\n\s*\r\n/).map(function (p) { return '<p>' + esc(p.trim()).replace(/\n/g, '<br>') + '</p>'; }).join(''); }
+  function parseCSV(text) {
+    var rows = [], row = [], cur = '', q = false;
+    for (var i = 0; i < text.length; i++) {
+      var ch = text[i];
+      if (q) { if (ch === '"') { if (text[i + 1] === '"') { cur += '"'; i++; } else q = false; } else cur += ch; }
+      else if (ch === '"') q = true;
+      else if (ch === ',') { row.push(cur); cur = ''; }
+      else if (ch === '\n' || ch === '\r') { if (ch === '\r' && text[i + 1] === '\n') i++; row.push(cur); rows.push(row); row = []; cur = ''; }
+      else cur += ch;
+    }
+    if (cur || row.length) { row.push(cur); rows.push(row); }
+    return rows;
+  }
+  function objs(rows) { var h = (rows[0] || []).map(function (x) { return x.trim(); }); return rows.slice(1).filter(function (r) { return r[0] && r[0].trim(); }).map(function (r) { var o = {}; h.forEach(function (k, i) { o[k] = (r[i] || '').trim(); }); return o; }); }
+  function get(range) { return fetch('https://docs.google.com/spreadsheets/d/' + SID + '/gviz/tq?tqx=out:csv&headers=1&sheet=' + encodeURIComponent('Archive Feed') + '&range=' + range + '&t=' + Date.now()).then(function (r) { if (!r.ok) throw r.status; return r.text(); }).then(parseCSV).then(objs); }
+  function slug(s) { return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60); }
+  function civColour(c) { var i = Number(c['Colour']); return i >= 1 ? PALETTE[(i - 1) % PALETTE.length] : '#8FB3D4'; }
+  function civByName(n) { return D.civs.filter(function (c) { return c['Nation'] === n; })[0]; }
+  function workId(w) { return slug(w['Nation']) + '--' + slug(w['Title']) + '--' + (w['Submitted'] || '').replace(/[^0-9]/g, ''); }
+  function img(src) { return /^(https?:\/\/|archives\/)/.test(src || '') ? src : ''; }
+  function flag(c, size) {
+    var s = img(c['Flag image']); var letter = esc((c['Short name'] || c['Nation'] || '?').charAt(0));
+    return '<div class="flag" style="--c:' + civColour(c) + '">' + (s ? '<img src="' + esc(s) + '" alt="Flag of ' + esc(c['Nation']) + '" loading="lazy">' : letter) + '</div>';
+  }
+  function stamp() {
+    return '<div class="stamp ' + (D.error ? 'err' : D.loaded ? 'live' : '') + '"><span class="dot"></span><span>' + (D.error ? 'The Archives could not be read just now' : D.loaded ? 'The record as it stands' : 'Opening the Archives…') + '</span>' + (D.error ? '<button onclick="location.reload()">Retry</button>' : '') + '</div>';
+  }
+  function workCard(w) {
+    var pic = img(w['Image']);
+    return '<a class="work" href="#work/' + workId(w) + '">' + (pic ? '<div class="pic" style="background-image:url(\'' + esc(pic) + '\')"></div>' : '') +
+      '<div class="body"><div class="k">' + esc(w['Kind']) + '</div><h3>' + esc(w['Title']) + '</h3><div class="by">' + esc(w['Credited to'] ? w['Credited to'] + ' · ' : '') + esc(w['Nation']) + '</div><div class="ex">' + esc((w['Text'] || '').slice(0, 260)) + '</div></div></a>';
+  }
+
+  /* views */
+  function hall() {
+    document.title = 'Galactic Archives · Starverse Infinitas';
+    var html = '<div class="hero"><div><span class="kicker">The Infinitas Galaxy</span><h1>Galactic Archives</h1><p class="lede">Every civilization that has risen among the stars, with its histories, legends, arts and works. Choose a civilization, or browse every work in the catalogue.</p></div>' + stamp() + '</div>';
+    html += '<div class="bar"><a class="chip" aria-pressed="true" href="#">Civilizations</a><a class="chip" aria-pressed="false" href="#works">Catalogue of works' + (D.works.length ? ' · ' + D.works.length : '') + '</a><input class="find" id="find" type="search" placeholder="Find a civilization" aria-label="Find a civilization"></div>';
+    if (!D.loaded) html += '<div class="none">' + (D.error ? 'Please try again shortly.' : 'Opening the Archives…') + '</div>';
+    else if (!D.civs.length) html += '<div class="none">No civilization has yet entered the record. The Archives open with the first founding.</div>';
+    else html += '<div class="hall" id="hall">' + D.civs.map(function (c) {
+      var fallen = c['Status'] === 'Fallen', n = D.works.filter(function (w) { return w['Nation'] === c['Nation']; }).length;
+      return '<a class="civ' + (fallen ? ' fallen' : '') + '" style="--c:' + civColour(c) + '" href="#civ/' + encodeURIComponent(c['Nation ID']) + '" data-s="' + esc((c['Nation'] + ' ' + c['Official name'] + ' ' + c['Species name']).toLowerCase()) + '">' +
+        '<div style="display:flex;gap:14px;align-items:center">' + flag(c) + '<div><h3>' + esc(c['Nation']) + '</h3><div class="off">' + esc(c['Official name'] && c['Official name'] !== c['Nation'] ? c['Official name'] : (c['Government'] || '')) + '</div></div></div>' +
+        (c['Motto'] ? '<div class="motto">“' + esc(c['Motto']) + '”</div>' : '') +
+        '<div class="meta">' + (fallen ? '<span class="tag fallen">Fallen</span>' : '') + (c['Species name'] ? '<span class="tag">' + esc(c['Species name']) + '</span>' : '') + '<span class="tag">' + esc(c['Systems held'] || 0) + ' systems</span>' + (n ? '<span class="tag">' + n + (n === 1 ? ' work' : ' works') + '</span>' : '') + '</div></a>';
+    }).join('') + '</div>';
+    html += '<p class="foot">Lore decides who you are; your choices decide what you become.</p>';
+    main.innerHTML = html;
+    var f = document.getElementById('find');
+    if (f) f.oninput = function () { var q = f.value.trim().toLowerCase(); document.querySelectorAll('#hall .civ').forEach(function (a) { a.style.display = !q || a.dataset.s.indexOf(q) > -1 ? '' : 'none'; }); };
+  }
+
+  function civPage(id, tab) {
+    var c = D.civs.filter(function (x) { return x['Nation ID'] === id; })[0];
+    if (!c) { main.innerHTML = '<a class="back" href="#">← All civilizations</a><div class="none">' + (D.loaded ? 'No such civilization is on record.' : 'Opening the Archives…') + '</div>'; return; }
+    document.title = c['Nation'] + ' · Galactic Archives';
+    var col = civColour(c), works = D.works.filter(function (w) { return w['Nation'] === c['Nation']; });
+    var lore = works.filter(function (w) { return LORE.indexOf(w['Kind']) > -1; }), arts = works.filter(function (w) { return LORE.indexOf(w['Kind']) < 0; });
+    var chron = D.chron.filter(function (e) { return e['Nation'] === c['Nation']; });
+    tab = tab || 'overview';
+    var tabs = [['overview', 'Overview', ''], ['chronicle', 'Chronicle', chron.length], ['lore', 'Lore', lore.length], ['works', 'Works', arts.length]];
+    var base = '#civ/' + encodeURIComponent(id);
+    var html = '<a class="back" href="#">← All civilizations</a><div style="--c:' + col + '"><section class="banner">' + flag(c) +
+      '<div><span class="kicker">' + esc(c['Status'] === 'Fallen' ? 'A fallen civilization' : (c['Government style'] || c['Government'] || 'Civilization')) + '</span><h1>' + esc(c['Official name'] || c['Nation']) + '</h1>' + (c['Motto'] ? '<div class="motto">“' + esc(c['Motto']) + '”</div>' : '') + '</div></section>' +
+      '<div class="tabs" role="tablist">' + tabs.map(function (t) { return '<a class="tab" role="tab" aria-selected="' + (t[0] === tab) + '" href="' + base + (t[0] === 'overview' ? '' : '/' + t[0]) + '">' + t[1] + (t[2] ? '<span class="n">' + t[2] + '</span>' : '') + '</a>'; }).join('') + '</div>';
+    if (tab === 'overview') {
+      var row = function (k, v) { return v ? '<dt>' + esc(k) + '</dt><dd>' + esc(v) + '</dd>' : ''; };
+      html += '<div class="cols"><div class="prose">' + (c['Brief history'] ? paras(c['Brief history']) : '<p class="none">Its history has yet to be written.</p>') + '</div><aside>' +
+        '<div class="facts"><h4>The state</h4><dl>' + row('Known as', c['Nation']) + row('Capital', c['Capital']) + row('Government', c['Government']) + row('Head of state', c['Head of state title']) + row('Founded', c['Founded'] ? 'Turn ' + c['Founded'] : '') + row('Systems held', c['Systems held']) + row('Status', c['Status']) + '</dl></div>' +
+        '<div class="facts"><h4>The people</h4><dl>' + row('Species', c['Species name']) + row('Demonym', c['Demonym']) + row('Biology', c['Biology']) + row('Traits', c['Traits']) + '</dl></div>' +
+        '<div class="facts"><h4>Beliefs</h4><dl>' + row('Order–Liberty', c['Order-Liberty']) + row('Sacred–Secular', c['Sacred-Secular']) + row('Martial–Pacific', c['Martial-Pacific']) + row('Outward–Inward', c['Outward-Inward']) + row('Civics', c['Civics']) + row('Flag', c['Flag']) + '</dl></div>' +
+        '<div class="facts"><h4>Elsewhere</h4><dl><dt>Territory</dt><dd><a href="map.html" target="si-map">Star map</a></dd><dt>Standing</dt><dd><a href="standings.html" target="si-standings">Galactic Standings</a></dd></dl></div></aside></div>';
+    } else if (tab === 'chronicle') {
+      html += chron.length ? '<ol class="timeline">' + chron.map(function (e) { return '<li><div class="t">Turn ' + esc(e['Turn']) + '</div>' + paras(e['Entry']) + '</li>'; }).join('') + '</ol>' : '<div class="none">The chronicle begins with its first turn among the stars.</div>';
+    } else {
+      var list = tab === 'lore' ? lore : arts;
+      html += list.length ? '<div class="works">' + list.map(workCard).join('') + '</div>' : '<div class="none">' + (tab === 'lore' ? 'No histories, legends or beliefs are yet in the Archives.' : 'No works are yet in the Archives.') + '</div>';
+    }
+    main.innerHTML = html + '</div><p class="foot">Lore decides who you are; your choices decide what you become.</p>';
+    scrollTo(0, 0);
+  }
+
+  function catalogue() {
+    document.title = 'Catalogue of works · Galactic Archives';
+    var kinds = []; D.works.forEach(function (w) { if (kinds.indexOf(w['Kind']) < 0) kinds.push(w['Kind']); });
+    var html = '<div class="hero"><div><span class="kicker">Galactic Archives</span><h1>Catalogue of works</h1><p class="lede">Every work of every civilization, newest first.</p></div>' + stamp() + '</div>' +
+      '<div class="bar"><a class="chip" aria-pressed="false" href="#">Civilizations</a><a class="chip" aria-pressed="true" href="#works">Catalogue of works</a></div>';
+    if (!D.works.length) { main.innerHTML = html + '<div class="none">' + (D.loaded ? 'The catalogue is empty for now.' : 'Opening the Archives…') + '</div>'; return; }
+    html += '<div class="bar" id="kinds"><button class="chip" aria-pressed="true" data-k="">All</button>' + kinds.map(function (k) { return '<button class="chip" aria-pressed="false" data-k="' + esc(k) + '">' + esc(k) + '</button>'; }).join('') + '<input class="find" id="findw" type="search" placeholder="Find a work or civilization" aria-label="Find a work"></div><div class="works" id="wl"></div>';
+    main.innerHTML = html;
+    var kind = '', q = '';
+    function draw() { var l = D.works.filter(function (w) { return (!kind || w['Kind'] === kind) && (!q || (w['Title'] + ' ' + w['Nation'] + ' ' + w['Credited to'] + ' ' + w['Text']).toLowerCase().indexOf(q) > -1); }); document.getElementById('wl').innerHTML = l.length ? l.map(workCard).join('') : '<div class="none">Nothing matches.</div>'; }
+    document.querySelectorAll('#kinds .chip').forEach(function (b) { b.onclick = function () { kind = b.dataset.k; document.querySelectorAll('#kinds .chip').forEach(function (x) { x.setAttribute('aria-pressed', x === b); }); draw(); }; });
+    document.getElementById('findw').oninput = function (e) { q = e.target.value.trim().toLowerCase(); draw(); };
+    draw();
+  }
+
+  function reader(id) {
+    var w = D.works.filter(function (x) { return workId(x) === id; })[0];
+    if (!w) { main.innerHTML = '<a class="back" href="#works">← Catalogue</a><div class="none">' + (D.loaded ? 'This work is not in the Archives.' : 'Opening the Archives…') + '</div>'; return; }
+    var c = civByName(w['Nation']), pic = img(w['Image']);
+    document.title = w['Title'] + ' · Galactic Archives';
+    main.innerHTML = '<a class="back" href="' + (c ? '#civ/' + encodeURIComponent(c['Nation ID']) + (LORE.indexOf(w['Kind']) > -1 ? '/lore' : '/works') : '#works') + '">← ' + esc(c ? c['Nation'] : 'Catalogue') + '</a>' +
+      '<article class="reader" style="--c:' + (c ? civColour(c) : '#8FB3D4') + '"><div class="k">' + esc(w['Kind']) + '</div><h1>' + esc(w['Title']) + '</h1><div class="by">' + esc(w['Credited to'] ? w['Credited to'] + ' · ' : '') + esc(w['Nation']) + '</div>' +
+      (pic ? '<figure><img src="' + esc(pic) + '" alt="' + esc(w['Title']) + '"></figure>' : '') + '<div class="text">' + paras(w['Text']) + '</div>' +
+      (c ? '<div class="from">From the archives of <a href="#civ/' + encodeURIComponent(c['Nation ID']) + '">' + esc(c['Official name'] || c['Nation']) + '</a></div>' : '') + '</article>';
+    scrollTo(0, 0);
+  }
+
+  function route() {
+    var h = decodeURIComponent(location.hash.slice(1)), p = h.split('/');
+    if (p[0] === 'civ' && p[1]) civPage(p[1], p[2]);
+    else if (p[0] === 'works') catalogue();
+    else if (p[0] === 'work' && p[1]) reader(p[1]);
+    else hall();
+  }
+  addEventListener('hashchange', route);
+  route();
+  Promise.all([get('A1:Z200'), get('AB1:AH3000'), get('AJ1:AL5000')]).then(function (r) {
+    D.civs = r[0].sort(function (a, b) { return (a['Status'] === 'Fallen') - (b['Status'] === 'Fallen') || a['Nation'].localeCompare(b['Nation']); });
+    D.works = r[1]; D.chron = r[2]; D.loaded = true; route();
+  }).catch(function () { D.error = true; route(); });
+})();
+</script>
+</body>
+</html>
