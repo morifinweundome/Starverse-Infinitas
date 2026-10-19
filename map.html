@@ -88,7 +88,13 @@ a{color:var(--steel)}
 #veil p{color:var(--steel);letter-spacing:.24em;font-size:11px;text-transform:uppercase;margin:0}
 #veil .msg{letter-spacing:0;text-transform:none;font-size:14px;color:var(--text);max-width:420px;text-align:center}
 #menuBtn{display:none}
+body.backdrop .ui,body.backdrop #tip,body.backdrop #menuBtn,body.backdrop #labels{display:none!important}
+.in-shell #back a{color:var(--chrome);letter-spacing:.04em}
+.in-shell #veil{display:none}
+.in-shell #card{top:68px;max-height:calc(100vh - 84px)}
 @media (max-width:760px){
+  .in-shell #brand{right:66px}
+  .in-shell #card{top:auto}
   #brand{width:auto;right:16px;padding:10px 12px}
   #brand img{width:160px}
   #controls{right:16px;width:auto;bottom:12px;left:12px;display:none}
@@ -111,7 +117,7 @@ a{color:var(--steel)}
   <img src="assets/wordmark.png" alt="Starverse Infinitas">
   <div class="sub"><span>STAR MAP</span><span class="mode ">CHARTED SPACE</span></div>
   <div class="srow"><div id="status"><span class="dot"></span><span id="statusText">Reading the stars…</span></div><div id="snd"></div></div>
-  <div id="back"><a href="./" target="si-rules">Rules</a> · <a href="standings.html" target="si-standings">Standings</a> · <a href="archives.html" target="si-archives">Archives</a> · <a href="herald.html" target="si-herald">Herald</a></div>
+  <div id="back"><a href="rules.html" target="si-rules">Rules</a> · <a href="standings.html" target="si-standings">Standings</a> · <a href="archives.html" target="si-archives">Archives</a> · <a href="herald.html" target="si-herald">Herald</a></div>
 </div>
 
 <div id="controls" class="ui glass">
@@ -595,7 +601,10 @@ addEventListener('resize', () => {
 
 /* loop */
 const clock = new THREE.Clock();
+let paused = false;
 function loop() {
+  requestAnimationFrame(loop);
+  if (paused) return;
   const t = clock.getElapsedTime();
   mats.forEach(m => m.uniforms.uTime.value = t);
   if (tween) {
@@ -605,8 +614,15 @@ function loop() {
   }
   haze.rotation.y = t * 0.004;
   controls.update(); renderer.render(scene, camera); placeLabels();
-  requestAnimationFrame(loop);
 }
+window.SIMap = {
+  backdrop(on) {
+    document.body.classList.toggle('backdrop', on); controls.enabled = !on;
+    controls.autoRotate = on || $('#vSpin').getAttribute('aria-pressed') === 'true';
+    if (on) { closeCard(); $('#tip').style.display = 'none'; document.body.classList.remove('panel'); view('tilt'); }
+  },
+  pause(on) { paused = on; if (!on) clock.getDelta(); }
+};
 loop();
 
 /* ---------------- feeds ---------------- */

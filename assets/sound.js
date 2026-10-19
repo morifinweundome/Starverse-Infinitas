@@ -6,7 +6,7 @@
   function readPref() { try { return Object.assign({}, DEF, JSON.parse(localStorage.getItem(KEY) || '{}')); } catch (e) { return Object.assign({}, DEF); } }
   function savePref() { try { localStorage.setItem(KEY, JSON.stringify(pref)); } catch (e) {} }
   var pref = readPref(), cfg = null, base = 'assets/audio/';
-  var ctx = null, master, musicBus, fxBus, decks = [], cur = -1, queue = [], playing = null, mood = null, preview = '';
+  var ctx = null, master, musicBus, fxBus, decks = [], cur = -1, queue = [], playing = null, mood = null, preview = '', scene = null, host = null;
   var raw = {}, bufs = {}, lastFx = {}, errors = 0, lastSave = 0, ui = {}, me = Math.random().toString(36).slice(2), chan = null;
 
   /* ---------- engine ---------- */
@@ -103,7 +103,7 @@
   function readPos() {
     try { var p = JSON.parse(localStorage.getItem(POS + cfg.page) || 'null'); return p && Date.now() - p.at < 12 * 3600e3 ? p : null; } catch (e) { return null; }
   }
-  function activeMood() { return preview || mood || Object.keys(cfg.music || {})[0]; }
+  function activeMood() { var m = preview || scene || mood; return m && cfg.music && cfg.music[m] ? m : (mood && cfg.music && cfg.music[mood] ? mood : Object.keys(cfg.music || {})[0]); }
   function moodChanged() {
     if (!playing || !pref.music) return;
     queue = [];
@@ -200,10 +200,41 @@
   }
   function nowText(t) { if (ui.now) ui.now.textContent = t || (pref.music ? 'Begins at your next click' : 'Music is off'); }
 
+  /* ---------- inside the main menu: the host page plays everything ---------- */
+  try { if (window.parent !== window && window.parent.SIShell) host = window.parent; } catch (e) { host = null; }
+  var PAGES = { '': 'menu', 'index.html': 'menu', 'rules.html': 'rules', 'map.html': 'map', 'standings.html': 'standings', 'archives.html': 'archives', 'herald.html': 'herald' };
+  var SHELL_CSS = '.in-shell header.top{display:none!important}.in-shell .links{display:none!important}';
+  function embed(o) {
+    document.documentElement.classList.add('in-shell');
+    var st = document.createElement('style'); st.textContent = SHELL_CSS + (o.shellCss || ''); (document.head || document.documentElement).appendChild(st);
+    var back = function () { var b = document.getElementById('back'); if (b) b.innerHTML = '<a href="./">‹ Main menu</a>'; };
+    if (document.body) back(); else document.addEventListener('DOMContentLoaded', back);
+    document.addEventListener('click', function (e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      var a = e.target && e.target.closest && e.target.closest('a[href]'); if (!a) return;
+      var u; try { u = new URL(a.getAttribute('href'), location.href); } catch (x) { return; }
+      if (u.origin !== location.origin) return;
+      var dir = location.pathname.replace(/[^\/]*$/, ''); if (u.pathname.indexOf(dir) !== 0) return;
+      var file = u.pathname.slice(dir.length); if (!(file in PAGES)) return;
+      var pg = PAGES[file];
+      if (pg === o.page) { if (a.target) { e.preventDefault(); location.hash = u.hash; } return; }
+      e.preventDefault(); host.SIShell.go(pg, u.hash.slice(1));
+    }, true);
+    addEventListener('hashchange', function () { host.SIShell.sync(o.page, location.hash.slice(1)); });
+    if (o.page !== 'map' && o.page !== 'rules') addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !e.defaultPrevented && !/^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement || {}).tagName)) host.SIShell.go('menu');
+    });
+    if (o.buttons) document.addEventListener('click', function (e) {
+      var t = e.target && e.target.closest && e.target.closest(o.buttons === true ? 'button,a[href],[role=tab],[role=button],summary,select' : o.buttons);
+      if (t && !t.closest('[data-nofx]')) host.SISound.fx('button');
+    }, true);
+  }
+
   /* ---------- public ---------- */
   window.SISound = {
     init: function (o) {
       cfg = o; if (o.base) base = o.base; mood = o.mood || null;
+      if (host) { embed(o); return; }
       if (document.body) mount(); else document.addEventListener('DOMContentLoaded', mount);
       if (pref.fx) fetchFx();
       var unlock = function () {
@@ -217,8 +248,16 @@
         if (t && !t.closest('[data-nofx]')) fx('button');
       }, true);
     },
-    fx: fx,
-    setMood: function (m) { if (m && m !== mood) { mood = m; if (!preview) moodChanged(); } },
+    fx: function (n) { if (host) host.SISound.fx(n); else fx(n); },
+    setMood: function (m) { if (host || !m || m === mood) return; var was = activeMood(); mood = m; if (activeMood() !== was) moodChanged(); },
+    setScene: function (s) { if (host) return; var was = activeMood(); scene = s || null; if (activeMood() !== was) moodChanged(); },
+    setPref: function (o) {
+      if (host) return; Object.assign(pref, o); savePref(); if (chan) chan.postMessage({ pref: 1 });
+      if (pref.music || pref.fx) { ensureCtx(); fetchFx(); }
+      if (pref.music) startMusic(); else if (playing) stopMusic();
+      paint();
+    },
+    get pref() { return Object.assign({}, pref); },
     get mood() { return activeMood(); },
     get state() { var d = decks[cur]; return { mood: activeMood(), track: playing && playing[1], time: d ? d.el.currentTime : 0, paused: d ? d.el.paused : true, ctx: ctx && ctx.state, fx: Object.keys(bufs), pref: pref }; }
   };
