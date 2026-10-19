@@ -1,0 +1,2817 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Starverse Infinitas — Rules of Play</title>
+<meta name="description" content="The Rules of Play for Starverse Infinitas, a grand strategy of young civilizations.">
+<meta property="og:title" content="Starverse Infinitas — Rules of Play">
+<meta property="og:description" content="A grand strategy of young civilizations.">
+<meta name="theme-color" content="#05080D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05080D;--panel:#0A111B;--band1:#0C1420;--band2:#132033;--head:#13233A;--line:#2C4A68;--line2:#1B2D44;
+--text:#D3DEEA;--bright:#E8F0F8;--chrome:#B9D3EA;--steel:#8FB3D4;--muted:#7F95AB;--glow:rgba(143,179,212,.18);--side:300px}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:24px}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 Lato,Calibri,"Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+background:radial-gradient(1200px 600px at 75% -10%,rgba(44,74,104,.28),transparent 60%),radial-gradient(1px 1px at 20% 30%,#5d7590 50%,transparent 51%),radial-gradient(1px 1px at 70% 60%,#4a6280 50%,transparent 51%),radial-gradient(1px 1px at 40% 80%,#3d5470 50%,transparent 51%),radial-gradient(1px 1px at 85% 20%,#56708c 50%,transparent 51%);background-size:auto,340px 340px,420px 420px,380px 380px,460px 460px}
+a{color:var(--steel)}
+a:hover{color:var(--chrome)}
+:focus-visible{outline:2px solid var(--steel);outline-offset:2px;border-radius:3px}
+
+/* sidebar */
+.side{position:fixed;inset:0 auto 0 0;width:var(--side);background:linear-gradient(180deg,#070C14,#05080D);border-right:1px solid var(--line2);display:flex;flex-direction:column;z-index:30}
+.brand{display:block;padding:22px 22px 10px;text-decoration:none}
+.brand img{width:100%;height:auto;display:block}
+.brand span{display:block;text-align:center;font-size:11px;letter-spacing:.32em;color:var(--steel);font-weight:700;margin-top:8px}
+.search{padding:12px 18px 14px;border-bottom:1px solid var(--line2)}
+.search input{width:100%;background:var(--band1);border:1px solid var(--line);border-radius:8px;color:var(--bright);font:inherit;font-size:14px;padding:9px 12px 9px 34px;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%238FB3D4' stroke-width='2'%3E%3Ccircle cx='7' cy='7' r='5'/%3E%3Cpath d='m11 11 4 4'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:11px 50%}
+.search input::placeholder{color:var(--muted)}
+.nav{overflow-y:auto;flex:1;padding:8px 10px 24px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.nav ul{list-style:none;margin:0;padding:0}
+.nh{display:flex;align-items:center;border-radius:7px}
+.nl{flex:1;display:flex;gap:10px;align-items:baseline;padding:7px 8px;color:var(--text);text-decoration:none;font-size:14.5px;line-height:1.35}
+.nl .num{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;letter-spacing:.06em}
+.nh:hover{background:rgba(19,35,58,.6)}
+.ns.on>.nh{background:var(--head);box-shadow:inset 3px 0 0 var(--steel)}
+.ns.on>.nh .nl{color:var(--bright);font-weight:700}
+.tg{width:30px;height:30px;border:0;background:none;color:var(--muted);cursor:pointer;border-radius:6px;flex:none}
+.tg::before{content:"";display:inline-block;width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg);transition:transform .15s}
+.tg[aria-expanded=true]::before{transform:rotate(45deg)}
+.tg:hover{color:var(--chrome)}
+.subs{display:none;margin:2px 0 6px 30px!important;border-left:1px solid var(--line2)}
+.ns.open .subs{display:block}
+.subs a{display:block;padding:4px 10px;font-size:13.5px;color:var(--muted);text-decoration:none;line-height:1.35}
+.subs a:hover,.subs a.on{color:var(--chrome)}
+.subs a.on{box-shadow:inset 2px 0 0 var(--steel)}
+.side-foot{padding:12px 20px;border-top:1px solid var(--line2);font-size:12px;color:var(--muted)}
+
+/* main */
+main{margin-left:var(--side);min-height:100vh;padding:48px clamp(20px,5vw,64px) 80px}
+.wrap{max-width:860px;margin:0 auto}
+.topbar{display:none}
+
+/* home */
+.hero{text-align:center;padding:40px 0 34px}
+.hero img{width:min(560px,90%);height:auto}
+.hero h1{margin:18px 0 4px;font-size:15px;letter-spacing:.38em;color:var(--chrome);font-weight:900}
+.hero p{margin:0;font-size:12px;letter-spacing:.24em;color:var(--steel)}
+.intro{max-width:640px;margin:26px auto 0;color:var(--text);text-align:center}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-top:36px}
+.card{display:flex;flex-direction:column;gap:2px;padding:16px 16px 14px;background:linear-gradient(160deg,var(--band2),var(--band1));border:1px solid var(--line2);border-radius:10px;text-decoration:none;color:var(--text);transition:border-color .15s,transform .15s}
+.card:hover{border-color:var(--steel);transform:translateY(-2px);color:var(--text)}
+.card .num{font-size:11px;letter-spacing:.14em;color:var(--steel)}
+.card b{color:var(--bright);font-size:16px;line-height:1.3}
+.card small{color:var(--muted);font-size:12.5px}
+.motto{text-align:center;margin:48px 0 0;color:var(--muted);font-style:italic}
+
+/* sections */
+.sh{margin-bottom:26px;padding-bottom:18px;border-bottom:1px solid var(--line)}
+.kicker{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--steel);font-weight:700}
+.sec h2{font-size:clamp(28px,4vw,38px);line-height:1.15;margin:6px 0 14px;color:var(--bright);font-weight:900;letter-spacing:.01em}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font-size:13px;padding:5px 12px;border:1px solid var(--line);border-radius:999px;color:var(--chrome);text-decoration:none;background:var(--band1)}
+.chip:hover{border-color:var(--steel);background:var(--head);color:var(--bright)}
+.sec h3{font-size:21px;color:var(--chrome);margin:40px 0 10px;padding-top:6px;line-height:1.3}
+.sec h4{font-size:17px;color:var(--steel);margin:26px 0 8px}
+.hl{margin-left:10px;color:var(--line);text-decoration:none;font-weight:400;opacity:0;transition:opacity .15s}
+h3:hover .hl,h4:hover .hl,.hl:focus{opacity:1}
+.sec p{margin:0 0 14px}
+.sec ul,.sec ol{margin:0 0 16px;padding-left:22px}
+.sec li{margin:0 0 7px}
+.sec li::marker{color:var(--steel)}
+strong{color:var(--bright)}
+code{font-family:Consolas,"SF Mono",Menlo,monospace;font-size:.9em;color:var(--chrome)}
+pre{background:var(--band1);border:1px solid var(--line2);border-left:3px solid var(--steel);border-radius:8px;padding:14px 18px;overflow-x:auto;margin:0 0 18px}
+pre code{font-size:14px;line-height:1.6}
+.tbl{overflow-x:auto;margin:6px 0 20px;border:1px solid var(--line);border-radius:8px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.5}
+th{background:var(--head);color:var(--bright);text-align:left;font-weight:700;padding:9px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:8px 12px;border-top:1px solid var(--line2);vertical-align:top}
+tbody tr:nth-child(odd){background:var(--band1)}
+tbody tr:nth-child(even){background:var(--band2)}
+td:first-child{color:var(--bright)}
+.map{margin:10px 0 22px}
+.map img{width:100%;height:auto;border:1px solid var(--line2);border-radius:10px;display:block}
+.pager{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:48px;padding-top:22px;border-top:1px solid var(--line)}
+.pg{display:flex;flex-direction:column;padding:14px 16px;border:1px solid var(--line2);border-radius:10px;text-decoration:none;color:var(--bright);background:var(--band1);font-weight:700;line-height:1.3}
+.pg small{font-weight:400;font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--steel);margin-bottom:3px}
+.pg.next{text-align:right}
+.pg:hover{border-color:var(--steel);color:var(--bright)}
+.flash{animation:flash 1.8s ease-out}
+@keyframes flash{0%,30%{background:rgba(143,179,212,.22);box-shadow:0 0 0 6px rgba(143,179,212,.22)}100%{background:transparent;box-shadow:0 0 0 6px transparent}}
+
+/* search results */
+.results{display:none}
+body.searching .results{display:block}
+body.searching .sec,body.searching .home{display:none!important}
+.results h2{font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:var(--steel);margin:0 0 18px}
+.res{display:block;padding:12px 14px;border:1px solid var(--line2);border-radius:9px;margin-bottom:10px;text-decoration:none;color:var(--text);background:var(--band1)}
+.res:hover{border-color:var(--steel);color:var(--text)}
+.res .where{font-size:12px;color:var(--steel);letter-spacing:.06em;margin-bottom:3px;display:block}
+mark{background:rgba(143,179,212,.3);color:var(--bright);border-radius:2px;padding:0 1px}
+.none{color:var(--muted)}
+
+.totop{position:fixed;right:22px;bottom:22px;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--head);color:var(--chrome);cursor:pointer;opacity:0;pointer-events:none;transition:opacity .2s;z-index:20;font-size:18px}
+.totop.show{opacity:1;pointer-events:auto}
+.scrim{display:none}
+
+@media (max-width:900px){
+  .side{transform:translateX(-100%);transition:transform .22s;width:min(320px,86vw);box-shadow:0 0 40px #000}
+  body.menu .side{transform:none}
+  body.menu .scrim{display:block;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:25}
+  main{margin-left:0;padding:0 16px 72px}
+  .topbar{display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:20;margin:0 -16px 24px;padding:10px 16px;background:rgba(5,8,13,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line2)}
+  .topbar button{width:40px;height:40px;border:1px solid var(--line);border-radius:8px;background:var(--band1);color:var(--chrome);font-size:18px;cursor:pointer;flex:none}
+  .topbar img{height:26px;width:auto}
+  .topbar .cur{font-size:13px;color:var(--steel);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  html{scroll-padding-top:76px}
+  .hero{padding-top:16px}
+  .pager{grid-template-columns:1fr}
+  .pg.next{text-align:left}
+}
+@media print{.side,.topbar,.totop,.pager,.chips{display:none!important}main{margin:0}.sec{display:block!important}.home{display:none}body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<aside class="side" id="side" aria-label="Rules contents">
+  <a class="brand" href="#"><img src="assets/wordmark.png" alt="Starverse Infinitas" width="1000" height="235"><span>RULES OF PLAY</span></a>
+  <div class="search"><input id="q" type="search" placeholder="Search the rules" aria-label="Search the rules" autocomplete="off"></div>
+  <nav class="nav"><ul><li class="ns" data-sec="purpose-and-design-principles"><div class="nh"><a href="#purpose-and-design-principles" class="nl"><span class="num">01</span>Purpose and design principles</a></div></li><li class="ns" data-sec="turn-structure-and-the-nation-sheet"><div class="nh"><a href="#turn-structure-and-the-nation-sheet" class="nl"><span class="num">02</span>Turn structure and the Nation Sheet</a><button class="tg" aria-label="Show subsections" aria-expanded="false"></button></div><ul class="subs"><li><a href="#the-nation-sheet" data-sec="turn-structure-and-the-nation-sheet">The Nation Sheet</a></li><li><a href="#submitting-orders" data-sec="turn-structure-and-the-nation-sheet">Submitting orders</a></li></ul></li><li class="ns" data-sec="information-and-secrecy"><div class="nh"><a href="#information-and-secrecy" class="nl"><span class="num">03</span>Information and secrecy</a></div></li><li class="ns" data-sec="the-map"><div class="nh"><a href="#the-map" class="nl"><span class="num">04</span>The Map</a><button class="tg" aria-label="Show subsections" aria-expanded="false"></button></div><ul class="subs"><li><a href="#structure" data-sec="the-map">Structure</a></li><li><a href="#system-classes" data-sec="the-map">System classes</a></li><li><a href="#features" data-sec="the-map">Features</a></li></ul></li><li class="ns" data-sec="founding-a-civilization"><div class="nh"><a href="#founding-a-civilization" class="nl"><span class="num">05</span>Founding a civilization</a><button class="tg" aria-label="Show subsections" aria-expanded="false"></button></div><ul class="subs"><li><a href="#the-limits-of-plausibility" data-sec="founding-a-civilization">The limits of plausibility</a></li><li><a href="#the-founding-charter" data-sec="founding-a-civilization">The Founding Charter</a></li><li><a href="#coherence" data-sec="founding-a-civilization">Coherence</a></li><li><a href="#species-traits" data-sec="founding-a-civilization">Species traits</a></li><li><a href="#signature-adaptation" data-sec="founding-a-civilization">Signature adaptation</a></li><li><a href="#social-dispositions" data-sec="founding-a-civilization">Social dispositions</a></li><li><a href="#habitat" data-sec="founding-a-civilization">Habitat</a></li><li><a href="#necrophages" data-sec="founding-a-civilization">Necrophages</a></li><li><a href="#starting-position" data-sec="founding-a-civilization">Starting position</a></li></ul></li><li class="ns" data-sec="government-ideology-and-stability"><div class="nh"><a href="#government-ideology-and-stability" class="nl"><span class="num">06</span>Government, ideology and Stability</a><button class="tg" aria-label="Show subsections" aria-expanded="false"></button></div><ul class="subs"><li><a href="#government-type" data-sec="government-ideology-and-stability">Government Type</a></li><li><a href="#ideology" data-sec="government-ideology-and-stability">Ideology</a></li><li><a href="#civics" data-sec="government-ideology-and-stability">Civics</a></li><li><a href="#stability" data-sec="government-ideology-and-stability">Stability</a></li><li><a href="#fit" data-sec="government-ideology-and-stability">Fit</a></li></ul></li><li class="ns" data-sec="the-economy"><div class="nh"><a href="#the-economy" class="nl"><span class="num">07</span>The economy</a><button class="tg" aria-label="Show subsections" aria-expanded="false"></button></div><ul class="subs"><li><a href="#designations" data-sec="the-economy">Designations</a></li><li><a href="#trade" data-sec="the-economy">Trade</a></li><li><a href="#development" data-sec="the-economy">Development</a></li><li><a href="#buildings" data-sec="the-economy">Buildings</a></li><li><a href="#colonization" data-sec="the-economy">Colonization</a></li><li><a href="#administrative-capacity" data-sec="the-economy">Administrative Capacity</a></li><li><a href="#playing-tall" data-sec="the-economy">Playing tall</a></li><li><a href="#upkeep" data-sec="the-economy">Upkeep</a></li><li><a href="#a-worked-first-turn" data-sec="the-economy">A worked first turn</a></li></ul></li><li class="ns" data-sec="the-treasury"><div class="nh"><a href="#the-treasury" class="nl"><span class="num">08</span>The treasury</a><button class="tg" aria-label="Show subsections" aria-expanded="false"></button></div><ul class="subs"><li><a href="#gdp-and-the-stellar-mark" data-sec="the-treasury">GDP and the Stellar Mark</a></li><li><a href="#the-fiscal-code" data-sec="the-treasury">The fiscal code</a></li><li><a href="#debt-and-credit" data-sec="the-treasury">Debt and credit</a></li></ul></li><li class="ns" data-sec="worlds-and-their-toll"><div class="nh"><a href="#worlds-and-their-toll" class="nl"><span class="num">09</span>Worlds and their toll</a><button class="tg" aria-label="Show subsections" aria-expanded="false"></button></div><ul class="subs"><li><a href="#environments" data-sec="worlds-and-their-toll">Environments</a></li><li><a href="#strain" data-sec="worlds-and-their-toll">Strain</a></li><li><a href="#condition" data-sec="worlds-and-their-toll">Condition</a></li><li><a href="#environmental-events" data-sec="worlds-and-their-toll">Environmental events</a></li><li><a href="#sacrifice-worlds" data-sec="worlds-and-their-toll">Sacrifice worlds</a></li></ul></li><li class="ns" data-sec="exploration-and-first-contact"><div class="nh"><a href="#exploration-and-first-contact" class="nl"><span class="num">10</span>Exploration and first contact</a><button class="tg" aria-label="Show subsections" aria-expanded="false"></button></div><ul class="subs"><li><a href="#discovery" data-sec="exploration-and-first-contact">Discovery</a></li><li><a href="#contact-strategies" data-sec="exploration-and-first-contact">Contact strategies</a></li><li><a href="#guided-ascent" data-sec="exploration-and-first-contact">Guided Ascent</a></li><li><a href="#divine-mandate" data-sec="exploration-and-first-contact">Divine Mandate</a></li><li><a href="#sleepers" data-sec="exploration-and-first-contact">Sleepers</a></li></ul></li><li class="ns" data-sec="strategic-resources-and-great-works"><div class="nh"><a href="#strategic-resources-and-great-works" class="nl"><span class="num">11</span>Strategic resources and Great Works</a><button class="tg" aria-label="Show subsections" aria-expanded="false"></button></div><ul class="subs"><li><a href="#great-works" data-sec="strategic-resources-and-great-works">Great Works</a></li></ul></li><li class="ns" data-sec="technology"><div class="nh"><a href="#technology" class="nl"><span class="num">12</span>Technology</a></div></li><li class="ns" data-sec="warfare"><div class="nh"><a href="#warfare" class="nl"><span class="num">13</span>Warfare</a><button class="tg" aria-label="Show subsections" aria-expanded="false"></button></div><ul class="subs"><li><a href="#forces" data-sec="warfare">Forces</a></li><li><a href="#ship-categories" data-sec="warfare">Ship categories</a></li><li><a href="#movement-and-blockade" data-sec="warfare">Movement and blockade</a></li><li><a href="#casus-belli" data-sec="warfare">Casus belli</a></li><li><a href="#battle" data-sec="warfare">Battle</a></li><li><a href="#invasion" data-sec="warfare">Invasion</a></li><li><a href="#war-score-and-peace" data-sec="warfare">War Score and peace</a></li><li><a href="#the-fate-of-the-conquered" data-sec="warfare">The fate of the conquered</a></li><li><a href="#war-appetite" data-sec="warfare">War appetite</a></li></ul></li><li class="ns" data-sec="covert-action-and-diplomacy"><div class="nh"><a href="#covert-action-and-diplomacy" class="nl"><span class="num">14</span>Covert action and diplomacy</a><button class="tg" aria-label="Show subsections" aria-expanded="false"></button></div><ul class="subs"><li><a href="#covert-action" data-sec="covert-action-and-diplomacy">Covert action</a></li><li><a href="#diplomacy" data-sec="covert-action-and-diplomacy">Diplomacy</a></li><li><a href="#partnerships" data-sec="covert-action-and-diplomacy">Partnerships</a></li></ul></li><li class="ns" data-sec="reputation"><div class="nh"><a href="#reputation" class="nl"><span class="num">15</span>Reputation</a><button class="tg" aria-label="Show subsections" aria-expanded="false"></button></div><ul class="subs"><li><a href="#renown" data-sec="reputation">Renown</a></li><li><a href="#infamy-and-dread" data-sec="reputation">Infamy and dread</a></li></ul></li><li class="ns" data-sec="occasional-players"><div class="nh"><a href="#occasional-players" class="nl"><span class="num">16</span>Occasional players</a><button class="tg" aria-label="Show subsections" aria-expanded="false"></button></div><ul class="subs"><li><a href="#caretaker" data-sec="occasional-players">Caretaker</a></li><li><a href="#random-founding" data-sec="occasional-players">Random Founding</a></li></ul></li></ul></nav>
+  <div class="side-foot">Updated 19 October 2026</div>
+</aside>
+<div class="scrim" id="scrim"></div>
+<main>
+  <div class="topbar"><button id="menu" aria-label="Open contents">☰</button><img src="assets/wordmark.png" alt="Starverse Infinitas"><span class="cur" id="cur"></span></div>
+  <div class="wrap">
+    <div class="home" id="home">
+      <div class="hero"><img src="assets/wordmark.png" alt="Starverse Infinitas" width="1000" height="235"><h1>RULES OF PLAY</h1><p>A grand strategy of young civilizations</p></div>
+      <p class="intro">Everything a civilization can do, and what it costs. Choose a section below or from the contents, or search for any rule.</p>
+      <div class="cards"><a class="card" href="#purpose-and-design-principles"><span class="num">01</span><b>Purpose and design principles</b></a><a class="card" href="#turn-structure-and-the-nation-sheet"><span class="num">02</span><b>Turn structure and the Nation Sheet</b><small>2 subsections</small></a><a class="card" href="#information-and-secrecy"><span class="num">03</span><b>Information and secrecy</b></a><a class="card" href="#the-map"><span class="num">04</span><b>The Map</b><small>3 subsections</small></a><a class="card" href="#founding-a-civilization"><span class="num">05</span><b>Founding a civilization</b><small>9 subsections</small></a><a class="card" href="#government-ideology-and-stability"><span class="num">06</span><b>Government, ideology and Stability</b><small>5 subsections</small></a><a class="card" href="#the-economy"><span class="num">07</span><b>The economy</b><small>9 subsections</small></a><a class="card" href="#the-treasury"><span class="num">08</span><b>The treasury</b><small>3 subsections</small></a><a class="card" href="#worlds-and-their-toll"><span class="num">09</span><b>Worlds and their toll</b><small>5 subsections</small></a><a class="card" href="#exploration-and-first-contact"><span class="num">10</span><b>Exploration and first contact</b><small>5 subsections</small></a><a class="card" href="#strategic-resources-and-great-works"><span class="num">11</span><b>Strategic resources and Great Works</b><small>1 subsection</small></a><a class="card" href="#technology"><span class="num">12</span><b>Technology</b></a><a class="card" href="#warfare"><span class="num">13</span><b>Warfare</b><small>9 subsections</small></a><a class="card" href="#covert-action-and-diplomacy"><span class="num">14</span><b>Covert action and diplomacy</b><small>3 subsections</small></a><a class="card" href="#reputation"><span class="num">15</span><b>Reputation</b><small>2 subsections</small></a><a class="card" href="#occasional-players"><span class="num">16</span><b>Occasional players</b><small>2 subsections</small></a></div>
+      <p class="motto">Lore decides who you are; your choices decide what you become.</p>
+    </div>
+    <section class="sec" id="purpose-and-design-principles" data-title="Purpose and design principles" hidden><header class="sh"><span class="kicker">Section 01 of 16</span><h2>Purpose and design principles</h2></header>
+<p>Starverse Infinitas lets 6–8 active players, and about twice as many occasional ones, found young interstellar civilizations and test them against one another through economy, ideology, technology, exploration and, if they choose, war. It replaces the original rules, whose economy could not balance and whose bookkeeping outgrew any volunteer GM.</p>
+<ul>
+<li><strong>Lore decides identity; the sheet decides power.</strong> Players may write anything about their culture and history. Only what appears on the Nation Sheet has a mechanical effect.</li>
+<li><strong>Everyone starts equal.</strong> Every nation is built from the same budget, so no one is born bankrupt. The only dice at founding are those a player chooses through Random Founding.</li>
+<li><strong>Coherence is strength.</strong> A civilization whose species, government and beliefs agree is more stable, and stability is what pays for ambition.</li>
+<li><strong>Every advantage has a price.</strong> Traits cost points; government types, ideology and civics each pair a bonus with a cost or restriction.</li>
+<li><strong>Players decide; the GM resolves.</strong> Each nation's state fits on one Nation Sheet, which the GM keeps up to date. A rule that creates no real decision is cut.</li>
+<li><strong>Writing counts, within limits.</strong> The GM may reward good tactics and strategy, but the bonus is capped so that prose cannot overturn a real advantage in strength.</li>
+</ul>
+<p>Some reference material is held privately by the GM. Players see its results in their own nation's profile.</p>
+<nav class="pager"><span></span><a class="pg next" href="#turn-structure-and-the-nation-sheet"><small>Next</small>Turn structure and the Nation Sheet</a></nav></section><section class="sec" id="turn-structure-and-the-nation-sheet" data-title="Turn structure and the Nation Sheet" hidden><header class="sh"><span class="kicker">Section 02 of 16</span><h2>Turn structure and the Nation Sheet</h2><div class="chips"><a class="chip" href="#the-nation-sheet">The Nation Sheet</a><a class="chip" href="#submitting-orders">Submitting orders</a></div></header>
+<p>One turn runs one real-time week and represents five in-game years. Orders are due Friday 23:59 (SGT) and the GM posts results by Sunday.</p>
+<p>Each turn resolves in this order:</p>
+<ol>
+<li><strong>Diplomacy.</strong> Treaties signed or broken this turn take effect.</li>
+<li><strong>Income.</strong> Every system produces its resources, and upkeep is deducted.</li>
+<li><strong>Spending.</strong> Colonization, Development, buildings, ships, research and contact strategies are paid for. What is bought this turn becomes usable next turn.</li>
+<li><strong>Movement and battle.</strong> Fleets move along lanes. Battles and invasions are rolled. Newly discovered systems are revealed.</li>
+<li><strong>Covert action.</strong> Secret operations are rolled.</li>
+<li><strong>Stability.</strong> Each nation's Stability moves one point toward its target, and revolts are checked.</li>
+</ol>
+<p>Orders are posted in the nation's orders channel (see Submitting orders). Narrative posts may be written at any time.</p>
+<h3 id="the-nation-sheet">The Nation Sheet<a class="hl" href="#the-nation-sheet" aria-label="Link to this rule">#</a></h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>What it records</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Identity</td>
+<td>Name, species, biology type, one-paragraph summary</td>
+</tr>
+<tr>
+<td>Government and ideology</td>
+<td>Government Type, and position on each of the four axes</td>
+</tr>
+<tr>
+<td>Civics</td>
+<td>Up to four civics</td>
+</tr>
+<tr>
+<td>Species</td>
+<td>Traits and dispositions</td>
+</tr>
+<tr>
+<td>Stability</td>
+<td>Current Stability (0–10) and its target</td>
+</tr>
+<tr>
+<td>Stockpile</td>
+<td>Industry, Energy, Research, Influence and strategic resources held</td>
+</tr>
+<tr>
+<td>Systems</td>
+<td>Each system's name, class, Development, designation, feature and buildings</td>
+</tr>
+<tr>
+<td>Technology</td>
+<td>Tier in each of the four branches</td>
+</tr>
+<tr>
+<td>Forces</td>
+<td>Ships by category, Ground Power, Static Defence, and their locations</td>
+</tr>
+<tr>
+<td>Treaties</td>
+<td>Active agreements and with whom</td>
+</tr>
+</tbody>
+</table></div>
+<p>Each player can view their own Nation Sheet at any time. The GM keeps it up to date, calculating income, upkeep, Fit and every modifier each turn.</p>
+<h3 id="submitting-orders">Submitting orders<a class="hl" href="#submitting-orders" aria-label="Link to this rule">#</a></h3>
+<p>Each nation has a private orders channel. Once per turn, the player posts their orders there as a single message, one action per line, each beginning with a fixed verb:</p>
+<pre><code class="language-text">Turn 12 — The Solar Throne of Vysos
+DEVELOP Merāeksys 3
+BUILD Foundry @ Merāeksys
+SHIP Cruiser x2 @ Vȳsōs
+MOVE Fleet I: Vȳsōs &gt; Taēsār
+RESEARCH Society 3
+COLONIZE Kepler's Reach
+</code></pre>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Verb</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DEVELOP, DESIGNATE, BUILD</td>
+<td>Systems and buildings</td>
+</tr>
+<tr>
+<td>SHIP, GROUND, DEFENCE</td>
+<td>Military construction</td>
+</tr>
+<tr>
+<td>RESEARCH</td>
+<td>Technology</td>
+</tr>
+<tr>
+<td>COLONIZE, CONTACT</td>
+<td>Expansion and first contact</td>
+</tr>
+<tr>
+<td>MOVE</td>
+<td>Fleet and army movement</td>
+</tr>
+<tr>
+<td>SHIFT, CIVIC, REFORM</td>
+<td>Ideology, civics and government</td>
+</tr>
+<tr>
+<td>TRANSFER, STABILITY</td>
+<td>Resources given to other nations; buying Stability</td>
+</tr>
+<tr>
+<td>FATE, BURN, BREAK</td>
+<td>Conquered systems, archives and treaties</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Tell the story.</strong> Players are encouraged to open a thread under their orders explaining what they are doing and why: where a foundry is built and what it is for, what a fleet's mission is. Elaboration is never required, but the GM draws on it when judging tactics, strategy and covert plans, and it becomes part of the nation's recorded history.</li>
+<li><strong>Edits.</strong> Orders may be edited until the Friday deadline; the version standing at the deadline counts.</li>
+<li><strong>Covert operations</strong> are posted in the nation's covert channel instead, in prose, describing the plan and its target.</li>
+<li><strong>Treaties</strong> are posted in the public diplomacy channel and take effect once every other party confirms with a ✅ reaction.</li>
+<li><strong>No orders,</strong> no action: a nation that posts nothing by the deadline enters Caretaker status for that turn.</li>
+</ul>
+<nav class="pager"><a class="pg prev" href="#purpose-and-design-principles"><small>Previous</small>Purpose and design principles</a><a class="pg next" href="#information-and-secrecy"><small>Next</small>Information and secrecy</a></nav></section><section class="sec" id="information-and-secrecy" data-title="Information and secrecy" hidden><header class="sh"><span class="kicker">Section 03 of 16</span><h2>Information and secrecy</h2></header>
+<p>What a civilization declares to the galaxy is public; what it holds and does is private; how the rules turn species and systems into numbers stays with the GM.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Information</th>
+<th>Who sees it</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The map: systems, lanes and ownership</td>
+<td>Everyone</td>
+</tr>
+<tr>
+<td>A system's contents: class, life, natives, deposits and feature</td>
+<td>Any nation holding a system within 1 lane (see Discovery)</td>
+</tr>
+<tr>
+<td>Nation name, Government Type, ideology and civics</td>
+<td>Everyone</td>
+</tr>
+<tr>
+<td>Species trait and disposition names</td>
+<td>Everyone</td>
+</tr>
+<tr>
+<td>Treaties</td>
+<td>Everyone, posted in the diplomacy channel</td>
+</tr>
+<tr>
+<td>Declarations of war, battle rolls, totals and losses</td>
+<td>Everyone; itemized modifiers are not shown</td>
+</tr>
+<tr>
+<td>Stockpile, output, Stability, Development, buildings and technology</td>
+<td>The nation's player and the GM</td>
+</tr>
+<tr>
+<td>Forces: ships, Ground Power and their locations</td>
+<td>The nation's player and the GM. Other nations see forces within 1 lane of their own systems, or 2 lanes around a Sensor Array</td>
+</tr>
+<tr>
+<td>The nation's species profile and Fit, with the matches and clashes behind them</td>
+<td>The nation's player and the GM</td>
+</tr>
+<tr>
+<td>Covert operations</td>
+<td>The acting nation and the GM. The target sees the effect, and learns the source only if the operation is exposed</td>
+</tr>
+<tr>
+<td>The GM's reference material</td>
+<td>GM only</td>
+</tr>
+</tbody>
+</table></div>
+<p>A successful Gather intelligence operation reveals everything on the target's Nation Sheet, but never GM-only material.</p>
+<nav class="pager"><a class="pg prev" href="#turn-structure-and-the-nation-sheet"><small>Previous</small>Turn structure and the Nation Sheet</a><a class="pg next" href="#the-map"><small>Next</small>The Map</a></nav></section><section class="sec" id="the-map" data-title="The Map" hidden><header class="sh"><span class="kicker">Section 04 of 16</span><h2>The Map</h2><div class="chips"><a class="chip" href="#structure">Structure</a><a class="chip" href="#system-classes">System classes</a><a class="chip" href="#features">Features</a></div></header>
+<p>The galaxy holds 208 Star Systems: a contested Core of 16 surrounded by six Sectors of 32, each Sector with four starting slots. That gives 24 slots, enough for every active and occasional player, and room for each nation to grow to around eight systems before borders begin to press.</p>
+<figure class="map"><img alt="Six Sectors ring a contested Core: each Sector links to its two neighbours by a gateway lane and to the Core by one Core link" height="1144" src="assets/map.png" width="1520"/></figure>
+<p>Every Sector touches two neighbours and the Core, so every nation is at most two gateways from any other region, and the Core is everyone's frontier.</p>
+<h3 id="structure">Structure<a class="hl" href="#structure" aria-label="Link to this rule">#</a></h3>
+<ul>
+<li><strong>Sectors.</strong> Each Sector has 32 systems: 4 starting slots and 28 others whose contents the GM generates when calibrating the map. Each links to its neighbouring Sectors through one gateway system each, and to the Core through one more.</li>
+<li><strong>The Core.</strong> Sixteen systems at the centre: 13 Rich and 3 Exceptional. It is the richest and most exposed ground on the map, and the only source of Void matter.</li>
+<li><strong>Lanes.</strong> Every system has 2–4 lanes. Ships travel only along lanes, so gateways and Core links are natural chokepoints.</li>
+<li><strong>Spacing.</strong> Starting slots sit at least 5 jumps apart. Each has at least three systems within 2 jumps that are not within 2 jumps of any other slot, and at least two of them are Standard or better.</li>
+<li><strong>Unused slots</strong> are ordinary unclaimed systems. Independent minor powers arise only in play: from revolts, peace treaties and long absences.</li>
+</ul>
+<h3 id="system-classes">System classes<a class="hl" href="#system-classes" aria-label="Link to this rule">#</a></h3>
+<p>Every system's contents are generated in secret when the map is calibrated and revealed when the system is discovered. A system's class follows from its number of habitable planets, and sets its Development cap and its base building slots.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Habitable planets</th>
+<th>Development cap</th>
+<th>Base building slots</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Barren</td>
+<td>0</td>
+<td>1 (an outpost only)</td>
+<td>1 (orbital)</td>
+</tr>
+<tr>
+<td>Minor</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Standard</td>
+<td>2</td>
+<td>3</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Rich</td>
+<td>3</td>
+<td>4</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Exceptional</td>
+<td>4 or more</td>
+<td>5</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Homeworld</td>
+<td>2</td>
+<td>5</td>
+<td>2</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="features">Features<a class="hl" href="#features" aria-label="Link to this rule">#</a></h3>
+<p>About 33 systems carry a feature, which adds +1 output per Development level when the system holds the matching designation.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Matching designation</th>
+<th>Bonus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rich Veins</td>
+<td>Forge</td>
+<td>+1 Industry per Development</td>
+</tr>
+<tr>
+<td>Stellar Furnace</td>
+<td>Generator</td>
+<td>+1 Energy per Development</td>
+</tr>
+<tr>
+<td>Ancient Ruins</td>
+<td>Academy</td>
+<td>+1 Research per Development</td>
+</tr>
+<tr>
+<td>Garden World</td>
+<td>Civic</td>
+<td>+1 Influence per Development</td>
+</tr>
+</tbody>
+</table></div>
+<nav class="pager"><a class="pg prev" href="#information-and-secrecy"><small>Previous</small>Information and secrecy</a><a class="pg next" href="#founding-a-civilization"><small>Next</small>Founding a civilization</a></nav></section><section class="sec" id="founding-a-civilization" data-title="Founding a civilization" hidden><header class="sh"><span class="kicker">Section 05 of 16</span><h2>Founding a civilization</h2><div class="chips"><a class="chip" href="#the-limits-of-plausibility">The limits of plausibility</a><a class="chip" href="#the-founding-charter">The Founding Charter</a><a class="chip" href="#coherence">Coherence</a><a class="chip" href="#species-traits">Species traits</a><a class="chip" href="#signature-adaptation">Signature adaptation</a><a class="chip" href="#social-dispositions">Social dispositions</a><a class="chip" href="#habitat">Habitat</a><a class="chip" href="#necrophages">Necrophages</a><a class="chip" href="#starting-position">Starting position</a></div></header>
+<p>Every nation begins as a young species that has only just achieved FTL travel, on a single homeworld with no colonies. Players design their civilization on joining, within the limits below, and submit a Founding Charter for GM approval.</p>
+<h3 id="the-limits-of-plausibility">The limits of plausibility<a class="hl" href="#the-limits-of-plausibility" aria-label="Link to this rule">#</a></h3>
+<ul>
+<li><strong>One world, no empire.</strong> No prior colonies, no subject species, no inherited precursor fleets or ancient servants.</li>
+<li><strong>Tier 1 technology only.</strong> Lore may not describe technology beyond the starting tier.</li>
+<li><strong>Biology.</strong> Organic, Lithoid, Synthetic or Cybernetic. Psionics require a species at least 50% organic.</li>
+<li><strong>Banned outright:</strong> multi-dimensional or multi-universal travel; weapons or projectiles that travel or deal damage at FTL speed; biological weapons or weapons that attack a species' biology (a species' own natural weapons, such as venom, claws or an acid spray, are not biological weapons); psionics that create matter from nothing, teleport across interplanetary range or move objects over 50 m.</li>
+<li><strong>Permitted psionics</strong> (with the Psionic Tradition civic): telekinesis, telepathy, astral projection and scrying.</li>
+<li><strong>History and culture are free,</strong> provided they give no advantage beyond the sheet.</li>
+</ul>
+<h3 id="the-founding-charter">The Founding Charter<a class="hl" href="#the-founding-charter" aria-label="Link to this rule">#</a></h3>
+<p>Each player submits: the nation's name; species and biology type; species traits and dispositions; Government Type; ideology on all four axes; two civics; an optional fiscal code (see The treasury); and a synopsis of up to 300 words, shown publicly. A civilization designed rather than rolled also submits a Civilization Dossier: a full account of the species, its world, history, government, beliefs, society and culture, in as much depth as the player wishes. The Dossier has no effect on output, but its cultural sections earn Renown, and it is the record the GM draws on for coherence, judgement and narration. The GM approves or returns the Charter within one week, and sends the player their species profile and Fit.</p>
+<h3 id="coherence">Coherence<a class="hl" href="#coherence" aria-label="Link to this rule">#</a></h3>
+<p>A civilization's traits, government, ideology and civics must fit together, and the Charter's lore must explain how. Unusual combinations are allowed; unexplained ones are not.</p>
+<ul>
+<li><strong>What needs explaining.</strong> Any combination that produces a Fit clash, and any other combination the GM judges to contradict itself. The GM tells the player which ones.</li>
+<li><strong>The explanation.</strong> Up to 100 words per combination, explaining why it holds together. A Fragile people might be Martial because it fights through machines; an Individualist people might accept a crown because its monarch is elected and bound by oath.</li>
+<li><strong>Approval.</strong> The GM accepts an explanation that is consistent with the rest of the Charter. A combination with no accepted explanation must be changed.</li>
+<li><strong>Explanation is not exemption.</strong> An accepted explanation makes a combination legal; its Fit clash still applies.</li>
+<li><strong>During play.</strong> A change that creates a new clash needs the same explanation, posted in character before it takes effect.</li>
+</ul>
+<p>A player whose Civilization Dossier already explains a combination may cite the section instead of writing a separate explanation. The GM accepts the citation if the Dossier bears it out.</p>
+<h3 id="species-traits">Species traits<a class="hl" href="#species-traits" aria-label="Link to this rule">#</a></h3>
+<p>Traits describe what a species is. The GM determines the species' profile of bonuses and penalties from its combination of traits. The same combination always gives the same result.</p>
+<ul>
+<li>Every species has <strong>4 trait points</strong>. Positive traits cost 1 or 2; mixed traits cost 0; negative traits refund 1. Unspent points are lost.</li>
+<li>A species may hold at most <strong>four traits with a positive cost</strong> and <strong>three with a negative cost</strong>, and never a trait with its listed opposite.</li>
+<li><strong>Psionic-Resistant</strong> is a special trait with a flat cost of 1 and no domains.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Trait</th>
+<th>Description</th>
+<th>Cost</th>
+<th>Opposite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hardy</td>
+<td>Physically tough and resilient</td>
+<td>1</td>
+<td>Fragile</td>
+</tr>
+<tr>
+<td>Industrious</td>
+<td>Driven to build and labour by nature</td>
+<td>1</td>
+<td>Wasteful</td>
+</tr>
+<tr>
+<td>Curious</td>
+<td>Instinctively explores and investigates</td>
+<td>1</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Restless</td>
+<td>Compelled to move on and settle anew</td>
+<td>1</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Disciplined</td>
+<td>Naturally orderly and self-restrained</td>
+<td>1</td>
+<td>Fractious</td>
+</tr>
+<tr>
+<td>Charismatic</td>
+<td>Draws other species to it</td>
+<td>1</td>
+<td>Insular</td>
+</tr>
+<tr>
+<td>Tireless</td>
+<td>Needs little rest in labour or battle</td>
+<td>2</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Empathic</td>
+<td>Reads and shares the feelings of others</td>
+<td>2</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Adaptive</td>
+<td>Thrives in harsh and varied environments</td>
+<td>2</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Long-lived</td>
+<td>Lives for centuries, but replaces itself slowly</td>
+<td>0</td>
+<td>Short-lived</td>
+</tr>
+<tr>
+<td>Prolific</td>
+<td>Breeds quickly, but crowds and quarrels</td>
+<td>0</td>
+<td>Slow-growing</td>
+</tr>
+<tr>
+<td>Fragile</td>
+<td>Physically delicate</td>
+<td>−1</td>
+<td>Hardy</td>
+</tr>
+<tr>
+<td>Wasteful</td>
+<td>Consumes carelessly</td>
+<td>−1</td>
+<td>Industrious</td>
+</tr>
+<tr>
+<td>Short-lived</td>
+<td>Has little time to master anything</td>
+<td>−1</td>
+<td>Long-lived</td>
+</tr>
+<tr>
+<td>Slow-growing</td>
+<td>Reproduces slowly</td>
+<td>−1</td>
+<td>Prolific</td>
+</tr>
+<tr>
+<td>Fractious</td>
+<td>Innately quarrelsome</td>
+<td>−1</td>
+<td>Disciplined</td>
+</tr>
+<tr>
+<td>Insular</td>
+<td>Instinctively wary of other species</td>
+<td>−1</td>
+<td>Charismatic</td>
+</tr>
+<tr>
+<td>Psionic-Resistant</td>
+<td>Minds closed to psionic influence: enemy psionic bonuses do not apply against it. Unavailable with Psionic Tradition</td>
+<td>1</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Necrophage</td>
+<td>Reproduces by transforming other species into its own kind (see Necrophages)</td>
+<td>0</td>
+<td>Prolific, Slow-growing, Short-lived, Long-lived</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="signature-adaptation">Signature adaptation<a class="hl" href="#signature-adaptation" aria-label="Link to this rule">#</a></h3>
+<p>A species may have one <strong>signature adaptation</strong>: a feature of its body that no trait describes, such as venom, an acid spray, a chameleon skin, a second heart or a hide that shrugs off flame. It costs 1 trait point. The player describes it freely in the Charter and Dossier, and the GM matches it to one effect from the table below. Every adaptation also has a matching drawback, which the GM chooses from the second table to fit the description: a people that sprays acid may be feared; a cold-blooded one may falter in the cold.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Effect</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Predator</td>
+<td>+1 in ground battle, attacking and defending</td>
+</tr>
+<tr>
+<td>Unseen</td>
+<td>+1 to covert actions, acting and defending</td>
+</tr>
+<tr>
+<td>Kindred</td>
+<td>+1 to contact strategies with natives</td>
+</tr>
+<tr>
+<td>Unbroken</td>
+<td>One kind of environmental event, named at founding, has no effect on its worlds</td>
+</tr>
+<tr>
+<td>Rooted</td>
+<td>Capacity +2 on one environment type, named at founding</td>
+</tr>
+<tr>
+<td>Born to it</td>
+<td>In battles where the adaptation plainly applies, the GM's tactics modifier is never below +1</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Drawback</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Feared</td>
+<td>−1 to contact strategies with natives</td>
+</tr>
+<tr>
+<td>Conspicuous</td>
+<td>−1 to covert defence</td>
+</tr>
+<tr>
+<td>Ill-suited</td>
+<td>Capacity −2 on one environment type, named at founding</td>
+</tr>
+<tr>
+<td>Vulnerable</td>
+<td>One kind of environmental event, named at founding, strikes its worlds twice as hard</td>
+</tr>
+<tr>
+<td>Out of its element</td>
+<td>−1 in ground battle on one environment type, named at founding</td>
+</tr>
+</tbody>
+</table></div>
+<p>An effect and its drawback must not cancel each other: a Kindred people cannot be Feared. A species with a host (see Necrophages) may give the adaptation to either species, but not both.</p>
+<h3 id="social-dispositions">Social dispositions<a class="hl" href="#social-dispositions" aria-label="Link to this rule">#</a></h3>
+<p>A species may take one disposition from each pair, or neither. Dispositions cost no points. They describe what kind of state suits the species, which counts toward Fit.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Pair</th>
+<th>Disposition</th>
+<th>Description</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Self and group</td>
+<td>Individualist</td>
+<td>Solitary by nature; resists central direction</td>
+<td>Colonization costs −20%; −1 Administrative Capacity</td>
+</tr>
+<tr>
+<td>Self and group</td>
+<td>Collectivist</td>
+<td>Communal by nature; accepts common direction</td>
+<td>+1 Administrative Capacity; ideology shifts and civic replacements cost double. Required for Collective government</td>
+</tr>
+<tr>
+<td>The beyond</td>
+<td>Reverent</td>
+<td>Innately senses the numinous and seeks meaning beyond the material</td>
+<td>Fit only</td>
+</tr>
+<tr>
+<td>The beyond</td>
+<td>Grounded</td>
+<td>Perceives no beyond; finds meaning in the world as it is</td>
+<td>Fit only</td>
+</tr>
+</tbody>
+</table></div>
+<p>Neither Reverent nor Grounded says anything about reason. A Reverent species may study creation all the harder for its sense of the sacred, and a Grounded one may be as superstitious as any.</p>
+<h3 id="habitat">Habitat<a class="hl" href="#habitat" aria-label="Link to this rule">#</a></h3>
+<p>Most species rose on the dry surface of their world; some did not. At founding, a species declares its <strong>habitat</strong>: Surface, Aquatic or Subterranean. Habitat costs no trait points. Surface carries no modifiers; the other two change what a nation settles easily and what it does well, and they apply from the first turn.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Habitat</th>
+<th>Advantages</th>
+<th>Drawbacks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aquatic</td>
+<td>Energy +5%, drawn from tides, vents and the sea itself. Oceanic worlds: Development cap +1.</td>
+<td>Every other world: colony cost doubled, Development cap −1. Industry −10% until Industry Tier 3, since smelting under water is no small matter.</td>
+</tr>
+<tr>
+<td>Subterranean</td>
+<td>+1 defence on every world it holds. Extractors cost half. Barren, Frozen, Arid, Volcanic and Toxic worlds: colony cost −25%. Immune to crop failure and to events that drive a population from the surface.</td>
+<td>Garden and Oceanic worlds: colony cost +25%. Research −10% until Society Tier 3, for a people that came late to the sky.</td>
+</tr>
+</tbody>
+</table></div>
+<p>An Aquatic species' homeworld is always Oceanic, and the map places at least one further Oceanic world within its early reach. A Development cap can never fall below 1 or rise above 5, whatever the habitat.</p>
+<h3 id="necrophages">Necrophages<a class="hl" href="#necrophages" aria-label="Link to this rule">#</a></h3>
+<p>A Necrophage species reproduces by metamorphosis: it transforms members of other species into its own kind. The body is rewritten and the mind survives, and the transformed being is ageless, though it can still be killed. Necrophage is a trait that costs no points.</p>
+<ul>
+<li><strong>Two classes.</strong> A Necrophage civilization founds with a subordinate host species, described in its Charter with up to 2 trait points of its own. Necrophages rule; the hosts work. The hosts' traits shape what its worlds produce (Industry, Energy and Development costs); the Necrophages' traits shape what the state does (Research, Influence, war, contact and cohesion). When Stability falls to Unrest, host-worked worlds rise first. For Fit, Order and Collectivist hosts suit the arrangement; Liberty and Individualist hosts strain against it.</li>
+<li><strong>Rulers.</strong> Every new colony needs one Ruler on top of its usual cost. A Necrophage civilization founds with 2.</li>
+<li><strong>Elevation.</strong> A world may transform some of its own host workers into the ruling class: it loses 1 Development and the nation gains 1 Ruler. A Collectivist or Reverent host people takes elevation as promotion; to an Individualist one it is horror, and each elevation costs 1 current Stability.</li>
+<li><strong>Transforming outsiders.</strong> A transformed world joins with its people as the new workers, keeps its full Development cap, and yields Rulers equal to half its Development, rounded down. Its people keep their knowledge: where they were ahead, the Necrophage gains Research credit as for Absorb.</li>
+<li><em>Ascension</em> (willing): a contact strategy for natives of any era. It costs 10 Influence against a target of 6; natives' openness and Collectivist or Reverent natives +1 each; curious peoples resist. Success: the natives join, with no Infamy. Backfire: closed to every strategy but force for 10 turns.</li>
+<li><em>Forced transformation of natives:</em> resolved as Integrate. Success: the natives join; Infamy as for conquering a native civilization by force.</li>
+<li><em>Transform</em>, a fate of the conquered: no annexation Stability cost, and the system can never revolt (see Infamy).</li>
+<li><strong>Who may judge.</strong> An unwilling transformation gives every other nation the atrocity casus belli, except a nation that has itself conquered natives by force, razed a system or transformed a people in the last 20 turns. The GM rules where a nation's beliefs make its judgement unclear.</li>
+<li><strong>Agelessness.</strong> Necrophage rulers do not die of age: an Imperial Necrophage suffers succession only by abdication, coup or assassination. Its old masters change their minds slowly, and ideology shifts and civic replacements cost half as much again.</li>
+</ul>
+<h3 id="starting-position">Starting position<a class="hl" href="#starting-position" aria-label="Link to this rule">#</a></h3>
+<p>Every nation starts with the same assets:</p>
+<ul>
+<li>A homeworld at Development 3, designated Capital, with a Shipyard</li>
+<li>Stockpile: 10 Industry, 10 Energy, 5 Research, 10 Influence</li>
+<li>5 Escorts, 2 Transports and 4 Ground Power at the homeworld</li>
+<li>Tier 1 in all four technology branches</li>
+<li>Stability at its target</li>
+</ul>
+<nav class="pager"><a class="pg prev" href="#the-map"><small>Previous</small>The Map</a><a class="pg next" href="#government-ideology-and-stability"><small>Next</small>Government, ideology and Stability</a></nav></section><section class="sec" id="government-ideology-and-stability" data-title="Government, ideology and Stability" hidden><header class="sh"><span class="kicker">Section 06 of 16</span><h2>Government, ideology and Stability</h2><div class="chips"><a class="chip" href="#government-type">Government Type</a><a class="chip" href="#ideology">Ideology</a><a class="chip" href="#civics">Civics</a><a class="chip" href="#stability">Stability</a><a class="chip" href="#fit">Fit</a></div></header>
+<p>A nation's character has three layers: one Government Type (who holds power), a position on four ideology axes (what the state believes) and up to four civics (how it behaves). Together with the species, they set its Stability target.</p>
+<h3 id="government-type">Government Type<a class="hl" href="#government-type" aria-label="Link to this rule">#</a></h3>
+<p>Every nation chooses exactly one Government Type, and names its government freely: a Holy Kingdom and a Solar Throne may both be Imperial.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Bonus</th>
+<th>Drawback</th>
+<th>Not allowed with</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Democratic</td>
+<td>+10% Influence; may replace one civic at no cost every 4 turns (an election)</td>
+<td>Declaring an offensive war costs 5 Influence</td>
+<td>Fervent Order</td>
+</tr>
+<tr>
+<td>Oligarchic</td>
+<td>Civic replacement costs −25%; +1 trade agreement slot</td>
+<td>Influence −10%</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Dictatorial</td>
+<td>+1 Administrative Capacity; ideology shifts cost −25%</td>
+<td>Covert actions against you +1</td>
+<td>Fervent Liberty</td>
+</tr>
+<tr>
+<td>Imperial</td>
+<td>+1 Stability; +1 Administrative Capacity</td>
+<td>Succession: −2 Stability whenever the ruler changes</td>
+<td>Fervent Liberty</td>
+</tr>
+<tr>
+<td>Collective</td>
+<td>Stability target fixed at 6, though temporary effects still apply; +2 Administrative Capacity</td>
+<td>No ideology axes; Influence cannot buy Stability</td>
+<td>Collectivist species only</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Imperial succession</strong> follows the species' lifespan: the ruler changes every 6 turns for a Short-lived species, every 10 turns for most, and every 20 for a Long-lived one. A player may also declare an earlier change, such as an abdication or a coup, at the same cost.</p>
+<p><strong>Reform.</strong> Changing Government Type costs 30 Influence and 2 Stability. Collapse imposes a new government without the cost (see Stability).</p>
+<h3 id="ideology">Ideology<a class="hl" href="#ideology" aria-label="Link to this rule">#</a></h3>
+<p>Each nation takes a position on four axes: <strong>Fervent</strong>, <strong>Leaning</strong> or <strong>Neutral</strong> toward either pole. A Leaning position gives the bonus below, and breaking its taboo costs 2 Stability. A Fervent position doubles the bonus, and its taboo costs 3. Neutral gives neither. A nation may hold <strong>at most two Fervent positions</strong>. Shifting one step on an axis costs 15 Influence and 1 Stability, once per turn.</p>
+<p>The axes measure separate questions: where authority lies, whether the state answers to a creed, how readily it uses force, and whether it turns toward the galaxy or away from it. No pole implies anything about the others.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Pole</th>
+<th>Bonus (Leaning)</th>
+<th>Taboo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Order</td>
+<td>+1 Administrative Capacity</td>
+<td>Ceding a system in a peace treaty</td>
+</tr>
+<tr>
+<td>Liberty</td>
+<td>+10% Research</td>
+<td>Declaring war without a casus belli</td>
+</tr>
+<tr>
+<td>Sacred</td>
+<td>+1 Stability</td>
+<td>Breaking a treaty</td>
+</tr>
+<tr>
+<td>Secular</td>
+<td>Replacing a civic costs half; +10% Industry</td>
+<td>Posing as gods (Divine Mandate, Godhead form)</td>
+</tr>
+<tr>
+<td>Martial</td>
+<td>+20% Fleet Capacity</td>
+<td>Accepting a white peace or a defeat</td>
+</tr>
+<tr>
+<td>Pacific</td>
+<td>Development costs −10%</td>
+<td>Declaring an offensive war</td>
+</tr>
+<tr>
+<td>Outward</td>
+<td>+1 trade agreement slot</td>
+<td>Withdrawing: ending a trade agreement or revoking passage rights</td>
+</tr>
+<tr>
+<td>Inward</td>
+<td>+1 defending your own systems; +1 against covert actions</td>
+<td>Opening: granting passage rights to foreign fleets</td>
+</tr>
+</tbody>
+</table></div>
+<p>What each position means for a civilization:</p>
+<ul>
+<li><strong>Order.</strong> Authority flows downward from the state, and hierarchy, stability and continuity outrank individual preference. It trusts institutions over individuals, and does not give up what it holds.</li>
+<li><strong>Liberty.</strong> Authority flows upward from the governed, and individuals, factions and ideas compete openly. It will not go to war without a reason it can defend to its own people.</li>
+<li><strong>Sacred.</strong> The state is bound to a creed or transcendent purpose, and its legitimacy rests on keeping faith with it. This says nothing against reason: its oaths are sworn before something beyond itself.</li>
+<li><strong>Secular.</strong> The state answers to no creed; its legitimacy rests on law, consent or results. It treats institutions as tools, and will not use faith as an instrument of rule.</li>
+<li><strong>Martial.</strong> Force is an honoured and ordinary instrument of the state. It says nothing about where that force is aimed: a Martial state may guard closed borders as readily as it conquers. It does not accept defeat lightly.</li>
+<li><strong>Pacific.</strong> Force is a last resort, and energy goes into building. It defends itself without hesitation but never starts a war, and may still spread far by settlement, trade or persuasion.</li>
+<li><strong>Outward.</strong> The civilization looks to the galaxy: it settles, trades, travels and seeks contact, and does not withdraw from the agreements it makes.</li>
+<li><strong>Inward.</strong> The civilization looks to itself, guarding its borders, culture and secrets. It may trade and ally on its own terms, but will not let foreign fleets pass through its space.</li>
+<li><strong>Neutral.</strong> The question does not define the civilization.</li>
+</ul>
+<h3 id="civics">Civics<a class="hl" href="#civics" aria-label="Link to this rule">#</a></h3>
+<p>A nation holds two civics at founding, a third at Society Tier 3 and a fourth at Society Tier 5. Replacing a civic costs 20 Influence and 1 Stability.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Civic</th>
+<th>Bonus</th>
+<th>Drawback</th>
+<th>Requires</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Constitutional Charter</td>
+<td>+1 Stability</td>
+<td>Declaring war costs 5 Influence</td>
+<td>Not Democratic</td>
+</tr>
+<tr>
+<td>Theocracy</td>
+<td>+2 Stability</td>
+<td>Research −10%</td>
+<td>Sacred</td>
+</tr>
+<tr>
+<td>Enlightened Creed</td>
+<td>Technology costs −10%</td>
+<td>Shifting away from Sacred costs double Stability</td>
+<td>Sacred</td>
+</tr>
+<tr>
+<td>Technocracy</td>
+<td>Technology costs −10%</td>
+<td>Influence −10%</td>
+<td>Secular</td>
+</tr>
+<tr>
+<td>Military Junta</td>
+<td>Ships cost 25% less Industry</td>
+<td>−1 Stability</td>
+<td>Martial</td>
+</tr>
+<tr>
+<td>Realpolitik Doctrine</td>
+<td>Counts as Leaning Outward while its Fleet Power exceeds that of every neighbour within 3 jumps, and Leaning Inward otherwise; switching is free</td>
+<td>The GM sets the posture each turn; no Fervent position on that axis</td>
+<td>Neutral on Outward–Inward</td>
+</tr>
+<tr>
+<td>Planned Economy</td>
+<td>Changing designations costs no output</td>
+<td>Trade agreement slots −1</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Free Market</td>
+<td>Energy and Influence +10%</td>
+<td>−1 Stability</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Merchant Guilds</td>
+<td>+1 trade agreement slot</td>
+<td>Industry −10%</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Work Ethic</td>
+<td>Development costs −10%</td>
+<td>Output penalties from low Stability are doubled</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Warrior Culture</td>
+<td>+1 in every battle</td>
+<td>−2 Stability on a white peace</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Citizen Militia</td>
+<td>Ground Power has no upkeep</td>
+<td>Fleet Capacity −10%</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Espionage Directorate</td>
+<td>+2 to covert actions</td>
+<td>Breaking a treaty costs 1 extra Stability</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Federal Charter</td>
+<td>No Stability loss for annexing or integrating systems</td>
+<td>Covert actions against you +1</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Psionic Tradition</td>
+<td>Psionics permitted; +1 to covert actions and battles</td>
+<td>Research −10%</td>
+<td>At least 50% organic</td>
+</tr>
+<tr>
+<td>Synthetic Directive</td>
+<td>Industry +10%</td>
+<td>Psionics forbidden; −1 Stability</td>
+<td>Synthetic or Cybernetic</td>
+</tr>
+<tr>
+<td>Civil Religion</td>
+<td>Counts as Leaning Sacred and Leaning Secular for every requirement</td>
+<td>Bears the taboos of both poles and gains neither pole's bonus; lapses, with every civic and policy it enabled, if the nation leaves Neutral</td>
+<td>Neutral on Sacred–Secular</td>
+</tr>
+<tr>
+<td>Song of the Stone</td>
+<td>Extractors yield double; senses deposits and Sleepers in adjacent systems; +1 against covert actions and in ground battles on its own worlds; alone can wake a Sleeper</td>
+<td>Research −5%; harvesting a Sleeper costs 2 Stability</td>
+<td>Subterranean habitat</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="stability">Stability<a class="hl" href="#stability" aria-label="Link to this rule">#</a></h3>
+<p>Stability runs from 0 to 10 and reflects what a state can ask of its people. It is both a condition and a reserve: coherent civilizations hold more of it, and ambitious policies spend it.</p>
+<ul>
+<li><strong>Two kinds of change.</strong> Permanent effects (government, ideology, civics, species, Fit, buildings) change the <strong>Stability target</strong>. One-off events (spending, war results, covert action) change <strong>current Stability</strong>. Every "+1 Stability" in a table above is a permanent effect on the target.</li>
+<li><strong>The target</strong> equals 4 plus all permanent effects, capped at 10. A nation begins at its target, and each turn its Stability moves one point toward it.</li>
+<li><strong>Temporary effects,</strong> such as exceeding Administrative Capacity or war appetite, raise or lower the target while they last.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Stability</th>
+<th>Condition</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>9–10</td>
+<td>Flourishing</td>
+<td>+10% to all output</td>
+</tr>
+<tr>
+<td>6–8</td>
+<td>Settled</td>
+<td>+5% to all output</td>
+</tr>
+<tr>
+<td>4–5</td>
+<td>Ordinary</td>
+<td>No effect</td>
+</tr>
+<tr>
+<td>2–3</td>
+<td>Unrest</td>
+<td>−25% to all output; no colonization; revolts</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Crisis</td>
+<td>−50% to all output; no wars of choice; revolts spread</td>
+</tr>
+<tr>
+<td>0</td>
+<td>Collapse</td>
+<td>The state falls</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Revolt.</strong> When Stability first falls to Unrest, the GM chooses one system to rise: the most recently acquired, or otherwise the one with the lowest Development. While Stability stays at Unrest, another rises every 3 turns; at Crisis, one rises every turn. A system in revolt produces nothing, and breaks away as an independent minor power if not defeated with Ground Power within two turns.</p>
+<p><strong>Collapse.</strong> At 0, the civilization ends as a state. Every system in revolt breaks away and all treaties are void. Systems beyond its Administrative Capacity break away too, the most recently acquired first. The player keeps the capital and the loyal systems that remain, and founds from them a successor state with a new Government Type, free of the Reform cost, at Stability 3.</p>
+<p><strong>Elimination.</strong> A nation that loses its last system, or cannot pay reparations it owes, is eliminated: the state has failed, whether through its player or its circumstances. The player may register a new civilization, and is strongly encouraged first to examine what succeeded and what failed in the old one.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Stability cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Declaring an offensive war</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Declaring war without a casus belli</td>
+<td>2 more</td>
+</tr>
+<tr>
+<td>Shifting an ideology position</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Replacing a civic</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Annexing or integrating a system</td>
+<td>1 (none with Federal Charter)</td>
+</tr>
+<tr>
+<td>A Reform of Government Type</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Breaking a taboo</td>
+<td>2 (Leaning) or 3 (Fervent)</td>
+</tr>
+<tr>
+<td>Breaking a treaty</td>
+<td>2, plus any civic or ideology additions</td>
+</tr>
+<tr>
+<td>Failing to pay upkeep</td>
+<td>1</td>
+</tr>
+</tbody>
+</table></div>
+<p>Winning a war gives +1 and losing one costs 2. A nation may also spend 5 Influence for +1 Stability, once per turn, on top of its natural recovery, but bought Stability never raises it above its target.</p>
+<h3 id="fit">Fit<a class="hl" href="#fit" aria-label="Link to this rule">#</a></h3>
+<p>A state that suits its people's nature is more stable than one that strains against it. The GM compares the species' traits, dispositions and domain strengths with its government, ideology and civics. Each match adds +1 to the Stability target and each clash −1, with the total capped at ±2. Each player is told their Fit and the matches and clashes behind it.</p>
+<nav class="pager"><a class="pg prev" href="#founding-a-civilization"><small>Previous</small>Founding a civilization</a><a class="pg next" href="#the-economy"><small>Next</small>The economy</a></nav></section><section class="sec" id="the-economy" data-title="The economy" hidden><header class="sh"><span class="kicker">Section 07 of 16</span><h2>The economy</h2><div class="chips"><a class="chip" href="#designations">Designations</a><a class="chip" href="#trade">Trade</a><a class="chip" href="#development">Development</a><a class="chip" href="#buildings">Buildings</a><a class="chip" href="#colonization">Colonization</a><a class="chip" href="#administrative-capacity">Administrative Capacity</a><a class="chip" href="#playing-tall">Playing tall</a><a class="chip" href="#upkeep">Upkeep</a><a class="chip" href="#a-worked-first-turn">A worked first turn</a></div></header>
+<p>The economy runs on four resources, produced by specialized systems and grown through Development, buildings and colonization. Unspent resources carry over between turns without limit. Output is calculated to one decimal place and stockpiles keep the fraction; every cost is a whole number. Reductions from all sources together never lower a cost by more than 50%.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Spent on</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Industry</td>
+<td>Development, buildings, ships, ground forces, defences, Great Works</td>
+</tr>
+<tr>
+<td>Energy</td>
+<td>Colonization, upkeep of forces</td>
+</tr>
+<tr>
+<td>Research</td>
+<td>Technology</td>
+</tr>
+<tr>
+<td>Influence</td>
+<td>Colonization, Stability, ideology, civics, diplomacy, contact strategies, covert action</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="designations">Designations<a class="hl" href="#designations" aria-label="Link to this rule">#</a></h3>
+<p>Every system holds one designation, which sets what it produces per Development level. Changing a designation costs that system one turn of output.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Designation</th>
+<th>Output per Development level</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Capital</td>
+<td>2 Industry, 2 Energy, 1 Research, 2 Influence</td>
+<td>Homeworld only; cannot be changed</td>
+</tr>
+<tr>
+<td>Forge</td>
+<td>2 Industry</td>
+<td></td>
+</tr>
+<tr>
+<td>Generator</td>
+<td>2 Energy</td>
+<td></td>
+</tr>
+<tr>
+<td>Academy</td>
+<td>2 Research</td>
+<td></td>
+</tr>
+<tr>
+<td>Civic</td>
+<td>2 Influence</td>
+<td></td>
+</tr>
+<tr>
+<td>Trade Hub</td>
+<td>1 Energy, 1 Influence</td>
+<td>Holding any Trade Hub gives +1 trade agreement slot</td>
+</tr>
+<tr>
+<td>Fortress</td>
+<td>1 Industry</td>
+<td>+2 to defend this system in battle</td>
+</tr>
+</tbody>
+</table></div>
+<p>A starting homeworld produces 6 Industry, 6 Energy, 3 Research and 6 Influence each turn before modifiers.</p>
+<h3 id="trade">Trade<a class="hl" href="#trade" aria-label="Link to this rule">#</a></h3>
+<p>Nations may transfer resources, including strategic resources, freely by any agreement they make. Each nation may also hold <strong>trade agreements</strong>: two to begin with, plus slots from ideology, government, civics, species and buildings, to a <strong>maximum of five</strong>. Each agreement gives both partners +5% to all output, provided a lane route between their capitals is not blockaded. Each agreement in force costs each partner 1 Influence a turn, taken with upkeep.</p>
+<h3 id="development">Development<a class="hl" href="#development" aria-label="Link to this rule">#</a></h3>
+<p>Raising a system to Development level N costs 3 × N Industry: 6 for level 2, 9 for 3, 12 for 4 and 15 for 5. A system may rise at most one level per turn, and never above its class cap.</p>
+<h3 id="buildings">Buildings<a class="hl" href="#buildings" aria-label="Link to this rule">#</a></h3>
+<p>Buildings give a world local character: its designation sets what it mainly produces, and its buildings what it is known for. A building costs Industry, is completed at the start of the next turn, and may appear only once in a system.</p>
+<p><strong>Slots.</strong> One per habitable planet (a Barren system has one orbital slot), plus one more at Development 4 and another at Development 5.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Building</th>
+<th>Cost</th>
+<th>Requires</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Shipyard</td>
+<td>10 Industry</td>
+<td>None</td>
+<td>Ships may be built only at systems with a Shipyard. Battleships and Dreadnoughts need one at Development 3 or more</td>
+</tr>
+<tr>
+<td>Foundry</td>
+<td>12 Industry</td>
+<td>None</td>
+<td>Industry: +1 at Development 1–2, +2 at 3–4, +3 at 5</td>
+</tr>
+<tr>
+<td>Power Plant</td>
+<td>12 Industry</td>
+<td>None</td>
+<td>Energy: +1, +2 or +3 by Development</td>
+</tr>
+<tr>
+<td>Research Institute</td>
+<td>12 Industry</td>
+<td>None</td>
+<td>Research: +1, +2 or +3 by Development</td>
+</tr>
+<tr>
+<td>Civic Hall</td>
+<td>12 Industry</td>
+<td>None</td>
+<td>Influence: +1, +2 or +3 by Development</td>
+</tr>
+<tr>
+<td>Extractor</td>
+<td>10 Industry</td>
+<td>A strategic deposit</td>
+<td>+1 unit of that resource per turn</td>
+</tr>
+<tr>
+<td>Garrison</td>
+<td>10 Industry</td>
+<td>None</td>
+<td>The system cannot revolt while Stability is 2 or more; +1 in ground battles there</td>
+</tr>
+<tr>
+<td>Sensor Array</td>
+<td>12 Industry</td>
+<td>Logistics Tier 3</td>
+<td>Sight extends to 2 lanes around the system</td>
+</tr>
+<tr>
+<td>Trade Exchange</td>
+<td>15 Industry</td>
+<td>A Trade Hub designation</td>
+<td>+1 trade agreement slot; counts once per nation</td>
+</tr>
+<tr>
+<td>Monument</td>
+<td>15 Industry, 2 Lattice crystals</td>
+<td>Society Tier 4</td>
+<td>+1 Stability target; counts once per nation</td>
+</tr>
+<tr>
+<td>Conduit</td>
+<td>15 Industry</td>
+<td>Collective government; Development 3</td>
+<td>+1 Administrative Capacity, to at most half the nation's Society tier, rounded down; holds nearby systems against revolt (see below)</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Sensor Arrays.</strong> At the end of each turn's movement, the GM reports to the owner every foreign force within range, and every force that crossed it during the turn, with the lanes it used. Allies share an array's sight only by treaty.</p>
+<p><strong>Conduits.</strong> A Collective's will reaches its worlds through Conduits, nodes of the common mind or communion. Each gives +1 Administrative Capacity, to a maximum of half the nation's Society tier, rounded down: one at Society Tier 2 or 3, two at Tier 4 or 5, three at Tier 6. While the nation's Stability is 2 or more, no system within 2 lanes of a Conduit can revolt. A Conduit in revolt or under occupation counts for nothing, and when a Conduit's system is occupied, razed or breaks away, the nation loses 2 current Stability at once: the Collective feels the severed node.</p>
+<h3 id="colonization">Colonization<a class="hl" href="#colonization" aria-label="Link to this rule">#</a></h3>
+<ul>
+<li>A new colony costs 5 Influence and 5 Energy, and starts at Development 1.</li>
+<li>The target must be unclaimed and one lane from a system you hold (two lanes at Logistics Tier 4). A colony founded earlier in the same turn counts as held. A farther target needs an expedition.</li>
+<li>A nation may found any number of colonies per turn if it can pay for them. A new colony produces from the following turn.</li>
+<li>A nation in Unrest or worse when its orders are resolved may not colonize that turn, even if it buys Stability in the same orders; it must wait for the next turn.</li>
+<li><strong>Expeditions.</strong> A nation may found a colony beyond its reach by sending an expedition from any system it holds. It pays the colony's cost when the expedition sets out, and the expedition travels along lanes at the nation's jump range, like a fleet: five jumps away takes two turns at the base range of 3. The colony is founded on arrival, at Development 1, and produces from the following turn. Sending an expedition is a colonization order, so a nation in Unrest may not send one.</li>
+<li>An expedition has no Fleet Power. A fleet at war with its nation, or one blockading a system on its route, may stop and destroy it there. If its target has been claimed by the time it arrives, it may go on to another unclaimed system within its remaining range, or turn back; its cost is not refunded.</li>
+<li>A colony founded this way need not connect to the rest of the nation's territory. One that does not is an exclave, and its owner must hold the lanes to it as best it can.</li>
+</ul>
+<h3 id="administrative-capacity">Administrative Capacity<a class="hl" href="#administrative-capacity" aria-label="Link to this rule">#</a></h3>
+<p>Colonization has no fixed limit; Administrative Capacity, the number of systems a nation can govern without strain, is the brake.</p>
+<p><strong>Administrative Capacity = 5 + government + ideology + species + Society technology</strong></p>
+<ul>
+<li>Government: Imperial +1, Dictatorial +1, Collective +2</li>
+<li>Ideology: Order +1 if Leaning, +2 if Fervent</li>
+<li>Species: Collectivist +1, Individualist −1, and some species profiles</li>
+<li>Society: +1 per tier above 1</li>
+</ul>
+<p>While a nation holds more systems than its capacity, its Stability target falls by 1 for every 2 systems over, rounded up, with no limit: 1 for one or two systems over, 2 for three or four, 3 for five or six, and so on.</p>
+<h3 id="playing-tall">Playing tall<a class="hl" href="#playing-tall" aria-label="Link to this rule">#</a></h3>
+<p>A nation that stays small and deep is rewarded in two ways, and its developed worlds hold more and stronger buildings:</p>
+<ul>
+<li><strong>Consolidation.</strong> +5% to all output for each unused point of Administrative Capacity, to a maximum of +25%. A new nation holds one system with capacity to spare, so it begins with the bonus near its height: a founding impetus that shrinks by 5% with each system it adds, and that a nation which stays compact keeps.</li>
+<li><strong>Research sprawl.</strong> Technology costs rise 5% for each system held beyond the fifth, so compact nations advance faster.</li>
+</ul>
+<p>Wide nations keep the larger territory and the higher Fleet Capacity. Tall nations are richer per system, more stable and quicker in technology.</p>
+<h3 id="upkeep">Upkeep<a class="hl" href="#upkeep" aria-label="Link to this rule">#</a></h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Force</th>
+<th>Upkeep per turn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ships</td>
+<td>1 Energy per 2 capacity points, rounded up (see Ship categories); each Dreadnought also 1 Volatile isotope</td>
+</tr>
+<tr>
+<td>Ground Power</td>
+<td>1 Energy per 4 points, rounded up</td>
+</tr>
+<tr>
+<td>Static Defence and Transports</td>
+<td>None</td>
+</tr>
+</tbody>
+</table></div>
+<p>A nation that cannot pay its upkeep disbands ships, smallest first, until it can, and loses 1 Stability.</p>
+<h3 id="a-worked-first-turn">A worked first turn<a class="hl" href="#a-worked-first-turn" aria-label="Link to this rule">#</a></h3>
+<p>A starting nation with the base Administrative Capacity of 5 holds one system, four under capacity, so consolidation adds 20% to its homeworld's output: it earns 7.2 Industry, 7.2 Energy, 3.6 Research and 7.2 Influence, and pays 4 Energy in upkeep (3 for its Escorts, 1 for its Ground Power). With its starting stockpile it can afford a colony and a Development step on its first turn and still bank some Influence toward its next. The colony takes the bonus down to 15% from the following turn.</p>
+<nav class="pager"><a class="pg prev" href="#government-ideology-and-stability"><small>Previous</small>Government, ideology and Stability</a><a class="pg next" href="#the-treasury"><small>Next</small>The treasury</a></nav></section><section class="sec" id="the-treasury" data-title="The treasury" hidden><header class="sh"><span class="kicker">Section 08 of 16</span><h2>The treasury</h2><div class="chips"><a class="chip" href="#gdp-and-the-stellar-mark">GDP and the Stellar Mark</a><a class="chip" href="#the-fiscal-code">The fiscal code</a><a class="chip" href="#debt-and-credit">Debt and credit</a></div></header>
+<p>A civilization's economy is larger than its state. <strong>Gross domestic product (GDP)</strong> is everything a nation produces in a turn; <strong>revenue</strong> is the share of it the state collects and can spend. The difference stays with the population, where it keeps people content and makes growth cheaper. A nation's fiscal code decides where that line falls.</p>
+<h3 id="gdp-and-the-stellar-mark">GDP and the Stellar Mark<a class="hl" href="#gdp-and-the-stellar-mark" aria-label="Link to this rule">#</a></h3>
+<p>The galaxy keeps its accounts in a common unit, the <strong>Stellar Mark (SM)</strong>. It is a measure of value, not a resource: nobody holds Marks. A state collects about a quarter of what its economy produces. A nation's output for the turn, including strategic resource income and priced in Marks, is its revenue; its GDP is four times that output, measured before the revenue effect of its fiscal code.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Price</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Industry, Energy, Influence</td>
+<td>1 SM a unit</td>
+</tr>
+<tr>
+<td>Research</td>
+<td>2 SM a unit</td>
+</tr>
+<tr>
+<td>Each strategic resource</td>
+<td>10 SM a unit</td>
+</tr>
+</tbody>
+</table></div>
+<p>The starting nation in the worked first turn produces 7.2 Industry, 7.2 Energy, 3.6 Research and 7.2 Influence, a revenue of 28.8 SM and a GDP of 115.2 SM. Because GDP is measured before tax, a nation that taxes lightly does not look poorer for it, and one that taxes heavily does not look richer.</p>
+<p>Loans, interest, reparations and prices may be written in Marks and settled in any mix of resources at these prices. The GM may revise the prices between eras and announces any change a turn in advance.</p>
+<h3 id="the-fiscal-code">The fiscal code<a class="hl" href="#the-fiscal-code" aria-label="Link to this rule">#</a></h3>
+<p>Each nation sets out its taxes and subsidies in a <strong>fiscal code</strong>, written in its own words in the Founding Charter: "a progressive income tax of up to 20%", "subsidies for small enterprises". The GM matches each line to an instrument in its catalogue and gives it an <strong>intensity</strong>: Light, Moderate or Heavy. The rates a player writes are flavour and read only to judge intensity; the instrument and its intensity decide the effect. A nation with no fiscal code collects its full output, as before.</p>
+<p>Each instrument moves one or more of these:</p>
+<ul>
+<li><strong>Revenue:</strong> a percentage of all four resources' output, applied with the nation's other modifiers.</li>
+<li><strong>One resource's output</strong>, by percentage.</li>
+<li><strong>Stability target.</strong> Fiscal effects are added together and the total rounded to the nearest whole number.</li>
+<li><strong>Costs:</strong> Development, colonies, ships or technology, by percentage.</li>
+<li><strong>Credit:</strong> steps on the nation's credit score (see Debt and credit).</li>
+</ul>
+<p>Five limits apply:</p>
+<ol>
+<li><strong>Revenue cap.</strong> A fiscal code's total revenue effect stays between −20% and +20%.</li>
+<li><strong>Diminishing returns.</strong> Within each category, the instrument that raises the most revenue counts in full and each further one counts for half. Taxing income three ways does not triple the yield.</li>
+<li><strong>Reform.</strong> A nation's first fiscal code takes effect at founding at no cost. Afterwards, each order that adds, removes or changes the intensity of a line costs 1 current Stability (at most 3 a turn) and takes effect from the next turn. A change of government or civic that puts a line out of bounds (see Plausibility) is a policy change: the line falls to the highest intensity still permitted, at the usual Reform cost.</li>
+<li><strong>Plausibility.</strong> An instrument must suit the state that levies it. Some require a particular ideology or civic, and some governments cannot run an instrument above a given intensity; the GM says which.</li>
+<li><strong>Tax burden.</strong> Every 5% of net revenue a code raises costs 0.5 Stability target, after subsidies are counted, so a light hand on many taxes is no longer free. The burden is added to the code's other Stability effects before rounding, and a half rounds away from zero.</li>
+</ol>
+<p>The GM keeps the catalogue of instruments. A player may write any tax, subsidy or economic policy a state could plausibly hold; the GM tells the player what it does before approval, and the Nation Sheet shows its effect every turn. The same policy can land differently on different governments and civics. A Collective's total revenue effect stays between −10% and +10%. A tariff is public: each partner is told the rate it faces, and may answer in kind.</p>
+<p>The GM also weighs a fiscal code for Fit: a frugal, collectivist species may take well to heavy public services, and a fiercely individualist one may resent them.</p>
+<h3 id="debt-and-credit">Debt and credit<a class="hl" href="#debt-and-credit" aria-label="Link to this rule">#</a></h3>
+<p>A nation may spend beyond its stockpiles by borrowing, from its own people or from another nation. Every debt is written in Marks and repaid in equal instalments of principal and interest each turn, in any mix of resources at the Mark prices. Instalments are taken with upkeep; a nation that names no mix pays from its largest stockpiles first.</p>
+<p><strong>Bonds.</strong> A nation may sell bonds to its own population: it chooses an amount, a term of 2 to 10 turns and the resources it wants, and pays the bond rate its credit rating sets. It may issue at most one turn's revenue in new bonds each turn, may not borrow if its total debt would exceed three times its revenue, and may not borrow at all while its rating stands at Default.</p>
+<p><strong>Loans.</strong> Nations may lend to each other on any terms they agree: amount, interest, term, and collateral such as a system, a trade agreement or passage rights. A loan is a treaty, and its instalments pass from borrower to lender automatically each turn. A lender may forgive a debt at any time.</p>
+<p><strong>Investment.</strong> An investor may pay part or all of the cost of Development or a building in another nation's system. In return it receives a share of that system's output for a fixed number of turns, 25% for 10 turns unless the treaty says otherwise. Seizing the investment early breaks the treaty.</p>
+<p><strong>Arrears and default.</strong> A nation that cannot meet an instalment falls into arrears and loses 1 current Stability for each turn it stays there. Two missed instalments in a row, or an order to stop paying, is a default. Defaulting on a loan or an investment breaks the treaty, with the usual Stability cost; the creditor gains a casus belli; and the defaulter's credit score falls by 2 for 10 turns.</p>
+<h4 id="credit-rating">Credit rating<a class="hl" href="#credit-rating" aria-label="Link to this rule">#</a></h4>
+<p>Each turn, every nation's credit score starts at 3 and is adjusted:</p>
+<ul>
+<li>Debt at most one turn's revenue +1; more than twice its revenue −1; more than three times −2.</li>
+<li>Stability 7 or higher +1; 3 or lower −1.</li>
+<li>A default in the last 10 turns −2.</li>
+<li>Some fiscal policies, as the GM tells the nation.</li>
+</ul>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Score</th>
+<th>Rating</th>
+<th>Bond rate per turn</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>5 or more</td>
+<td>Sovereign</td>
+<td>2%</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Prime</td>
+<td>3%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Sound</td>
+<td>5%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Speculative</td>
+<td>8%</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Distressed</td>
+<td>12%</td>
+</tr>
+<tr>
+<td>0 or less</td>
+<td>Default</td>
+<td>No new bonds</td>
+</tr>
+</tbody>
+</table></div>
+<p>Ratings are public. The rating is how the galaxy judges a nation's money: a strong-currency power is simply one with a Sovereign or Prime rating, a surplus to lend, and the patience to collect.</p>
+<nav class="pager"><a class="pg prev" href="#the-economy"><small>Previous</small>The economy</a><a class="pg next" href="#worlds-and-their-toll"><small>Next</small>Worlds and their toll</a></nav></section><section class="sec" id="worlds-and-their-toll" data-title="Worlds and their toll" hidden><header class="sh"><span class="kicker">Section 09 of 16</span><h2>Worlds and their toll</h2><div class="chips"><a class="chip" href="#environments">Environments</a><a class="chip" href="#strain">Strain</a><a class="chip" href="#condition">Condition</a><a class="chip" href="#environmental-events">Environmental events</a><a class="chip" href="#sacrifice-worlds">Sacrifice worlds</a></div></header>
+<p>Industry leaves its mark. Each turn a world bears <strong>Strain</strong> from the industry on it, against its <strong>Capacity</strong> to absorb it. Strain beyond capacity accumulates as <strong>Degradation</strong>, and a degraded world produces less, unsettles its people and throws up crises. Worlds that can recover heal slowly once the pressure lifts.</p>
+<h3 id="environments">Environments<a class="hl" href="#environments" aria-label="Link to this rule">#</a></h3>
+<p>Every system's main world has an environment, learned when the system is discovered. A homeworld's environment is the one its Charter and Dossier describe. Hospitable worlds are the most fragile; worlds that are already hostile have little left to lose.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Environment</th>
+<th>Capacity</th>
+<th>Recovers</th>
+<th>Character</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Garden</td>
+<td>4</td>
+<td>Yes</td>
+<td>Temperate and alive; the rarest and most fragile</td>
+</tr>
+<tr>
+<td>Oceanic</td>
+<td>4</td>
+<td>Yes</td>
+<td>Mostly water, with a living sea</td>
+</tr>
+<tr>
+<td>Arid</td>
+<td>3</td>
+<td>Yes</td>
+<td>Desert and scrub; thin soils</td>
+</tr>
+<tr>
+<td>Frozen</td>
+<td>3</td>
+<td>Yes</td>
+<td>Ice and tundra</td>
+</tr>
+<tr>
+<td>Barren</td>
+<td>6</td>
+<td>No</td>
+<td>Airless or nearly so; rock and dust</td>
+</tr>
+<tr>
+<td>Volcanic</td>
+<td>6</td>
+<td>No</td>
+<td>Molten and restless; already hell</td>
+</tr>
+<tr>
+<td>Toxic</td>
+<td>6</td>
+<td>No</td>
+<td>Poisoned air or seas, natural or made</td>
+</tr>
+</tbody>
+</table></div>
+<p>Each Society tier above 1 adds 1 to the Capacity of every world a nation holds. A world that recovers sheds 1 Degradation each turn its Strain stays within its Capacity.</p>
+<h3 id="strain">Strain<a class="hl" href="#strain" aria-label="Link to this rule">#</a></h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Strain</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Forge or Generator designation</td>
+<td>2 per Development level</td>
+</tr>
+<tr>
+<td>Trade Hub or Fortress designation</td>
+<td>1 per Development level</td>
+</tr>
+<tr>
+<td>Academy or Civic designation</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Foundry, Power Plant or Shipyard</td>
+<td>1 each</td>
+</tr>
+<tr>
+<td>Extractor</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Capital designation</td>
+<td>½ per Development level</td>
+</tr>
+</tbody>
+</table></div>
+<p>Some fiscal policies reduce Strain across the nation. A Forge at Development 3 with a Foundry produces 7 Strain. On a Garden world it adds 3 Degradation a turn and is Strained within four turns; on a Volcanic world it adds 1.</p>
+<h3 id="condition">Condition<a class="hl" href="#condition" aria-label="Link to this rule">#</a></h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Degradation</th>
+<th>Condition</th>
+<th>Effect in that system</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0–9</td>
+<td>Clean</td>
+<td>None</td>
+</tr>
+<tr>
+<td>10–24</td>
+<td>Strained</td>
+<td>Output −10%</td>
+</tr>
+<tr>
+<td>25–49</td>
+<td>Degraded</td>
+<td>Output −25%; Development cap −1; environmental events on a 1–2</td>
+</tr>
+<tr>
+<td>50 or more</td>
+<td>Ruined</td>
+<td>Output −50%; Development cap −2; environmental events on a 1–3; the nation's Stability target −1</td>
+</tr>
+</tbody>
+</table></div>
+<p>A world already above its reduced Development cap loses the excess levels when its Condition worsens.</p>
+<p>Ruined worlds cost at most 2 Stability target between them. A ruined Garden, Oceanic, Arid or Frozen world becomes Toxic.</p>
+<p><strong>Remediation.</strong> An order may spend 2 Industry for each point of Degradation removed from a system, up to 10 points a turn.</p>
+<h3 id="environmental-events">Environmental events<a class="hl" href="#environmental-events" aria-label="Link to this rule">#</a></h3>
+<p>Each turn, every Degraded or Ruined system that is not a sacrifice world rolls a d6, and on the numbers listed above an event strikes it. The GM rolls again for the event. The nation answers in its next orders: it pays the price, or accepts the consequence.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>d6</th>
+<th>Event</th>
+<th>Pay</th>
+<th>Or accept</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Toxic bloom</td>
+<td>5 Industry</td>
+<td>The system produces nothing next turn</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Crop failure</td>
+<td>4 Energy for imports</td>
+<td>−1 current Stability</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Flight from the cities</td>
+<td>3 Influence</td>
+<td>The system loses 1 Development</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Protest movement</td>
+<td>3 Influence</td>
+<td>−1 current Stability; −2 for a Reverent species or a Sacred state</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Outbreak</td>
+<td>4 Research</td>
+<td>The system's output is halved next turn</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Collapse of a biosphere</td>
+<td>None</td>
+<td>Degradation +5</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="sacrifice-worlds">Sacrifice worlds<a class="hl" href="#sacrifice-worlds" aria-label="Link to this rule">#</a></h3>
+<p>A nation may declare any system other than its capital a <strong>sacrifice world</strong>: a world given over to industry, whatever becomes of it.</p>
+<ul>
+<li>Degradation never reduces its Industry or Energy, and it rolls no environmental events. Its Research and Influence still suffer.</li>
+<li>It still degrades, and still loses Development cap as its Condition worsens, though its ruin costs no Stability.</li>
+<li>If any of the nation's sacrifice worlds is a Garden or Oceanic world, or carries complex or intelligent life, the Stability target falls by 1, or by 2 for a Reverent species. A people may forgive the poisoning of a rock; it rarely forgives the death of a living world.</li>
+<li>Sacrificing a world inhabited by natives is an atrocity (see Infamy).</li>
+<li>The declaration stands until the world has been remediated back to Clean; only then may it be revoked.</li>
+</ul>
+<p>A Volcanic, Barren or Toxic forge world can therefore be worked to exhaustion at no cost to the nation's peace, which is what such worlds are for.</p>
+<nav class="pager"><a class="pg prev" href="#the-treasury"><small>Previous</small>The treasury</a><a class="pg next" href="#exploration-and-first-contact"><small>Next</small>Exploration and first contact</a></nav></section><section class="sec" id="exploration-and-first-contact" data-title="Exploration and first contact" hidden><header class="sh"><span class="kicker">Section 10 of 16</span><h2>Exploration and first contact</h2><div class="chips"><a class="chip" href="#discovery">Discovery</a><a class="chip" href="#contact-strategies">Contact strategies</a><a class="chip" href="#guided-ascent">Guided Ascent</a><a class="chip" href="#divine-mandate">Divine Mandate</a><a class="chip" href="#sleepers">Sleepers</a></div></header>
+<p>The galaxy is fully formed from the first turn; players uncover it rather than create it. A few systems hold intelligent species younger than any player's, and what a nation does with them is a choice of method.</p>
+<p>Faster-than-light travel follows the hyperlanes, the lines on the galactic map. Each system on the map is a single star and its worlds. The galaxy's countless other stars lie off the network, beyond reach in any useful time, which is why vast distances can separate neighbouring systems and why the lanes, and the junctions where they meet, are worth fighting for.</p>
+<h3 id="discovery">Discovery<a class="hl" href="#discovery" aria-label="Link to this rule">#</a></h3>
+<p>A system is discovered the first time any nation holds a system within 1 lane of it. Discovery reveals its class, its life, any native species with its era and traits, its strategic deposits and its feature. What is found is the same whoever finds it.</p>
+<p>Life ranges from none, through microbial and complex life, to intelligence, which is rare: perhaps one or two native species per Sector. A native species is found in one of five eras:</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Era</th>
+<th>Earth equivalent</th>
+<th>Native resistance (Ground Power)</th>
+<th>Development on joining</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hearth</td>
+<td>Primitive</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Foundation</td>
+<td>Classical</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Dominion</td>
+<td>Medieval and pre-industrial</td>
+<td>2</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Engine</td>
+<td>Industrial</td>
+<td>4</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Threshold</td>
+<td>Atomic</td>
+<td>8</td>
+<td>3</td>
+</tr>
+</tbody>
+</table></div>
+<p>A joining system's Development never exceeds its class cap.</p>
+<h3 id="contact-strategies">Contact strategies<a class="hl" href="#contact-strategies" aria-label="Link to this rule">#</a></h3>
+<p>The discovering nation may choose any strategy available for the natives' era. To resolve one, pay its cost, roll a d10 and add the modifiers; the GM applies those that come from the natives' traits. Meeting or beating the target succeeds; falling short by 3 or more backfires.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Eras</th>
+<th>Cost</th>
+<th>Target</th>
+<th>Modifiers</th>
+<th>Success</th>
+<th>Backfire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Observe</td>
+<td>Any</td>
+<td>None</td>
+<td>None</td>
+<td>None</td>
+<td>Nothing happens; another strategy may be tried later</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Divine Mandate</td>
+<td>Hearth, Foundation (Dominion at −2)</td>
+<td>10 Influence</td>
+<td>6</td>
+<td>Natives: Reverent +2, Grounded −3, Collectivist +1, Individualist −1; curious peoples resist</td>
+<td>Joins, with no Stability cost and ongoing devotion (see below)</td>
+<td>The claim is rejected: the system is closed to every strategy but Integrate for 10 turns</td>
+</tr>
+<tr>
+<td>Patronage</td>
+<td>Foundation to Engine</td>
+<td>10 Industry, 10 Influence</td>
+<td>5</td>
+<td>Natives: openness to outsiders, Collectivist +1; yours: Outward +1</td>
+<td>Joins</td>
+<td>The natives take the gifts and refuse terms</td>
+</tr>
+<tr>
+<td>Guided Ascent</td>
+<td>Hearth to Engine</td>
+<td>3 Influence per turn</td>
+<td>None</td>
+<td>Natives: curious peoples advance faster</td>
+<td>Rises one era per step while funded (see below); later Patronage or Federation at +2</td>
+<td>An Expose guidance operation by any nation ends it: the natives learn they were managed</td>
+</tr>
+<tr>
+<td>Federation</td>
+<td>Engine, Threshold</td>
+<td>20 Influence</td>
+<td>6</td>
+<td>Natives: openness to outsiders, Collectivist +1, Insular −3; yours: Democratic +1, Outward +1</td>
+<td>Joins; your Stability target +1 for 5 turns</td>
+<td>The natives arm against you: their resistance doubles</td>
+</tr>
+<tr>
+<td>Uplift</td>
+<td>Any</td>
+<td>10 Influence (Hearth), 15, 20, 25, 30 (Threshold)</td>
+<td>None</td>
+<td>Natives: cheaper for peoples open to outsiders</td>
+<td>Joins</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Integrate</td>
+<td>Any</td>
+<td>A ground battle</td>
+<td>Battle</td>
+<td>Natives: their martial strength, plus their era's resistance</td>
+<td>Joins; your Stability target −1 for 5 turns (−2 for Engine or Threshold)</td>
+<td>The battle is lost; it may be tried again</td>
+</tr>
+</tbody>
+</table></div>
+<p>A joining system arrives at its era's Development. Integrating a native world counts as an offensive war for a Pacific nation, and Federal Charter waives Integrate's Stability penalty.</p>
+<h3 id="guided-ascent">Guided Ascent<a class="hl" href="#guided-ascent" aria-label="Link to this rule">#</a></h3>
+<p>Each era takes a set number of funded turns to pass, shorter as history accelerates. A curious people takes fewer turns per step and an incurious one more, but no step takes fewer than 2.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Turns</th>
+<th>In-game years</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hearth to Foundation</td>
+<td>6</td>
+<td>30</td>
+</tr>
+<tr>
+<td>Foundation to Dominion</td>
+<td>5</td>
+<td>25</td>
+</tr>
+<tr>
+<td>Dominion to Engine</td>
+<td>4</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Engine to Threshold</td>
+<td>3</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Hearth to Threshold, in total</td>
+<td>18</td>
+<td>90</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="divine-mandate">Divine Mandate<a class="hl" href="#divine-mandate" aria-label="Link to this rule">#</a></h3>
+<p>Divine Mandate takes one of two forms, chosen when it is attempted.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Form</th>
+<th>Approach</th>
+<th>Modifier</th>
+<th>Devotion</th>
+<th>Revelation test</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Godhead</td>
+<td>The visitors present themselves as the natives' gods</td>
+<td>None; taboo for Secular nations</td>
+<td>+2 Influence a turn</td>
+<td>Required at the Engine era</td>
+</tr>
+<tr>
+<td>Heraldry</td>
+<td>The visitors present themselves as heralds of the true faith, of which the natives' beliefs are a primitive or partial understanding</td>
+<td>−1; Sacred nations only</td>
+<td>+1 Influence a turn</td>
+<td>Not required</td>
+</tr>
+</tbody>
+</table></div>
+<ul>
+<li><strong>Sanctified Advancement.</strong> A Divine Mandate system may be advanced at half the normal Uplift cost for its era. Each advancement raises it one era, and its Development to that era's level, within its cap. The faithful receive it as a gift: there is no Stability cost, and devotion continues.</li>
+<li><strong>The test of Revelation.</strong> When a Godhead system reaches the Engine era, roll Divine Mandate again with the same modifiers. On success, the faith matures and the visitors are accepted as divine patrons. On failure, the deception is seen through: devotion ends and the system revolts.</li>
+<li><strong>Why Heraldry needs no test.</strong> Godhead rests on a factual claim an advancing people can disprove. Heraldry rests on a theological claim its heralds sincerely hold. The natives join the heralds' faith, with their own tradition kept as its earliest chapter.</li>
+</ul>
+<h3 id="sleepers">Sleepers<a class="hl" href="#sleepers" aria-label="Link to this rule">#</a></h3>
+<p>Some Barren, Volcanic, Arid and Frozen worlds are not what they seem. A <strong>Sleeper</strong> is living stone on the scale of a mountain range: ancient, vast and dormant. It has never built anything, and never will unaided. A survey shows a Sleeper world as a deposit that does not behave like one, and its nature is confirmed only once a nation holds the world. A Sleeper world is settled like any other, and the Sleeper sleeps on beneath the colony until its holder decides what it is.</p>
+<ul>
+<li><strong>Awakening.</strong> Only a nation that keeps the Song of the Stone can wake a Sleeper. The song costs 8 Influence a turn for three turns; then roll a d10 + 2, needing 6. On a success, the world's Development cap rises by 1 and environmental events never strike it; an awakened Sleeper can be neither harvested nor razed. On a failure, the song must begin again.</li>
+<li><strong>Harvest.</strong> Any holder may instead mine the Sleeper's body: a single yield of 15 Lattice crystals, and the Sleeper dies. This is the killing of a people: 10 Infamy, and every nation that keeps the Song of the Stone, holds Sacred, or is Reverent gains a casus belli against the harvester.</li>
+<li><strong>Left alone,</strong> a Sleeper does nothing at all. Whether it was a god or a quarry is for its holder to decide.</li>
+</ul>
+<nav class="pager"><a class="pg prev" href="#worlds-and-their-toll"><small>Previous</small>Worlds and their toll</a><a class="pg next" href="#strategic-resources-and-great-works"><small>Next</small>Strategic resources and Great Works</a></nav></section><section class="sec" id="strategic-resources-and-great-works" data-title="Strategic resources and Great Works" hidden><header class="sh"><span class="kicker">Section 11 of 16</span><h2>Strategic resources and Great Works</h2><div class="chips"><a class="chip" href="#great-works">Great Works</a></div></header>
+<p>Six rare materials are scattered across the galaxy. They are mined, stockpiled and traded in units, and the largest ships, the highest technologies and the Great Works all consume them. A nation without them must save, trade or take.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Found in</th>
+<th>Consumed by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Adamant ore</td>
+<td>Rocky systems</td>
+<td>Cruisers, Battleships, Dreadnoughts</td>
+</tr>
+<tr>
+<td>Lattice crystals</td>
+<td>Rocky systems</td>
+<td>Battleships, Dreadnoughts, Monuments; Society and Industry Tiers 5–6</td>
+</tr>
+<tr>
+<td>Antimatter</td>
+<td>Neutron stars and pulsars</td>
+<td>Dreadnoughts; Military Tiers 5–6</td>
+</tr>
+<tr>
+<td>Volatile isotopes</td>
+<td>Gas-giant systems</td>
+<td>Dreadnought upkeep; Logistics Tiers 5–6; 1 unit gives one fleet +1 jump range for a turn</td>
+</tr>
+<tr>
+<td>Living compounds</td>
+<td>Every world with complex life</td>
+<td>2 units a turn sustain +1 Stability target, at most +1 however many are paid; the bonus lapses when payment stops</td>
+</tr>
+<tr>
+<td>Void matter</td>
+<td>Black holes and anomalies; Core only</td>
+<td>Great Works</td>
+</tr>
+</tbody>
+</table></div>
+<p>A technology at Tier 5 costs 5 units of its resource and Tier 6 costs 10, on top of its Research.</p>
+<ul>
+<li><strong>Production.</strong> A deposit system produces units each turn by its Development: none at 1, then 1, 2, 3 and 4 units at Development 2 to 5. An Extractor adds 1 more, and lets even a Barren outpost produce.</li>
+<li><strong>Distribution.</strong> Every Sector holds at least one deposit each of Adamant ore, Lattice crystals, Antimatter and Volatile isotopes.</li>
+<li><strong>Stockpiles.</strong> Units accumulate without limit, appear on the Nation Sheet, and may be traded freely. A blockade cuts any route a trade depends on.</li>
+</ul>
+<h3 id="great-works">Great Works<a class="hl" href="#great-works" aria-label="Link to this rule">#</a></h3>
+<p>A Great Work is a unique late-game project. Each nation may hold at most two, and no more than one of each kind. It is built at a system the nation holds, over several turns, with its costs paid when work begins. If the system is occupied before completion, work halts; if it is annexed, the new owner inherits it.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Great Work</th>
+<th>Requires</th>
+<th>Cost</th>
+<th>Turns</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dyson Swarm</td>
+<td>Industry Tier 5</td>
+<td>60 Industry, 6 Void matter, 4 Lattice crystals</td>
+<td>4</td>
+<td>+15 Energy per turn</td>
+</tr>
+<tr>
+<td>Grand Archive</td>
+<td>Society Tier 6</td>
+<td>50 Industry, 4 Void matter, 4 Lattice crystals</td>
+<td>4</td>
+<td>+25% Research</td>
+</tr>
+<tr>
+<td>Concord Spire</td>
+<td>Society Tier 5</td>
+<td>40 Industry, 3 Void matter, 4 Living compounds</td>
+<td>3</td>
+<td>+1 Stability target and +3 Influence per turn</td>
+</tr>
+<tr>
+<td>Gateway</td>
+<td>Logistics Tier 6</td>
+<td>50 Industry, 6 Void matter, 4 Volatile isotopes</td>
+<td>4</td>
+<td>Links two of your systems as if one lane apart, for you and those with passage rights</td>
+</tr>
+<tr>
+<td>Citadel World</td>
+<td>Military Tier 6</td>
+<td>60 Industry, 4 Void matter, 6 Adamant ore</td>
+<td>4</td>
+<td>+4 to defend the system; it cannot be occupied while any of your Ground Power remains there</td>
+</tr>
+</tbody>
+</table></div>
+<p>Great Works are optional and may be left out if the game runs without a late phase.</p>
+<nav class="pager"><a class="pg prev" href="#exploration-and-first-contact"><small>Previous</small>Exploration and first contact</a><a class="pg next" href="#technology"><small>Next</small>Technology</a></nav></section><section class="sec" id="technology" data-title="Technology" hidden><header class="sh"><span class="kicker">Section 12 of 16</span><h2>Technology</h2></header>
+<p>Technology advances in four branches of six tiers each. Costs rise steeply within a branch, so specializing is cheap and excelling at everything is not.</p>
+<p>Reaching Tier T in a branch costs 10 × T × (T − 1) Research. A nation may advance each branch by <strong>one tier per turn</strong>, in any number of branches. Costs rise 5% for each system held beyond the fifth, and Tiers 5 and 6 also consume strategic resources.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Tier</th>
+<th>Cost (Research)</th>
+<th>Cumulative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>20</td>
+<td>20</td>
+</tr>
+<tr>
+<td>3</td>
+<td>60</td>
+<td>80</td>
+</tr>
+<tr>
+<td>4</td>
+<td>120</td>
+<td>200</td>
+</tr>
+<tr>
+<td>5</td>
+<td>200 + 5 units</td>
+<td>400</td>
+</tr>
+<tr>
+<td>6</td>
+<td>300 + 10 units</td>
+<td>700</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Branch</th>
+<th>Each tier above 1</th>
+<th>Milestones</th>
+<th>Tier 5–6 resource</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Military</td>
+<td>+1 in battle per tier ahead of the enemy (maximum +3)</td>
+<td>Tier 2: Cruisers; Tier 3: Battleships, Static Defence; Tier 5: Dreadnoughts, Fleet Capacity +25%</td>
+<td>Antimatter</td>
+</tr>
+<tr>
+<td>Industry</td>
+<td>Industry and Energy output +10%</td>
+<td>Tier 4: Development costs −20%</td>
+<td>Lattice crystals</td>
+</tr>
+<tr>
+<td>Society</td>
+<td>Research and Influence output +10%; +1 Administrative Capacity</td>
+<td>Tier 3: third civic; Tier 4: Monuments; Tier 5: fourth civic</td>
+<td>Lattice crystals</td>
+</tr>
+<tr>
+<td>Logistics</td>
+<td>+1 jump range (base 3, so 8 at Tier 6)</td>
+<td>Tier 3: Sensor Arrays; Tier 4: colonize two lanes away</td>
+<td>Volatile isotopes</td>
+</tr>
+</tbody>
+</table></div>
+<p>Players describe their technology however they wish. Description has no mechanical weight, except that it may not exceed the nation's tiers or break the banned list.</p>
+<nav class="pager"><a class="pg prev" href="#strategic-resources-and-great-works"><small>Previous</small>Strategic resources and Great Works</a><a class="pg next" href="#warfare"><small>Next</small>Warfare</a></nav></section><section class="sec" id="warfare" data-title="Warfare" hidden><header class="sh"><span class="kicker">Section 13 of 16</span><h2>Warfare</h2><div class="chips"><a class="chip" href="#forces">Forces</a><a class="chip" href="#ship-categories">Ship categories</a><a class="chip" href="#movement-and-blockade">Movement and blockade</a><a class="chip" href="#casus-belli">Casus belli</a><a class="chip" href="#battle">Battle</a><a class="chip" href="#invasion">Invasion</a><a class="chip" href="#war-score-and-peace">War Score and peace</a><a class="chip" href="#the-fate-of-the-conquered">The fate of the conquered</a><a class="chip" href="#war-appetite">War appetite</a></div></header>
+<p>War is optional, fought with ships, ground forces and static defences, and decided by a d10 with capped modifiers. A war ends when the winner's War Score pays for its peace terms.</p>
+<h3 id="forces">Forces<a class="hl" href="#forces" aria-label="Link to this rule">#</a></h3>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Force</th>
+<th>Build cost</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ships</td>
+<td>By category (below)</td>
+<td>Space battles, blockades, carrying invasions</td>
+</tr>
+<tr>
+<td>Ground Power (GP)</td>
+<td>2 Industry per point</td>
+<td>Invading and holding systems</td>
+</tr>
+<tr>
+<td>Static Defence (SD)</td>
+<td>2 Industry per point (Military Tier 3)</td>
+<td>Fixed to one system; counts double when defending it</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="ship-categories">Ship categories<a class="hl" href="#ship-categories" aria-label="Link to this rule">#</a></h3>
+<p>Ships are built by category at systems with a Shipyard. Players name their own ship classes in lore; the category decides cost and strength. A ship's <strong>Fleet Power</strong> is its strength in battle; its <strong>capacity</strong> is what it costs against Fleet Capacity and upkeep.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Fleet Power</th>
+<th>Capacity</th>
+<th>Build cost</th>
+<th>Strategic resources</th>
+<th>Requires</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Escort</td>
+<td>1</td>
+<td>1</td>
+<td>3 Industry</td>
+<td>None</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Cruiser</td>
+<td>3</td>
+<td>2.5</td>
+<td>8 Industry</td>
+<td>1 Adamant ore</td>
+<td>Military Tier 2</td>
+</tr>
+<tr>
+<td>Battleship</td>
+<td>6</td>
+<td>4.5</td>
+<td>15 Industry</td>
+<td>2 Adamant ore, 1 Lattice crystals</td>
+<td>Military Tier 3; Shipyard at Development 3+</td>
+</tr>
+<tr>
+<td>Dreadnought</td>
+<td>15</td>
+<td>10</td>
+<td>35 Industry</td>
+<td>4 Adamant ore, 2 Antimatter, 1 Lattice crystals</td>
+<td>Military Tier 5; Shipyard at Development 3+</td>
+</tr>
+<tr>
+<td>Transport</td>
+<td>0</td>
+<td>0</td>
+<td>2 Industry</td>
+<td>None</td>
+<td>Carries 2 Ground Power</td>
+</tr>
+</tbody>
+</table></div>
+<p>Larger ships pack more strength into less capacity and upkeep, but only for nations with the resources to build them. Ground Power crosses lanes only aboard Transports.</p>
+<p><strong>Fleet Capacity</strong> limits a nation's total ship capacity to 5 + 2 × its total Development, adjusted by ideology, civics and technology. A nation whose ships exceed its Fleet Capacity, as when it loses systems or Development, cannot maintain them: it loses the excess at the end of the turn, smallest ships first.</p>
+<h3 id="movement-and-blockade">Movement and blockade<a class="hl" href="#movement-and-blockade" aria-label="Link to this rule">#</a></h3>
+<p>Fleets move along lanes up to the nation's jump range each turn. A fleet that enters a system held by an enemy at war, with forces present, stops and fights. A fleet in a system its nation holds may blockade it: enemy and neutral ships cannot pass through without fighting or permission.</p>
+<h3 id="casus-belli">Casus belli<a class="hl" href="#casus-belli" aria-label="Link to this rule">#</a></h3>
+<p>A war needs a casus belli, or the aggressor loses 2 more Stability. Valid grounds are: defence against attack; defence of another nation against unprovoked attack; atrocities against your citizens or against civilians elsewhere; confirmed plans of attack against you; obstruction of your travel; a claim fabricated by covert action; a broken treaty; or, for Sacred nations only, a holy war against a nation of a rival creed.</p>
+<h3 id="battle">Battle<a class="hl" href="#battle" aria-label="Link to this rule">#</a></h3>
+<p>Each side rolls a d10 and adds its modifiers, capped at +7 in total.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Modifier</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Strength ratio (Fleet Power, or Ground Power on the ground)</td>
+<td>+1 at 1.5 times the enemy, +2 at 2 times, +3 at 3 times, +4 at 4 times</td>
+</tr>
+<tr>
+<td>Military Tier ahead</td>
+<td>+1 per tier, maximum +3</td>
+</tr>
+<tr>
+<td>Defending own system</td>
+<td>+1; Fortress +2 more; Inward +1 more</td>
+</tr>
+<tr>
+<td>Species, civics and buildings</td>
+<td>As listed</td>
+</tr>
+<tr>
+<td>GM: tactics and morale</td>
+<td>−1 to +2</td>
+</tr>
+</tbody>
+</table></div>
+<p>The higher total wins; on a tie, the attacker withdraws. Each side loses a share of the forces it committed:</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Margin</th>
+<th>Loser loses</th>
+<th>Winner loses</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tie</td>
+<td>20%</td>
+<td>20%</td>
+</tr>
+<tr>
+<td>1–2</td>
+<td>30%</td>
+<td>20%</td>
+</tr>
+<tr>
+<td>3–4</td>
+<td>40%</td>
+<td>15%</td>
+</tr>
+<tr>
+<td>5–6</td>
+<td>50%</td>
+<td>10%</td>
+</tr>
+<tr>
+<td>7 or more</td>
+<td>60%</td>
+<td>5%</td>
+</tr>
+</tbody>
+</table></div>
+<p>Ship losses are spread across categories in proportion to their Fleet Power, with any remainder taken from the smallest ships first. Ground Power losses round to the nearest point. The loser retreats one jump toward its own territory.</p>
+<h3 id="invasion">Invasion<a class="hl" href="#invasion" aria-label="Link to this rule">#</a></h3>
+<p>Once a side holds a system's space, its Ground Power fights the defender's by the same procedure. If the attacker wins, the system is occupied: it produces nothing for either side until a peace treaty settles it.</p>
+<h3 id="war-score-and-peace">War Score and peace<a class="hl" href="#war-score-and-peace" aria-label="Link to this rule">#</a></h3>
+<p>Each side's War Score is +5 for each battle it has won, plus +10 per Development level of each system it currently occupies (doubled for a capital). Occupation score is lost if the system is retaken.</p>
+<p>Peace terms cost War Score. A loser must accept terms whose total cost does not exceed the winner's War Score minus its own.</p>
+<p><strong>Truce.</strong> Every peace treaty binds both sides to a truce of 10 turns, during which neither may declare war on the other. The peace spends any casus belli either held against the other, and breaking the truce is breaking a treaty.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>White peace</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Annex an occupied system</td>
+<td>15 per Development level (capital ×2)</td>
+</tr>
+<tr>
+<td>Reparations: 10 resources per turn for 5 turns</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Humiliation: loser −3 Stability</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Release a system as an independent minor power</td>
+<td>5 per Development level</td>
+</tr>
+<tr>
+<td>Vassalage: the loser pays 20% of its output, strategic resources included, and follows the winner into war</td>
+<td>30 + 2 per Development level the loser holds (25% less when Feared)</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="the-fate-of-the-conquered">The fate of the conquered<a class="hl" href="#the-fate-of-the-conquered" aria-label="Link to this rule">#</a></h3>
+<p>When a nation annexes a system through a peace treaty, it chooses one fate for that system. Each fate carries a real reward and a real cost, so the choice belongs to the victor's character rather than to a single best answer.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Fate</th>
+<th>What happens</th>
+<th>Reward</th>
+<th>Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Absorb</td>
+<td>The archives are secured and the scholars governed</td>
+<td>Research credit in each branch where the defeated nation was ahead (below)</td>
+<td>Slow; ends if the system revolts; normal annexation Stability cost</td>
+</tr>
+<tr>
+<td>Plunder</td>
+<td>Stockpiles and treasures are carried off; the world is left poorer but intact</td>
+<td>5 of each base resource per Development level, at once, plus the system's strategic units</td>
+<td>The system loses 1 Development; normal annexation Stability cost</td>
+</tr>
+<tr>
+<td>Raze</td>
+<td>The world is put to the torch</td>
+<td>10 Industry and 5 Energy per Development level, at once; no annexation Stability cost; warlike nations (appetite +2 or more) gain +1 Stability</td>
+<td>The system falls to Development 1 and loses its buildings; every other nation gains an atrocity casus belli against you</td>
+</tr>
+<tr>
+<td>Clemency</td>
+<td>The conquered are spared and governed lightly</td>
+<td>No annexation Stability cost; the system cannot revolt for 5 turns; Stability target +1 for 3 turns</td>
+<td>No immediate gain</td>
+</tr>
+<tr>
+<td>Convert</td>
+<td>The conquered are brought into the faith (Sacred nations only)</td>
+<td>As Clemency, plus +1 Influence a turn from devotion</td>
+<td>No immediate gain; a Grounded people's revolt protection lasts only 2 turns</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Absorb in detail.</strong> For each branch where the defeated nation is ahead, the conqueror gains Research credit toward its next tier in that branch:</p>
+<ul>
+<li>5 × the system's Development, doubled if it holds an Academy designation or a Research Institute.</li>
+<li>Annexing the defeated nation's capital instead grants half the cost of the next tier in each such branch.</li>
+<li>The credit arrives in equal parts over 3 turns, and stops if the system revolts.</li>
+<li>It can never raise the conqueror above the defeated nation's own tier, and Tiers 5–6 still need their strategic resources.</li>
+<li>Federal Charter gives +50%; Inward nations take −50%.</li>
+</ul>
+<p><strong>Burning the archives.</strong> Before a peace treaty is signed, the defender may burn the archives of any system it is about to cede, at a cost of 1 Stability. Absorb is then unavailable for that system, and the conqueror must choose another fate.</p>
+<h3 id="war-appetite">War appetite<a class="hl" href="#war-appetite" aria-label="Link to this rule">#</a></h3>
+<p>Not every people finds peace natural. A nation's war appetite sets how its Stability responds to war and to peace. It is the total of the sources below, capped at ±3.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Appetite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Martial: Leaning / Fervent</td>
+<td>+1 / +2</td>
+</tr>
+<tr>
+<td>Pacific: Leaning / Fervent</td>
+<td>−1 / −2</td>
+</tr>
+<tr>
+<td>Hardy</td>
+<td>+1</td>
+</tr>
+<tr>
+<td>Fragile</td>
+<td>−1</td>
+</tr>
+<tr>
+<td>Warrior Culture</td>
+<td>+1</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Appetite</th>
+<th>While at war</th>
+<th>War exhaustion begins</th>
+<th>After 6 turns of unbroken peace</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+2 or more: warlike</td>
+<td>Stability target +1</td>
+<td>Turn 8</td>
+<td>Stability target −1: restless</td>
+</tr>
+<tr>
+<td>+1</td>
+<td>No change</td>
+<td>Turn 6</td>
+<td>No change</td>
+</tr>
+<tr>
+<td>0</td>
+<td>No change</td>
+<td>Turn 5</td>
+<td>No change</td>
+</tr>
+<tr>
+<td>−1</td>
+<td>No change</td>
+<td>Turn 4</td>
+<td>No change</td>
+</tr>
+<tr>
+<td>−2 or less: peaceable</td>
+<td>Stability target −1</td>
+<td>Turn 3</td>
+<td>Stability target +1: content</td>
+</tr>
+</tbody>
+</table></div>
+<p>Once war exhaustion begins, a nation's Stability stops recovering toward its target and falls by 1 each turn the war continues. A warlike people whose appetite has a peacetime outlet may not grow restless at all. Appetite governs the condition of war and peace; taboos govern particular acts.</p>
+<p>Mercenary service is one such outlet: while a nation's forces serve abroad under contract, it does not grow restless (see Partnerships).</p>
+<nav class="pager"><a class="pg prev" href="#technology"><small>Previous</small>Technology</a><a class="pg next" href="#covert-action-and-diplomacy"><small>Next</small>Covert action and diplomacy</a></nav></section><section class="sec" id="covert-action-and-diplomacy" data-title="Covert action and diplomacy" hidden><header class="sh"><span class="kicker">Section 14 of 16</span><h2>Covert action and diplomacy</h2><div class="chips"><a class="chip" href="#covert-action">Covert action</a><a class="chip" href="#diplomacy">Diplomacy</a><a class="chip" href="#partnerships">Partnerships</a></div></header>
+<p>Covert operations are posted privately and rolled by the GM. Treaties are posted publicly and bind the Stability of whoever breaks them.</p>
+<h3 id="covert-action">Covert action<a class="hl" href="#covert-action" aria-label="Link to this rule">#</a></h3>
+<p>The acting nation and the target each roll a d10 and add their modifiers, capped at +5. The acting nation succeeds if its total is higher. If it fails by 3 or more, it is exposed and the target gains a casus belli against it.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Modifier</th>
+<th>Applies to</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Society Tier ahead</td>
+<td>Either side</td>
+<td>+1 per tier, maximum +3</td>
+</tr>
+<tr>
+<td>Espionage Directorate</td>
+<td>Either side</td>
+<td>+2</td>
+</tr>
+<tr>
+<td>Psionic Tradition</td>
+<td>Either side</td>
+<td>+1, not against Psionic-Resistant species</td>
+</tr>
+<tr>
+<td>Inward</td>
+<td>Target</td>
+<td>+1</td>
+</tr>
+<tr>
+<td>Dictatorial government or Federal Charter</td>
+<td>Target</td>
+<td>+1 to the acting nation</td>
+</tr>
+<tr>
+<td>Species profile</td>
+<td>Either side</td>
+<td>As the GM applies it</td>
+</tr>
+<tr>
+<td>GM: strategy</td>
+<td>Acting nation</td>
+<td>−1 to +2</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Cost</th>
+<th>Effect on success</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gather intelligence</td>
+<td>3 Influence</td>
+<td>See the target's full Nation Sheet</td>
+</tr>
+<tr>
+<td>Sabotage</td>
+<td>6 Influence</td>
+<td>One target system loses 1 Development</td>
+</tr>
+<tr>
+<td>Incite unrest</td>
+<td>3 Influence</td>
+<td>The target's Stability target falls by 1 for 3 turns</td>
+</tr>
+<tr>
+<td>Steal technology</td>
+<td>5 Influence per tier stolen toward</td>
+<td>Gain Research equal to 25% of the next tier in a branch where the target is ahead</td>
+</tr>
+<tr>
+<td>Fabricate claim</td>
+<td>3 Influence</td>
+<td>Gain a casus belli against the target, usable from the next turn</td>
+</tr>
+<tr>
+<td>Expose guidance</td>
+<td>3 Influence</td>
+<td>Ends the target's Guided Ascent of a native species, which learns it was managed</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Limits.</strong> A nation may run at most one operation against each target per turn. Incite unrest does not stack: a nation already under it cannot be incited again until it ends.</p>
+<h3 id="diplomacy">Diplomacy<a class="hl" href="#diplomacy" aria-label="Link to this rule">#</a></h3>
+<p>Treaties are posted in the public diplomacy channel and take effect at the start of the next turn.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Treaty</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Non-aggression pact</td>
+<td>Neither side may declare war on the other</td>
+</tr>
+<tr>
+<td>Trade agreement</td>
+<td>Both gain +5% output (see Trade)</td>
+</tr>
+<tr>
+<td>Passage rights</td>
+<td>Fleets may cross each other's systems</td>
+</tr>
+<tr>
+<td>Intelligence sharing</td>
+<td>Each sees what the other's Sensor Arrays see</td>
+</tr>
+<tr>
+<td>Defensive pact</td>
+<td>Each joins any war in which the other is attacked</td>
+</tr>
+<tr>
+<td>Alliance</td>
+<td>Each joins the other's wars; War Score is shared</td>
+</tr>
+<tr>
+<td>Vassalage</td>
+<td>The vassal pays 20% of its output and follows its overlord into war; its Fleet Power may not exceed half its overlord's</td>
+</tr>
+<tr>
+<td>Loan</td>
+<td>The lender pays now; the borrower repays in instalments on the agreed terms (see Debt and credit)</td>
+</tr>
+<tr>
+<td>Investment</td>
+<td>The investor funds Development or a building in the host's system for a share of its output (see Debt and credit)</td>
+</tr>
+</tbody>
+</table></div>
+<p>Breaking a treaty costs the breaker 2 Stability (more under Sacred or Espionage Directorate) and gives the other party a casus belli.</p>
+<h3 id="partnerships">Partnerships<a class="hl" href="#partnerships" aria-label="Link to this rule">#</a></h3>
+<p>Nations need not be alike to be useful to one another. Four kinds of partnership let a people sell what it does best: its knowledge, its craft or its swords. Each is a treaty, agreed in #diplomacy like any other, and each ends at war between the parties.</p>
+<p><strong>Technology pacts.</strong> Two nations that already share a trade agreement or a defensive pact may sign a technology pact if each leads the other in at least one branch. While it holds, each pays 25% less Research for any tier its partner has already reached, and each gains Research +5% from the exchange of scholars. A nation may hold at most two technology pacts.</p>
+<p><strong>Signature works.</strong> Some works can be raised only by a people that has lived with stone or sea for its whole history. Each takes a building slot, and a system may hold only one signature work.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Work</th>
+<th>Expertise</th>
+<th>Where</th>
+<th>Effect</th>
+<th>Industry</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Core Tap</td>
+<td>Subterranean</td>
+<td>Any world but Oceanic, Development 2 or more</td>
+<td>Energy + its Development each turn; adds no Strain</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Deep Bastion</td>
+<td>Subterranean</td>
+<td>Any world</td>
+<td>Defenders +2 in ground battle</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Underway</td>
+<td>Subterranean</td>
+<td>Any world but Oceanic</td>
+<td>Development there costs 25% less</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Abyssal Forge</td>
+<td>Aquatic</td>
+<td>Oceanic world</td>
+<td>Industry +2 and 1 Adamant ore each turn</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Sea-City</td>
+<td>Aquatic</td>
+<td>Oceanic world</td>
+<td>Development cap +1 (never above 5)</td>
+<td>20</td>
+</tr>
+<tr>
+<td>Brine Refinery</td>
+<td>Aquatic</td>
+<td>Oceanic world</td>
+<td>1 Living compounds each turn</td>
+<td>15</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Expertise.</strong> A nation has a habitat's expertise if its own species has that habitat, or if it governs a people that does. Some native peoples are themselves Aquatic or Subterranean, and a conquered nation's people carry their habitat with them. A governed people lends its expertise once its world has been held for 5 turns, while that world is not in revolt and the nation is not in Unrest. Conquered peoples given Clemency, Absorbed, Converted or Transformed keep their skills; a people Plundered or Razed is broken, and its expertise is lost for good. When a nation loses its expertise, the works it raised for itself go dark until it recovers it.</p>
+<p><strong>Works contracts.</strong> A nation without the expertise may hire one that has it. The client pays the work's Industry cost, plus 20% of it to the builder at signing, and 2 Influence a turn (or 2 Industry) for the builder's crews. The work goes dark, yielding nothing, while the contract is broken: by war between the parties, an unpaid fee, or the builder's fall or loss of its expertise. Another builder with the same expertise may take over a dark work. A nation that keeps the Song of the Stone may likewise be hired to wake a Sleeper on another's world: the client pays the 8 Influence a turn to the singers, and the roll is the same.</p>
+<p><strong>Mercenary service.</strong> A people with war appetite of +2 or more breeds mercenary companies. Contracts are made with the companies, not with their government, so a nation's companies may serve any employer, several at once, and even both sides of one war.</p>
+<ul>
+<li><strong>Size and pay.</strong> Each company is up to 20% of its nation's Fleet Power, and all of a nation's companies together may not exceed 40%. A client may hire at most two companies at a time. The client pays 0.5 Industry (or Influence) per point of Fleet Power each turn.</li>
+<li><strong>In battle.</strong> The hired ships fight in the client's battles and count toward its Fleet Power. Losses fall on their owner in proportion.</li>
+<li><strong>Not a party.</strong> The home nation is not a party to the war: it gains no War Score and no conquests, its treaties are not broken by its companies' service, and the client's enemies gain no casus belli against it.</li>
+<li><strong>Limits.</strong> No company may be hired against its own nation, its overlord or its vassals. All its companies come home when the nation itself goes to war.</li>
+<li><strong>Duration.</strong> A contract lasts until the client's war ends, at most 8 turns, and ends early if the fee goes unpaid. A company that withdraws mid-contract counts as breaking a treaty.</li>
+<li><strong>The home government</strong> may license its companies, as a fiscal line, or forbid service altogether.</li>
+<li><strong>Infamy.</strong> Serving a client with Infamy of 10 or more costs the home nation 1 Infamy for every 5 turns of service.</li>
+</ul>
+<p><strong>Kin against kin.</strong> When companies of the same people meet on opposite sides of a battle, they may refuse to fight each other. If they refuse, neither adds anything to that battle. Refusal is not a breach of contract. A Dossier that describes a people's customs on the matter may claim a different place on the table, as a coherence entry.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>The people</th>
+<th>Chance its companies refuse to fight their kin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Collective government</td>
+<td>Always (a hive cannot fight itself)</td>
+</tr>
+<tr>
+<td>Collectivist</td>
+<td>70%</td>
+</tr>
+<tr>
+<td>Neither disposition</td>
+<td>50%</td>
+</tr>
+<tr>
+<td>Individualist</td>
+<td>20%</td>
+</tr>
+<tr>
+<td>Individualist with Warrior Culture</td>
+<td>Never</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Leases.</strong> A nation may lease a system to another, which governs it in the lessor's name. The lessor keeps sovereignty; the lessee takes the administration.</p>
+<ul>
+<li><strong>Term.</strong> A fixed number of turns, or indefinite. Either party may end an indefinite lease by giving 5 turns' notice, without breaking a treaty. The system reverts to the lessor when the lease ends.</li>
+<li><strong>Payment.</strong> Any terms the parties write. The standard forms are:</li>
+<li><em>Rent:</em> a fee each turn.</li>
+<li><em>Extraction rights:</em> the lessor takes the system's strategic resources.</li>
+<li><em>Rent and extraction together.</em></li>
+<li><em>Shared:</em> the system's output and its strategic resources are split 50/50. Rent that goes unpaid ends the lease.</li>
+<li><strong>Governance.</strong> The leased system counts against the lessee's Administrative Capacity, not the lessor's. The lessee sets its designation and builds in it, and its revolts and Stability effects fall on the lessee. The world is defended and attacked as the lessee's, and its people count as governed by the lessee. Development and buildings the lessee adds stay with the system when it reverts.</li>
+<li><strong>War and change.</strong> War between lessor and lessee ends the lease at once: the system returns to the lessor's sovereignty, occupied by the lessee's forces. If a third power takes the world, the lease is void. If the lessor is eliminated, the lessee gains the world outright. If the lessee is eliminated, it reverts to the lessor.</li>
+</ul>
+<p>A conqueror that takes more than it can govern may lease its gains to a nation that governs better, and both prosper: one expands, the other consolidates.</p>
+<nav class="pager"><a class="pg prev" href="#warfare"><small>Previous</small>Warfare</a><a class="pg next" href="#reputation"><small>Next</small>Reputation</a></nav></section><section class="sec" id="reputation" data-title="Reputation" hidden><header class="sh"><span class="kicker">Section 15 of 16</span><h2>Reputation</h2><div class="chips"><a class="chip" href="#renown">Renown</a><a class="chip" href="#infamy-and-dread">Infamy and dread</a></div></header>
+<p>Two public measures record how the galaxy sees a nation: Renown for what it has made, Infamy for what it has done.</p>
+<h3 id="renown">Renown<a class="hl" href="#renown" aria-label="Link to this rule">#</a></h3>
+<p><strong>Renown</strong> is the regard in which a civilization's culture is held across the galaxy: its arts and letters, its faith, and the works it leaves behind. A nation's Renown and standing are public; what earned them is not.</p>
+<p>Renown comes from five sources, and they add together:</p>
+<ol>
+<li><strong>The Dossier.</strong> The GM scores five cultural sections of a designed civilization's Dossier: arts and letters, language and names, faith and philosophy, society and daily life, and insignia and heraldry. Each scores 0 to 3 for depth, coherence and distinctiveness, up to 15 Renown in all. Length alone earns nothing. An invented faith with doctrine, clergy and rites is judged under faith and philosophy. A revised Dossier may be re-scored once every 10 turns.</li>
+<li><strong>Works made in play.</strong> A nation may post an in-world work: a poem, an anthem, a treatise, a building's design, a national epic. The GM awards 1 to 3 Renown for it, at most one award per nation each turn, and each award lasts 20 turns. Works count for at most 15 Renown at any one time. A culture must keep producing to stay admired. This is also the road to Renown for a civilization founded at random.</li>
+<li><strong>Monuments:</strong> +2 Renown each.</li>
+<li><strong>Great Works:</strong> +5 Renown each.</li>
+<li><strong>Policy:</strong> some fiscal policies (see The fiscal code).</li>
+</ol>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Renown</th>
+<th>Standing</th>
+<th>Effect (each includes those above it)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0–4</td>
+<td>Obscure</td>
+<td>None</td>
+</tr>
+<tr>
+<td>5–9</td>
+<td>Known</td>
+<td>Contact strategies with natives +1</td>
+</tr>
+<tr>
+<td>10–19</td>
+<td>Admired</td>
+<td>Covert actions against the nation −1; integrating a system costs 1 less Stability</td>
+</tr>
+<tr>
+<td>20–29</td>
+<td>Celebrated</td>
+<td>Influence +10%; a revolting system of another nation within 2 jumps of its territory may defect to it rather than declare independence</td>
+</tr>
+<tr>
+<td>30 or more</td>
+<td>Illustrious</td>
+<td>Stability target +1; Infamy decays 1 faster</td>
+</tr>
+</tbody>
+</table></div>
+<h3 id="infamy-and-dread">Infamy and dread<a class="hl" href="#infamy-and-dread" aria-label="Link to this rule">#</a></h3>
+<p><strong>Infamy</strong> is the galaxy's memory of a nation's misdeeds. It is long, but not endless: Infamy falls by 1 each turn, faster under some fiscal policies or at Illustrious Renown. An act committed in secret earns Infamy only when it is exposed.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Act</th>
+<th>Infamy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>War declared without a casus belli</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Treaty broken</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Debt defaulted</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Covert action exposed</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Assassination or sabotage exposed</td>
+<td>3</td>
+</tr>
+<tr>
+<td>System razed</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Native civilization conquered by force</td>
+<td>5</td>
+</tr>
+<tr>
+<td>Native civilization exterminated</td>
+<td>15</td>
+</tr>
+<tr>
+<td>Inhabited world made a sacrifice world</td>
+<td>10</td>
+</tr>
+<tr>
+<td>Another nation's world ruined by bombardment</td>
+<td>4</td>
+</tr>
+<tr>
+<td>Prisoners or civilians massacred</td>
+<td>8</td>
+</tr>
+<tr>
+<td>A conquered people transformed against its will</td>
+<td>10</td>
+</tr>
+</tbody>
+</table></div>
+<p>The GM rates acts the table does not list by comparison with those it does.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Infamy</th>
+<th>Standing</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0–9</td>
+<td>Reputable</td>
+<td>None</td>
+</tr>
+<tr>
+<td>10–24</td>
+<td>Notorious</td>
+<td>Other nations need no casus belli against it; each new trade agreement costs it 2 Influence; credit score −1</td>
+</tr>
+<tr>
+<td>25 or more</td>
+<td>Pariah</td>
+<td>As Notorious, and any nations may wage war on it together with a shared War Score, breaking treaties with it at no Stability cost; Stability target −1 if Leaning Pacific, −2 if Fervent Pacific</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Dread</strong> is Infamy weighted by strength: a nation's Infamy multiplied by its Fleet Power and Ground Power, divided by the galactic average of the same. A wicked, weak state is merely despised. A nation with Dread of 15 or more is <strong>Feared</strong>: in its peace terms, tribute and vassalage cost 25% less War Score, and nations within 3 jumps with smaller forces have one step less war appetite against it.</p>
+<p>The Galactic Standings rank the most Renowned and the most Dreaded each turn. Players may treat either as a warning or as an ambition.</p>
+<nav class="pager"><a class="pg prev" href="#covert-action-and-diplomacy"><small>Previous</small>Covert action and diplomacy</a><a class="pg next" href="#occasional-players"><small>Next</small>Occasional players</a></nav></section><section class="sec" id="occasional-players" data-title="Occasional players" hidden><header class="sh"><span class="kicker">Section 16 of 16</span><h2>Occasional players</h2><div class="chips"><a class="chip" href="#caretaker">Caretaker</a><a class="chip" href="#random-founding">Random Founding</a></div></header>
+<p>Two provisions let players who post irregularly take part without holding the game back: Caretaker status and Random Founding.</p>
+<h3 id="caretaker">Caretaker<a class="hl" href="#caretaker" aria-label="Link to this rule">#</a></h3>
+<p>A nation whose player misses a turn enters Caretaker status automatically, and leaves it the next turn its player submits orders.</p>
+<ul>
+<li>Income is banked at 50%; upkeep is still paid.</li>
+<li>No colonization, Development, construction, research, contact or covert action.</li>
+<li>Fleets hold position and defend; treaties remain in force.</li>
+<li>The nation's own systems gain +2 in defence, and its capital cannot be occupied. Its other systems can still be attacked and taken.</li>
+</ul>
+<p>After six consecutive Caretaker turns, the nation becomes a GM-run independent power. The player may reclaim it on return, at the GM's discretion, with whatever it still holds.</p>
+<h3 id="random-founding">Random Founding<a class="hl" href="#random-founding" aria-label="Link to this rule">#</a></h3>
+<p>A player who would rather not design a civilization may ask the GM to roll one, accepting whatever the dice produce.</p>
+<ol>
+<li><strong>The GM rolls each element in order:</strong> ideology, dispositions, traits, Government Type, then civics, choosing only among options still legal.</li>
+<li><strong>Clashes stand.</strong> A legal but incoherent combination is kept as rolled.</li>
+<li><strong>One reroll.</strong> The player may then reroll any single element.</li>
+<li><strong>Coherence is deferred.</strong> The GM writes a one-paragraph founding sketch, and the player has until the end of their fifth turn to explain any clashes, in character.</li>
+</ol>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>d6</th>
+<th>Ideology position on each axis</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Fervent toward the first pole</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Leaning toward the first pole</td>
+</tr>
+<tr>
+<td>3–4</td>
+<td>Neutral</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Leaning toward the second pole</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Fervent toward the second pole</td>
+</tr>
+</tbody>
+</table></div>
+<p>A third Fervent result is rerolled. Traits are rolled one at a time from those the species can still afford until its 4 points are spent. Each disposition pair is rolled on a d6: 1–2 the first, 3–4 neither, 5–6 the second.</p><nav class="pager"><a class="pg prev" href="#reputation"><small>Previous</small>Reputation</a><span></span></nav></section>
+    <div class="results" id="results" aria-live="polite"></div>
+  </div>
+</main>
+<button class="totop" id="totop" aria-label="Back to top">↑</button>
+<script>
+(function(){
+  var secs=[].slice.call(document.querySelectorAll('.sec')), home=document.getElementById('home'),
+      navItems=[].slice.call(document.querySelectorAll('.ns')), cur=document.getElementById('cur'), shown=null;
+  function sectionOf(el){while(el&&!(el.classList&&el.classList.contains('sec')))el=el.parentNode;return el}
+  function setNav(id){navItems.forEach(function(n){var on=n.dataset.sec===id;n.classList.toggle('on',on);if(on){n.classList.add('open');var t=n.querySelector('.tg');if(t)t.setAttribute('aria-expanded','true')}})}
+  function show(sec){
+    if(shown===sec)return;
+    secs.forEach(function(s){s.hidden=s!==sec});home.hidden=!!sec;shown=sec;
+    setNav(sec?sec.id:null);cur.textContent=sec?sec.dataset.title:'';
+    document.title=(sec?sec.dataset.title+' · ':'')+'Starverse Infinitas — Rules of Play';
+  }
+  function route(flash){
+    document.body.classList.remove('menu');
+    var id=decodeURIComponent(location.hash.slice(1)), el=id&&document.getElementById(id);
+    if(!el||el.id==='q'){show(null);scrollTo(0,0);return}
+    var sec=sectionOf(el);if(!sec){show(null);return}
+    var changed=shown!==sec;show(sec);
+    if(el===sec){scrollTo({top:0,behavior:'instant'})}else{requestAnimationFrame(function(){el.scrollIntoView({behavior:changed?'instant':'smooth',block:'start'});if(flash){el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash')}})}
+    var subs=document.querySelectorAll('.subs a');for(var i=0;i<subs.length;i++)subs[i].classList.toggle('on',subs[i].getAttribute('href')==='#'+id);
+  }
+  window.addEventListener('hashchange',function(){route(true)});
+  document.querySelectorAll('.tg').forEach(function(b){b.addEventListener('click',function(){var li=b.closest('.ns'),o=!li.classList.contains('open');li.classList.toggle('open',o);b.setAttribute('aria-expanded',o)})});
+  document.getElementById('menu').addEventListener('click',function(){document.body.classList.add('menu')});
+  document.getElementById('scrim').addEventListener('click',function(){document.body.classList.remove('menu')});
+  var top=document.getElementById('totop');
+  addEventListener('scroll',function(){top.classList.toggle('show',scrollY>600)},{passive:true});
+  top.addEventListener('click',function(){scrollTo({top:0,behavior:'smooth'})});
+
+  // search
+  var idx=[],n=0;
+  secs.forEach(function(s){s.querySelectorAll('p,li,tr,h3,h4,pre').forEach(function(el){
+    if(el.closest('.pager')||el.closest('.chips'))return; if(el.tagName==='P'&&el.closest('li'))return;
+    if(!el.id)el.id='r'+(++n);
+    var h=null,p=el;while(p&&p!==s){var q=p.previousElementSibling;while(q){if(/^H[34]$/.test(q.tagName)){h=q;break}q=q.previousElementSibling}if(h)break;p=p.parentElement}
+    idx.push({el:el,sec:s,head:/^H[34]$/.test(el.tagName)?null:h,text:el.textContent.replace(/\s+/g,' ').replace(/#$/,'').trim()})})});
+  var q=document.getElementById('q'),res=document.getElementById('results'),t;
+  function esc(s){return s.replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function search(){
+    var v=q.value.trim();
+    if(v.length<2){document.body.classList.remove('searching');res.innerHTML='';return}
+    var words=v.toLowerCase().split(/\s+/),hits=[];
+    for(var i=0;i<idx.length&&hits.length<60;i++){var tx=idx[i].text.toLowerCase();if(words.every(function(w){return tx.indexOf(w)>-1}))hits.push(idx[i])}
+    var re=new RegExp('('+words.map(function(w){return w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}).join('|')+')','gi');
+    var out='<h2>'+hits.length+(hits.length===60?'+':'')+' result'+(hits.length===1?'':'s')+' for “'+esc(v)+'”</h2>';
+    if(!hits.length)out+='<p class="none">Nothing matches. Try fewer or different words.</p>';
+    hits.forEach(function(h){var tx=h.text,k=tx.toLowerCase().indexOf(words[0]),a=Math.max(0,k-90),snip=(a?'…':'')+tx.slice(a,a+260)+(tx.length>a+260?'…':'');
+      out+='<a class="res" href="#'+h.el.id+'"><span class="where">'+esc(h.sec.dataset.title)+(h.head?' › '+esc(h.head.textContent.replace(/#$/,'')):'')+'</span>'+esc(snip).replace(re,'<mark>$1</mark>')+'</a>'});
+    res.innerHTML=out;document.body.classList.add('searching');scrollTo(0,0);
+  }
+  q.addEventListener('input',function(){clearTimeout(t);t=setTimeout(search,120)});
+  res.addEventListener('click',function(e){var a=e.target.closest('.res');if(!a)return;q.value='';document.body.classList.remove('searching');var h=a.getAttribute('href');if(location.hash===h){route(true);e.preventDefault()}});
+  document.addEventListener('keydown',function(e){if(e.key==='/'&&document.activeElement!==q){e.preventDefault();document.body.classList.add('menu');q.focus()}if(e.key==='Escape'){q.value='';search();document.body.classList.remove('menu')}});
+  route(false);
+})();
+</script>
+</body>
+</html>
