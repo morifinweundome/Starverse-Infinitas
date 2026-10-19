@@ -38,8 +38,9 @@ body[data-view=menu] #shade{opacity:1;background:linear-gradient(90deg,rgba(3,5,
 /* menu */
 #menu{top:0;bottom:0;left:0;width:min(560px,100%);padding:clamp(28px,7vh,72px) clamp(24px,5vw,64px) 28px;display:flex;flex-direction:column;transform:translateX(-18px)}
 #menu.on{transform:none}
-#menu .mark{width:min(330px,70vw);height:auto;margin-bottom:6px}
-#menu .tag{color:var(--steel);letter-spacing:.32em;text-transform:uppercase;font-size:11px;font-weight:700;margin:0 0 clamp(20px,5vh,48px)}
+#menu .brandbox{width:min(330px,70vw);text-align:center;margin-bottom:clamp(20px,5vh,48px)}
+#menu .mark{width:100%;height:auto;display:block;margin-bottom:6px}
+#menu .tag{color:var(--steel);letter-spacing:.32em;text-transform:uppercase;font-size:11px;font-weight:700;margin:0;padding-left:.32em}
 #menu ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:clamp(4px,1.2vh,12px)}
 .item{display:block;width:100%;text-align:left;background:none;border:0;padding:10px 0 10px 18px;position:relative;transition:transform .25s ease}
 .item::before{content:"";position:absolute;left:0;top:14px;bottom:14px;width:2px;border-radius:2px;background:linear-gradient(var(--steel),transparent);opacity:0;transition:opacity .25s}
@@ -68,7 +69,7 @@ body[data-view=title] .si-snd{display:none}
 @media (max-width:760px){
   body[data-view=menu] #shade{background:linear-gradient(180deg,rgba(3,5,10,.9),rgba(3,5,10,.82) 60%,rgba(3,5,10,.6))}
   #menu{width:100%;padding:72px 22px 22px}
-  #menu .mark{width:230px}
+  #menu .brandbox{width:230px}
   .item{padding:8px 0 8px 14px}
   .item span{font-size:12.5px}
   #bar{padding-right:66px;gap:10px}
@@ -93,8 +94,7 @@ body[data-view=title] .si-snd{display:none}
 </section>
 
 <nav id="menu" class="layer" aria-label="Main menu">
-  <img class="mark" src="assets/wordmark.png" alt="Starverse Infinitas" width="1000" height="235">
-  <p class="tag">The Infinitas Galaxy</p>
+  <div class="brandbox"><img class="mark" src="assets/wordmark.png" alt="Starverse Infinitas" width="1000" height="235"><p class="tag">The Infinitas Galaxy</p></div>
   <ul>
     <li><button class="item" data-go="map"><b>Star Map</b><span>Charted space, the hyperlanes and the spheres of the powers</span></button></li>
     <li><button class="item" data-go="standings"><b>Galactic Standings</b><span>The great powers ranked, treaties in force, the contracts board</span></button></li>
