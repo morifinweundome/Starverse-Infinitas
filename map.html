@@ -129,7 +129,7 @@ a{color:var(--steel)}
   </div>
   <div class="lbl">Highlight</div>
   <div class="row" id="filters"></div>
-  <div id="hint">Drag to turn · scroll or pinch to zoom · click a star</div>
+  <div id="hint">Drag to turn · scroll or pinch to zoom in until system IDs appear · click a star</div>
 </div>
 
 <div id="legend" class="ui glass">
@@ -378,7 +378,7 @@ function buildLabels() {
     addLab(name === 'Core' ? 'THE CORE' : 'SECTOR ' + name, out, 'sector', null);
   });
   SYS.forEach(s => {
-    const text = s.name || (MODE === 'gm' ? s.id : (s.owner ? s.id : ''));
+    const text = s.name ? `${s.name} · ${s.id}` : s.id;
     if (text) addLab(text, s.pos, 'sys', s);
   });
 }
@@ -456,7 +456,7 @@ function card(s) {
     <div class="own">${s.owner ? `<span class="sw" style="background:${s.colour};color:${s.colour}"></span>Held by ${esc(s.owner)}` : '<span style="color:var(--muted)">Unclaimed</span>'}</div>
     ${tags.length ? `<div class="tags">${tags.join('')}</div>` : ''}
     ${body}${gm}
-    <div class="sec"><h4>Hyperlanes · ${s.adj.length}</h4>${s.adj.map(a => { const t = byId.get(a); return `<button class="jump" data-id="${esc(a)}">${esc(t.name || a)}</button>`; }).join('')}</div>`;
+    <div class="sec"><h4>Hyperlanes · ${s.adj.length}</h4>${s.adj.map(a => { const t = byId.get(a); return `<button class="jump" data-id="${esc(a)}">${t.name ? esc(t.name) + ' · ' : ''}${esc(a)}</button>`; }).join('')}</div>`;
   $('#card').classList.add('on');
   $('#card .x').onclick = closeCard;
   $('#card').querySelectorAll('.jump').forEach(b => b.onclick = () => select(b.dataset.id));
