@@ -26,7 +26,8 @@ a{color:var(--steel)}
 #brand .sub{display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:10.5px;letter-spacing:.28em;color:var(--steel);font-weight:700}
 #brand .mode{font-size:10px;letter-spacing:.14em;padding:2px 7px;border-radius:999px;border:1px solid var(--line);color:var(--chrome)}
 #brand .mode.gm{border-color:#8a6a2a;color:var(--gold)}
-#status{margin-top:8px;font-size:11.5px;color:var(--muted);display:flex;gap:6px;align-items:center;letter-spacing:.02em}
+.srow{display:flex;align-items:center;gap:8px;margin-top:8px}.srow #status{flex:1;min-width:0}#snd:empty{display:none}
+#status{font-size:11.5px;color:var(--muted);display:flex;gap:6px;align-items:center;letter-spacing:.02em}
 #status .dot{width:7px;height:7px;border-radius:50%;background:#4a6280;flex:none}
 #status.live .dot{background:#5FD38D;box-shadow:0 0 8px #5FD38D}
 #status.warn .dot{background:var(--gold)}
@@ -109,7 +110,7 @@ a{color:var(--steel)}
 <div id="brand" class="ui glass">
   <img src="assets/wordmark.png" alt="Starverse Infinitas">
   <div class="sub"><span>STAR MAP</span><span class="mode ">CHARTED SPACE</span></div>
-  <div id="status"><span class="dot"></span><span id="statusText">Reading the stars…</span></div>
+  <div class="srow"><div id="status"><span class="dot"></span><span id="statusText">Reading the stars…</span></div><div id="snd"></div></div>
   <div id="back"><a href="./" target="si-rules">Rules</a> · <a href="standings.html" target="si-standings">Standings</a> · <a href="archives.html" target="si-archives">Archives</a> · <a href="herald.html" target="si-herald">Herald</a></div>
 </div>
 
@@ -149,6 +150,7 @@ a{color:var(--steel)}
 
 <div id="veil"><img src="assets/wordmark.png" alt="Starverse Infinitas"><p>Star map</p><div class="msg" id="veilMsg"></div></div>
 
+<script src="assets/sound.js"></script>
 <script type="module">
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -560,7 +562,7 @@ $('#search').addEventListener('keydown', e => {
 });
 
 /* picking */
-const ray = new THREE.Raycaster(); const mouse = new THREE.Vector2(); let down = null;
+const ray = new THREE.Raycaster(); const mouse = new THREE.Vector2(); let down = null, hoverId = null;
 function pick(ev) {
   if (!layers.stars) return null;
   mouse.set(ev.clientX / innerWidth * 2 - 1, -(ev.clientY / innerHeight) * 2 + 1);
@@ -572,11 +574,12 @@ function pick(ev) {
 renderer.domElement.addEventListener('pointerdown', e => { down = [e.clientX, e.clientY]; });
 renderer.domElement.addEventListener('pointerup', e => {
   if (!down || Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 5) return;
-  const s = pick(e); if (s) select(s.id); else closeCard();
+  const s = pick(e); if (s) { window.SISound?.fx('select'); select(s.id); } else closeCard();
 });
 renderer.domElement.addEventListener('pointermove', e => {
   if (e.pointerType !== 'mouse') return;
   const s = pick(e), tip = $('#tip');
+  if ((s && s.id) !== hoverId) { hoverId = s ? s.id : null; if (s) window.SISound?.fx('hover'); }
   if (!s) { tip.style.display = 'none'; renderer.domElement.style.cursor = ''; return; }
   renderer.domElement.style.cursor = 'pointer';
   tip.innerHTML = `${esc(s.name || s.id)}${s.owner ? ` · <span style="color:${s.colour}">${esc(s.owner)}</span>` : ''}${s.charted && s.class ? ` · ${esc(s.class)}` : ''}`;
@@ -625,7 +628,26 @@ function objects(rows) {
 }
 function yes(v) { return v && v !== 'No' && v !== 'FALSE'; }
 
+SISound.init({
+  page: 'map', mount: '#snd', buttons: 'button,a[href],.li',
+  fx: { hover: 'fx-hover.mp3', select: 'fx-select.mp3', button: 'fx-button.mp3' }, fxGain: { hover: 0.55 },
+  music: {
+    calm: { lead: true, tracks: [['map-main-the-great-vastness.mp3', 'The Great Vastness'], ['map-1-hopes-and-dreams.mp3', 'Hopes and Dreams'], ['map-2-to-the-stars.mp3', 'To the Stars'], ['map-3-across-the-hyperlanes.mp3', 'Across the Hyperlanes'], ['map-4-plans-in-motion.mp3', 'Plans in Motion']] },
+    crisis: { tracks: [['crisis-1-fog-of-war.mp3', 'Fog of War'], ['crisis-2-five-minutes.mp3', 'Five Minutes']] },
+    war: { tracks: [['war-1-for-our-homeworld.mp3', 'For Our Homeworld'], ['war-2-here-we-stand.mp3', 'Here We Stand'], ['war-3-the-final-move.mp3', 'The Final Move'], ['war-4-honor-the-fallen.mp3', 'Honor the Fallen']] }
+  }
+});
+async function moodFeed() {
+  const base = `https://docs.google.com/spreadsheets/d/${STANDINGS}/gviz/tq?tqx=out:csv&t=${Date.now()}`;
+  try {
+    const [m, w] = await Promise.all([fetch(base + '&headers=0&sheet=Setup&range=B8').then(r => r.text()), fetch(base + '&headers=1&sheet=' + encodeURIComponent('Herald Feed') + '&range=V1:AF300').then(r => r.text())]);
+    const set = (parseCSV(m)[0]?.[0] || 'Auto').trim().toLowerCase();
+    const atWar = objects(parseCSV(w)).some(o => o['War ID'] && o['Status'] === 'Ongoing');
+    SISound.setMood(['calm', 'crisis', 'war'].includes(set) ? set : atWar ? 'war' : 'calm');
+  } catch (e) { SISound.setMood('calm'); }
+}
 async function playerFeed() {
+  moodFeed();
   const url = sheet => `https://docs.google.com/spreadsheets/d/${STANDINGS}/gviz/tq?tqx=out:csv&headers=1&sheet=${encodeURIComponent(sheet)}&t=${Date.now()}`;
   try {
     const [a, b] = await Promise.all([fetch(url('Star Chart')).then(r => { if (!r.ok) throw r.status; return r.text(); }), fetch(url('Hyperlanes')).then(r => { if (!r.ok) throw r.status; return r.text(); })]);
