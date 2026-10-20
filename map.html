@@ -170,6 +170,7 @@ body.backdrop .ui,body.backdrop #tip,body.backdrop #menuBtn,body.backdrop #label
 <div id="veil"><img src="assets/wordmark.png" alt="Starverse Infinitas"><p>Star map</p><div class="msg" id="veilMsg"></div></div>
 
 <script src="assets/sound.js"></script>
+<script src="assets/symbols.js"></script>
 <script type="module">
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
@@ -578,7 +579,7 @@ function card(s) {
     const row = (k, v) => v ? `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>` : '';
   let body;
   if (s.charted) {
-    body = `<dl>${row('Class', s.class)}${row('Main world', s.type && s.type[0].toUpperCase() + s.type.slice(1))}${row('Environment', s.env)}${row('Life', s.life)}${row('Native era', s.era)}${row('Deposits', s.deposits)}${row('Feature', s.feature)}</dl>`;
+    body = `<dl>${row('Class', s.class)}${row('Main world', s.type && s.type[0].toUpperCase() + s.type.slice(1))}${row('Environment', s.env)}${row('Life', s.life)}${row('Native era', s.era)}${s.deposits ? `<dt>Deposits</dt><dd>${window.SISym ? SISym.deco(esc(s.deposits)) : esc(s.deposits)}</dd>` : ''}${row('Feature', s.feature)}</dl>`;
   } else {
     body = `<p class="fog">Uncharted. Its contents are revealed when a nation holds a system within one lane of it.</p>`;
   }

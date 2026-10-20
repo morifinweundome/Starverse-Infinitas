@@ -75,6 +75,7 @@ tbody tr:nth-child(even){background:var(--band2)}
 .none{padding:28px 18px;text-align:center;color:var(--muted);font-style:italic;border:1px dashed var(--line2);border-radius:12px}
 .foot{margin-top:40px;color:var(--muted);font-size:13px;text-align:center}
 @media (max-width:640px){.top img{height:24px}.top nav a{padding:6px 8px;font-size:13px}.find{margin-left:0;width:100%}.grid{grid-template-columns:1fr}}
+@media (min-width:1280px){body{font-size:16.5px}}
 </style>
 </head>
 <body>
@@ -104,6 +105,7 @@ tbody tr:nth-child(even){background:var(--band2)}
   </section>
   <p class="foot">Lore decides who you are; your choices decide what you become.</p>
 </main>
+<script src="assets/symbols.js"></script>
 <script>
 (function () {
   var SID = '1tZyLl3OV1e-KIRukMT3QKZg-dm4MxNYzfA4-bwV0rPw';
@@ -113,6 +115,7 @@ tbody tr:nth-child(even){background:var(--band2)}
     ['Technology', ['Military technology', 'Industry technology', 'Society technology', 'Logistics technology']],
     ['Honours', ['The Explorer', 'The Diplomat', 'The Trade Magnate', 'Jewel of the Galaxy', 'Rare Riches', 'The Suzerain', 'The Indispensable', 'The Creditworthy']]
   ];
+  var BOARDICON = { 'Economy': 'Stellar Mark', 'Military': 'Fleet Power', 'Stability': 'Stability', 'Systems held': 'Development', 'Research': 'Research', 'Technology': 'Research', 'Military technology': 'Fleet Power', 'Industry technology': 'Industry', 'Society technology': 'Influence', 'Jewel of the Galaxy': 'Renown', 'The Creditworthy': 'Stellar Mark', 'The Trade Magnate': 'Stellar Mark', 'Rare Riches': 'Adamant ore' };
   var $ = function (s) { return document.querySelector(s); };
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function url(sheet, range) { return 'https://docs.google.com/spreadsheets/d/' + SID + '/gviz/tq?tqx=out:csv&headers=1&sheet=' + encodeURIComponent(sheet) + (range ? '&range=' + range : '') + '&t=' + Date.now(); }
@@ -150,7 +153,7 @@ tbody tr:nth-child(even){background:var(--band2)}
         var body = real.length ? '<ol>' + real.map(function (x) {
           var r = Number(x.rank); return '<li class="' + (r <= 3 ? 'r' + r : '') + '"><span class="rank">' + r + '</span>' + dot(x.nation) + '<span class="nm">' + esc(x.nation) + '</span>' + (x.value ? '<span class="val">' + esc(x.value) + '</span>' : '') + '</li>';
         }).join('') + '</ol>' : '<div class="empty">' + esc((B.list[0] && B.list[0].nation) || 'Awaiting nations') + '</div>';
-        return '<article class="board"><h3>' + esc(b) + '</h3><p class="desc">' + esc(B.desc) + '</p>' + body + '</article>';
+        return '<article class="board"><h3>' + (BOARDICON[b] ? SISym.icon(BOARDICON[b], 'lg') : '') + esc(b) + '</h3><p class="desc">' + esc(B.desc) + '</p>' + body + '</article>';
       }).join('') + '</div></div>';
     }).join('');
     $('#p-boards').innerHTML = html;

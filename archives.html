@@ -103,6 +103,7 @@ h1{margin:4px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.1;color:var(--b
 .foot{margin-top:44px;color:var(--muted);font-size:13px;text-align:center}
 @media (max-width:860px){.cols{grid-template-columns:1fr}.banner{flex-direction:column;align-items:flex-start}}
 @media (max-width:640px){.top img{height:24px}.top nav a{padding:6px 8px;font-size:13px}.find{margin-left:0;width:100%}}
+@media (min-width:1280px){body{font-size:16.5px}}
 </style>
 </head>
 <body>
@@ -111,6 +112,7 @@ h1{margin:4px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.1;color:var(--b
   <nav><a href="rules.html" target="si-rules">Rules</a><a href="map.html" target="si-map">Star map</a><a href="standings.html" target="si-standings">Standings</a><a href="archives.html" class="on">Archives</a><a href="herald.html" target="si-herald">Herald</a></nav>
 </div></header>
 <main id="main"></main>
+<script src="assets/symbols.js"></script>
 <script>
 (function () {
   var SID = '1tZyLl3OV1e-KIRukMT3QKZg-dm4MxNYzfA4-bwV0rPw';
@@ -163,7 +165,7 @@ h1{margin:4px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.1;color:var(--b
     else html += '<div class="hall" id="hall">' + D.civs.map(function (c) {
       var fallen = c['Status'] === 'Fallen', n = D.works.filter(function (w) { return w['Nation'] === c['Nation']; }).length;
       return '<a class="civ' + (fallen ? ' fallen' : '') + '" style="--c:' + civColour(c) + '" href="#civ/' + encodeURIComponent(c['Nation ID']) + '" data-s="' + esc((c['Nation'] + ' ' + c['Official name'] + ' ' + c['Species name']).toLowerCase()) + '">' +
-        '<div style="display:flex;gap:14px;align-items:center">' + flag(c) + '<div><h3>' + esc(c['Nation']) + '</h3><div class="off">' + esc(c['Official name'] && c['Official name'] !== c['Nation'] ? c['Official name'] : (c['Government'] || '')) + '</div></div></div>' +
+        '<div style="display:flex;gap:14px;align-items:center">' + flag(c) + '<div><h3>' + esc(c['Nation']) + '</h3><div class="off">' + esc(c['Official name'] && c['Official name'] !== c['Nation'] ? c['Official name'] : (c['Government'] ? SISym.icon(c['Government']) + esc(c['Government']) : '')) + '</div></div></div>' +
         (c['Motto'] ? '<div class="motto">“' + esc(c['Motto']) + '”</div>' : '') +
         '<div class="meta">' + (fallen ? '<span class="tag fallen">Fallen</span>' : '') + (c['Species name'] ? '<span class="tag">' + esc(c['Species name']) + '</span>' : '') + '<span class="tag">' + esc(c['Systems held'] || 0) + ' systems</span>' + (n ? '<span class="tag">' + n + (n === 1 ? ' work' : ' works') + '</span>' : '') + '</div></a>';
     }).join('') + '</div>';
@@ -190,10 +192,11 @@ h1{margin:4px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.1;color:var(--b
       '<div class="tabs" role="tablist">' + tabs.map(function (t) { return '<a class="tab" role="tab" aria-selected="' + (t[0] === tab) + '" href="' + base + (t[0] === 'overview' ? '' : '/' + t[0]) + '">' + t[1] + (t[2] ? '<span class="n">' + t[2] + '</span>' : '') + '</a>'; }).join('') + '</div>';
     if (tab === 'overview') {
       var row = function (k, v) { return v ? '<dt>' + esc(k) + '</dt><dd>' + esc(v) + '</dd>' : ''; };
+      var rowH = function (k, h) { return h ? '<dt>' + esc(k) + '</dt><dd>' + h + '</dd>' : ''; };
       html += '<div class="cols"><div class="prose">' + (c['Brief history'] ? paras(c['Brief history']) : '<p class="none">Its history has yet to be written.</p>') + '</div><aside>' +
-        '<div class="facts"><h4>The state</h4><dl>' + row('Known as', c['Nation']) + row('Capital', c['Capital']) + row('Government', c['Government']) + row('Head of state', c['Head of state title']) + row('Founded', c['Founded'] ? 'Turn ' + c['Founded'] : '') + row('Systems held', c['Systems held']) + row('Status', c['Status']) + '</dl></div>' +
-        '<div class="facts"><h4>The people</h4><dl>' + row('Species', c['Species name']) + row('Demonym', c['Demonym']) + row('Biology', c['Biology']) + row('Traits', c['Traits']) + '</dl></div>' +
-        '<div class="facts"><h4>Beliefs</h4><dl>' + row('Order–Liberty', c['Order-Liberty']) + row('Sacred–Secular', c['Sacred-Secular']) + row('Martial–Pacific', c['Martial-Pacific']) + row('Outward–Inward', c['Outward-Inward']) + row('Civics', c['Civics']) + row('Flag', c['Flag']) + '</dl></div>' +
+        '<div class="facts"><h4>The state</h4><dl>' + row('Known as', c['Nation']) + row('Capital', c['Capital']) + rowH('Government', c['Government'] ? SISym.icon(c['Government']) + esc(c['Government']) : '') + row('Head of state', c['Head of state title']) + row('Founded', c['Founded'] ? 'Turn ' + c['Founded'] : '') + row('Systems held', c['Systems held']) + row('Status', c['Status']) + '</dl></div>' +
+        '<div class="facts"><h4>The people</h4><dl>' + row('Species', c['Species name']) + row('Demonym', c['Demonym']) + row('Biology', c['Biology']) + rowH('Traits', c['Traits'] ? SISym.chips(esc(c['Traits'])) : '') + '</dl></div>' +
+        '<div class="facts"><h4>Beliefs</h4><dl>' + rowH('Order–Liberty', c['Order-Liberty'] ? SISym.ideology(c['Order-Liberty']) + esc(c['Order-Liberty']) : '') + rowH('Sacred–Secular', c['Sacred-Secular'] ? SISym.ideology(c['Sacred-Secular']) + esc(c['Sacred-Secular']) : '') + rowH('Martial–Pacific', c['Martial-Pacific'] ? SISym.ideology(c['Martial-Pacific']) + esc(c['Martial-Pacific']) : '') + rowH('Outward–Inward', c['Outward-Inward'] ? SISym.ideology(c['Outward-Inward']) + esc(c['Outward-Inward']) : '') + rowH('Civics', c['Civics'] ? SISym.chips(esc(c['Civics'])) : '') + row('Flag', c['Flag']) + '</dl></div>' +
         '<div class="facts"><h4>Elsewhere</h4><dl><dt>Territory</dt><dd><a href="map.html" target="si-map">Star map</a></dd><dt>Standing</dt><dd><a href="standings.html" target="si-standings">Galactic Standings</a></dd></dl></div></aside></div>';
     } else if (tab === 'chronicle') {
       html += chron.length ? '<ol class="timeline">' + chron.map(function (e) { return '<li><div class="t">Turn ' + esc(e['Turn']) + '</div>' + paras(e['Entry']) + '</li>'; }).join('') + '</ol>' : '<div class="none">The chronicle begins with its first turn among the stars.</div>';

@@ -123,6 +123,7 @@ main{max-width:1180px;margin:0 auto;padding:30px 20px 80px}
 .foot{margin-top:44px;color:var(--muted);font-size:13px;text-align:center}
 @media (max-width:900px){.lead,.warhead{grid-template-columns:1fr}.battles{grid-template-columns:1fr}}
 @media (max-width:640px){.top img{height:24px}.top nav a{padding:6px 8px;font-size:13px}.belligerents{grid-template-columns:1fr}.vs{justify-content:center}.year{grid-template-columns:76px 1fr;gap:14px}.year::before{left:87px}.year .y b{font-size:20px}.battles{grid-template-columns:1fr}.sides .side{padding:10px 12px}.side .score{font-size:24px}}
+@media (min-width:1280px){body{font-size:16.5px}}
 </style>
 </head>
 <body>
@@ -136,6 +137,7 @@ main{max-width:1180px;margin:0 auto;padding:30px 20px 80px}
   <div id="view"></div>
   <p class="foot">Lore decides who you are; your choices decide what you become.</p>
 </main>
+<script src="assets/symbols.js"></script>
 <script>
 (function () {
   var SID = '1tZyLl3OV1e-KIRukMT3QKZg-dm4MxNYzfA4-bwV0rPw';
@@ -189,7 +191,7 @@ main{max-width:1180px;margin:0 auto;padding:30px 20px 80px}
 
   function battleCard(b) {
     var win = winner(b), a = civ(b['Attacker']), d = civ(b['Defender']), war = D.wars.filter(function (w) { return w['War ID'] === b['War ID']; })[0];
-    var side = function (c, role, roll, total, loss, won) { return '<div class="side' + (won ? ' win' : '') + '" style="--c:' + c.colour + '"><div class="role">' + role + '</div><div class="who">' + esc(c.name) + '</div><div class="score">' + esc(total || '–') + (roll ? '<small>roll ' + esc(roll) + '</small>' : '') + '</div>' + (loss ? '<div class="loss">Lost ' + esc(loss) + '</div>' : '') + '</div>'; };
+    var side = function (c, role, roll, total, loss, won) { return '<div class="side' + (won ? ' win' : '') + '" style="--c:' + c.colour + '"><div class="role">' + role + '</div><div class="who">' + esc(c.name) + '</div><div class="score">' + esc(total || '–') + (roll ? '<small>roll ' + esc(roll) + '</small>' : '') + '</div>' + (loss ? '<div class="loss">Lost ' + SISym.deco(esc(loss)) + '</div>' : '') + '</div>'; };
     return '<article class="battle"><div class="hd"><h3>Battle of ' + esc(sysName(b['System'])) + '</h3><span class="when">' + when(b['Turn']) + '</span></div>' +
       '<div class="sides">' + side(a, 'Attacker', b['Attacker roll'], b['Attacker total'], b['Attacker losses'], win === 'att') + '<div class="vs">vs</div>' + side(d, 'Defender', b['Defender roll'], b['Defender total'], b['Defender losses'], win === 'def') + '</div>' +
       '<div class="ft">' + (b['Outcome'] ? '<div class="outcome">' + esc(b['Outcome']) + '</div>' : '') + paras(b['Report']) +
