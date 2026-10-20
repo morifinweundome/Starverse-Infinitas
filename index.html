@@ -117,6 +117,11 @@ body[data-view=title] .si-snd{display:none}
 (function () {
   'use strict';
   var STANDINGS = '1tZyLl3OV1e-KIRukMT3QKZg-dm4MxNYzfA4-bwV0rPw';
+  /* a nation's private map link: keep the key on this device, then drop it from the address bar */
+  try {
+    var fk = new URLSearchParams(location.search).get('feed');
+    if (fk && /^[\w-]{20,}$/.test(fk)) { localStorage.setItem('si-feed', fk); history.replaceState(null, '', location.pathname + location.hash); }
+  } catch (e) {}
   var FILES = { rules: 'rules.html', map: 'map.html', standings: 'standings.html', archives: 'archives.html', herald: 'herald.html' };
   var NAMES = { rules: 'Rules of Play', map: 'Star Map', standings: 'Galactic Standings', archives: 'Galactic Archives', herald: 'Galactic Herald' };
   var $ = function (s) { return document.querySelector(s); };
