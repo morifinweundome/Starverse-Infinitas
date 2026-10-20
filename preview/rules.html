@@ -517,7 +517,7 @@ MOVE Fleet II: Vȳsōs &gt; Morghūl</div></div><div class="ff"><div class="fl">
 <li>biological weapons or weapons that attack a species' biology;</li>
 <li>psionics that create matter from nothing, teleport across interplanetary range or move objects over 50 m.</li>
 </ul><p class="note"><b>Note:</b> a species' own natural weapons, such as venom, claws or an acid spray, are not biological weapons.
-- <strong>Permitted Psionics:</strong> telekinesis, telepathy, astral projection and scrying.</p><p class="note"><b>Note:</b> psionics require the Psionic Tradition civic.
+- <strong>Permitted Psionics:</strong> telekinesis, telepathy, astral projection and scrying.</p><p class="note"><b>Note:</b> psionics require the Psionic-Latent trait and the Psionic Tradition civic.
 - <strong>History and culture are free,</strong> provided they give no advantage beyond the sheet.</p><h3 id="the-founding-charter">The Founding Charter<a class="hl" href="#the-founding-charter" aria-label="Link to this rule">#</a></h3><p>Each player submits:</p><ul>
 <li>the nation's name;</li>
 <li>species and biology type;</li>
@@ -537,7 +537,7 @@ MOVE Fleet II: Vȳsōs &gt; Morghūl</div></div><div class="ff"><div class="fl">
 </ul><p>A player whose Civilization Dossier already explains a combination may cite the section instead of writing a separate explanation. The GM accepts the citation if the Dossier bears it out.</p><h3 id="species-traits">Species Traits<a class="hl" href="#species-traits" aria-label="Link to this rule">#</a></h3><p>Traits describe what a species is. The GM determines the species' profile of bonuses and penalties from its combination of traits. The same combination always gives the same result.</p><ul>
 <li>Every species has <strong>4 trait points</strong>. Positive traits cost 1 or 2; mixed traits cost 0; negative traits refund 1. Unspent points are lost.</li>
 <li>A species may hold at most <strong>four traits with a positive cost</strong> and <strong>three with a negative cost</strong>, and never a trait with its listed opposite.</li>
-<li><strong>Psionic-Resistant</strong> is a special trait with a flat cost of 1 and no domains.</li>
+<li><strong>Psionic-Latent</strong> and <strong>Psionic-Resistant</strong> are special traits, each the other's opposite, with a flat cost of 1 and no domains. Only a Psionic-Latent species may take the Psionic Tradition civic.</li>
 </ul><p>The full list of traits, with their costs and opposites, is under Reference tables.</p><h3 id="signature-adaptation">Signature Adaptation<a class="hl" href="#signature-adaptation" aria-label="Link to this rule">#</a></h3><p>A species may have one <strong>signature adaptation</strong>: a feature of its body that no trait describes, such as venom, an acid spray, a chameleon skin, a second heart or a hide that shrugs off flame. It costs 1 trait point. The player describes it freely in the Charter and Dossier, and the GM matches it to one effect from the table below. Every adaptation also has a matching drawback, which the GM chooses from the second table to fit the description: a people that sprays acid may be feared; a cold-blooded one may falter in the cold.</p><div class="tbl"><table>
 <thead>
 <tr>
@@ -3437,7 +3437,19 @@ MOVE Fleet II: Vȳsōs &gt; Morghūl</div></div><div class="ff"><div class="fl">
 <td>Adaptive</td>
 <td>Thrives in harsh and varied environments</td>
 <td>2</td>
-<td>None</td>
+<td>Nonadaptive</td>
+</tr>
+<tr>
+<td>Quick Learners</td>
+<td>Grasps new ideas and techniques readily</td>
+<td>1</td>
+<td>Slow Learners</td>
+</tr>
+<tr>
+<td>Conservationist</td>
+<td>Instinctively spares and tends its surroundings</td>
+<td>1</td>
+<td>Decadent</td>
 </tr>
 <tr>
 <td>Long-lived</td>
@@ -3488,10 +3500,34 @@ MOVE Fleet II: Vȳsōs &gt; Morghūl</div></div><div class="ff"><div class="fl">
 <td>Charismatic</td>
 </tr>
 <tr>
-<td>Psionic-Resistant</td>
-<td>Minds closed to psionic influence: enemy psionic bonuses do not apply against it. Unavailable with Psionic Tradition</td>
+<td>Slow Learners</td>
+<td>Takes long to grasp anything new</td>
+<td>−1</td>
+<td>Quick Learners</td>
+</tr>
+<tr>
+<td>Nonadaptive</td>
+<td>Wilts outside the conditions it evolved in</td>
+<td>−1</td>
+<td>Adaptive</td>
+</tr>
+<tr>
+<td>Decadent</td>
+<td>Grown soft on comfort and indulgence</td>
+<td>−1</td>
+<td>Conservationist</td>
+</tr>
+<tr>
+<td>Psionic-Latent</td>
+<td>Minds open to psionic gifts; required for the Psionic Tradition civic</td>
 <td>1</td>
-<td>None</td>
+<td>Psionic-Resistant</td>
+</tr>
+<tr>
+<td>Psionic-Resistant</td>
+<td>Minds closed to psionic influence: enemy psionic bonuses do not apply against it</td>
+<td>1</td>
+<td>Psionic-Latent</td>
 </tr>
 <tr>
 <td>Necrophage</td>
@@ -3598,7 +3634,7 @@ MOVE Fleet II: Vȳsōs &gt; Morghūl</div></div><div class="ff"><div class="fl">
 <td>Psionic Tradition</td>
 <td>Psionics permitted; +1 to covert actions and battles</td>
 <td><svg aria-label="Research" class="ico" role="img"><title>Research</title><use href="#sym-research"></use></svg>Research −10%</td>
-<td>At least 50% organic</td>
+<td>Psionic-Latent; at least 50% organic</td>
 </tr>
 <tr>
 <td>Synthetic Directive</td>
@@ -3724,6 +3760,7 @@ MOVE Fleet II: Vȳsōs &gt; Morghūl</div></div><div class="ff"><div class="fl">
 </table></div><p class="see"><span class="see-l">See Also</span><a class="jump" href="#glossary">Glossary</a></p><nav class="pager"><a class="pg prev" href="#reference-tables"><small>Previous</small>Reference Tables</a><a class="pg next" href="#what-s-changed"><small>Next</small>What&#x27;s Changed</a></nav></section><section class="sec" id="what-s-changed" data-title="What&#x27;s Changed" hidden><header class="sh"><span class="kicker">Part IX · Reference · Section 26 of 26</span><h2>What&#x27;s Changed</h2><blockquote class="brief">
 <p><strong>In Brief</strong> Revisions to the rules, newest first.</p>
 </blockquote></header><ul>
+<li><strong>20 October 2026.</strong> Six species traits are added: Quick Learners and Slow Learners, Conservationist and Decadent, Nonadaptive as the opposite of Adaptive, and Psionic-Latent as the opposite of Psionic-Resistant. The Psionic Tradition civic now requires Psionic-Latent.</li>
 <li><strong>20 October 2026.</strong> Population, ground formations, fuel and wages, defences and installations, player designs, expendable strikes, build times and espionage by system are added. Megaprojects are renamed Megaprojects, and symbols mark resources throughout.</li>
 <li><strong>20 October 2026.</strong> The rules are reorganized into parts, from Start here to Reference, with a summary at the head of each section, a glossary and a worked first turn. The order form is rebuilt around routine orders and named plans, with covert operations that can support a particular order; orders are identified by each nation's private serial number, so no sign-in is needed (see Sending your orders).</li>
 </ul><nav class="pager"><a class="pg prev" href="#symbols"><small>Previous</small>Symbols</a><span></span></nav></section>
