@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nation Sheet · Starverse Infinitas</title>
+<meta name="description" content="Your nation's private sheet: stockpiles, income, upkeep, committed orders and projected stockpiles.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#05080D">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#05080D;--band1:#0C1420;--band2:#132033;--head:#13233A;--line:#2C4A68;--line2:#1B2D44;--text:#D3DEEA;--bright:#E8F0F8;--chrome:#B9D3EA;--steel:#8FB3D4;--muted:#7F95AB;--gold:#F2C76B;--up:#5FD38D;--down:#E58A8A;--warn:#F2C76B}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.6 Lato,Calibri,"Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;background:radial-gradient(1100px 520px at 80% -10%,rgba(44,74,104,.3),transparent 60%),radial-gradient(900px 500px at 0% 110%,rgba(44,74,104,.18),transparent 60%)}
+a{color:var(--steel)}
+:focus-visible{outline:2px solid var(--steel);outline-offset:2px;border-radius:4px}
+.top{position:sticky;top:0;z-index:10;background:rgba(5,8,13,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line2)}
+.top .in{max-width:1180px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:18px}
+.top img{height:30px;width:auto}
+.top nav{display:flex;gap:4px;margin-left:auto;flex-wrap:wrap}
+.top nav a{padding:6px 12px;border-radius:8px;text-decoration:none;color:var(--muted);font-weight:700;font-size:14px}
+.top nav a:hover{color:var(--bright);background:var(--band1)}
+main{max-width:1180px;margin:0 auto;padding:30px 20px 80px}
+.kicker{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--steel);font-weight:700}
+h1{margin:4px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.1;color:var(--bright);font-weight:900}
+h2{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--steel);margin:0 0 12px;font-weight:900}
+.hero{display:flex;flex-wrap:wrap;align-items:center;gap:20px;margin-bottom:22px}
+.emblem{width:84px;height:84px;border-radius:16px;border:1px solid var(--line2);background:linear-gradient(165deg,var(--band2),var(--band1));display:flex;align-items:center;justify-content:center;overflow:hidden;flex:none}
+.emblem img{width:100%;height:100%;object-fit:contain}
+.emblem span{font-size:26px;font-weight:900;color:var(--chrome);letter-spacing:.06em}
+.who{flex:1;min-width:240px}
+.lede{margin:0;color:var(--text);display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.lede .p{color:var(--muted)}
+.acts{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;font:inherit;font-weight:700;font-size:14.5px;padding:10px 16px;border-radius:10px;border:1px solid var(--line);background:linear-gradient(180deg,#183050,#122640);color:var(--bright);text-decoration:none;cursor:pointer}
+.btn:hover{border-color:var(--steel);box-shadow:0 0 0 1px rgba(143,179,212,.25),0 6px 20px rgba(0,0,0,.35)}
+.btn.gold{border-color:#8a6a2a;background:linear-gradient(180deg,#3a2c10,#2a1f0b);color:#FBE7B5}
+.btn.gold:hover{border-color:var(--gold)}
+.btn[aria-disabled=true]{opacity:.45;pointer-events:none}
+.stamp{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:8px;margin-top:8px}
+.stamp .dot{width:8px;height:8px;border-radius:50%;background:#4a6280}
+.stamp.live .dot{background:#5FD38D;box-shadow:0 0 8px #5FD38D}
+.stamp.err .dot{background:#E06666}
+.stamp button{font:inherit;font-size:12px;background:none;border:1px solid var(--line);border-radius:6px;color:var(--chrome);padding:1px 8px;cursor:pointer}
+.tabs{display:flex;gap:6px;border-bottom:1px solid var(--line);margin-bottom:24px;overflow-x:auto}
+.tab{font:inherit;font-weight:700;font-size:15px;background:none;border:0;border-bottom:2px solid transparent;color:var(--muted);padding:10px 14px;cursor:pointer;white-space:nowrap}
+.tab:hover{color:var(--bright)}
+.tab[aria-selected=true]{color:var(--bright);border-bottom-color:var(--steel)}
+.tab .n{font-size:12px;color:var(--steel);margin-left:6px;font-weight:400}
+.group{margin:0 0 32px}
+.note{font-size:13px;color:var(--muted);margin:-4px 0 14px}
+.panel{background:linear-gradient(165deg,var(--band2),var(--band1));border:1px solid var(--line2);border-radius:12px;padding:16px}
+/* stockpiles */
+.res{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.rc{position:relative;background:linear-gradient(165deg,var(--band2),var(--band1));border:1px solid var(--line2);border-radius:14px;padding:16px 16px 14px;transition:border-color .15s,transform .15s}
+.rc:hover{border-color:var(--line);transform:translateY(-1px)}
+.rc .hd{display:flex;align-items:center;gap:8px;font-weight:900;color:var(--bright);font-size:16px}
+.rc .hd .si-ico{width:2em;height:2em}
+.rc .big{font-size:36px;font-weight:900;color:var(--bright);line-height:1.1;margin:8px 0 2px;font-variant-numeric:tabular-nums}
+.rc .sub{font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.rc dl{display:grid;grid-template-columns:1fr auto;gap:3px 12px;margin:12px 0 0;font-size:14px}
+.rc dt{color:var(--muted)}
+.rc dd{margin:0;text-align:right;font-variant-numeric:tabular-nums;color:var(--chrome)}
+.rc .proj{margin-top:10px;padding-top:10px;border-top:1px solid var(--line2);display:flex;justify-content:space-between;align-items:baseline}
+.rc .proj b{font-size:20px;color:var(--bright);font-variant-numeric:tabular-nums}
+.d{font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;margin-left:6px}
+.d.up{color:var(--up)}.d.down{color:var(--down)}.d.flat{color:var(--muted)}
+.rc.short{border-color:#7a3434}
+.rc.short .proj b{color:var(--down)}
+.flag{position:absolute;top:12px;right:12px;font-size:11px;padding:2px 8px;border-radius:999px;border:1px solid #7a3434;color:#F3B5B5;background:rgba(122,52,52,.18)}
+.bar{height:6px;border-radius:999px;background:#0a121d;border:1px solid var(--line2);margin-top:10px;position:relative;overflow:hidden}
+.bar i{position:absolute;inset:0 auto 0 0;border-radius:999px;background:linear-gradient(90deg,#3c6e9c,#8FB3D4)}
+.bar i.p{background:rgba(242,199,107,.55)}
+/* tables */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.5}
+th{background:var(--head);color:var(--bright);text-align:left;font-weight:700;padding:10px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+td{padding:9px 12px;border-top:1px solid var(--line2);vertical-align:top}
+tbody tr:nth-child(odd){background:var(--band1)}
+tbody tr:nth-child(even){background:var(--band2)}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.muted{color:var(--muted)}
+.none{padding:22px 18px;text-align:center;color:var(--muted);font-style:italic;border:1px dashed var(--line2);border-radius:12px}
+/* vitals */
+.vit{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.vc{background:linear-gradient(165deg,var(--band2),var(--band1));border:1px solid var(--line2);border-radius:12px;padding:14px}
+.vc .t{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--steel);font-weight:700;display:flex;align-items:center;gap:6px}
+.vc .v{font-size:24px;font-weight:900;color:var(--bright);margin-top:4px;font-variant-numeric:tabular-nums}
+.vc .v small{font-size:14px;color:var(--muted);font-weight:400}
+.vc .s{font-size:13px;color:var(--muted)}
+.meter{height:8px;border-radius:999px;background:#0a121d;border:1px solid var(--line2);margin-top:8px;position:relative;overflow:hidden}
+.meter i{position:absolute;inset:0 auto 0 0;border-radius:999px;background:linear-gradient(90deg,#3c6e9c,#8FB3D4)}
+.meter i.hot{background:linear-gradient(90deg,#8a3a3a,#E58A8A)}
+.meter b{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--gold);box-shadow:0 0 6px var(--gold)}
+/* identity */
+.id{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:8px 16px;font-size:14.5px;align-items:baseline}
+.kv dt{color:var(--muted);white-space:nowrap}
+.kv dd{margin:0;color:var(--bright)}
+.tiers{display:flex;flex-wrap:wrap;gap:8px}
+.tier{display:flex;flex-direction:column;align-items:center;min-width:86px;padding:8px 10px;border:1px solid var(--line2);border-radius:10px;background:var(--band1)}
+.tier b{font-size:22px;color:var(--bright)}
+.tier span{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--steel)}
+.pill{display:inline-block;font-size:12px;padding:2px 9px;border-radius:999px;border:1px solid var(--line);color:var(--chrome);white-space:nowrap}
+.pill.ok{border-color:#2f6b4a;color:#9be3b8}.pill.wait{border-color:#8a6a2a;color:#FBE7B5}.pill.no{border-color:#7a3434;color:#F3B5B5}
+.gate{max-width:560px;margin:60px auto;text-align:center}
+.gate p{color:var(--muted)}
+.foot{margin-top:40px;color:var(--muted);font-size:13px;text-align:center}
+@media (max-width:640px){.top img{height:24px}.top nav a{padding:6px 8px;font-size:13px}.emblem{width:64px;height:64px}.rc .big{font-size:30px}.acts{width:100%}.acts .btn{flex:1;justify-content:center}}
+@media (min-width:1280px){body{font-size:16.5px}}
+</style>
+</head>
+<body>
+<header class="top"><div class="in">
+  <a href="./"><img src="assets/wordmark.png" alt="Starverse Infinitas" width="1000" height="235"></a>
+  <nav><a href="rules.html" target="si-rules">Rules</a><a href="map.html" id="mapNav" target="si-map">Star map</a><a href="standings.html" target="si-standings">Standings</a><a href="archives.html" target="si-archives">Archives</a><a href="herald.html" target="si-herald">Herald</a></nav>
+</div></header>
+<main id="main">
+  <div class="gate" id="gate" hidden>
+    <span class="kicker">Nation sheet</span>
+    <h1>This sheet opens from your private link</h1>
+    <p>Each nation has its own link to its sheet, sent with its serial number. Open that link to see your stockpiles, income and projections.</p>
+  </div>
+
+  <div id="sheet" hidden>
+    <div class="hero">
+      <div class="emblem" id="emblem"></div>
+      <div class="who">
+        <span class="kicker" id="kick">Nation sheet</span>
+        <h1 id="name">…</h1>
+        <p class="lede" id="lede"></p>
+        <div class="stamp" id="stamp"><span class="dot"></span><span id="stampText">Reading your record…</span></div>
+      </div>
+      <div class="acts">
+        <a class="btn gold" id="orders" target="_blank" rel="noopener" aria-disabled="true">✦ Send orders</a>
+        <a class="btn" id="pmap" target="si-map" aria-disabled="true">Private star map</a>
+      </div>
+    </div>
+
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true" data-p="overview">Overview</button>
+      <button class="tab" role="tab" aria-selected="false" data-p="realm">Systems &amp; worlds<span class="n" id="nS"></span></button>
+      <button class="tab" role="tab" aria-selected="false" data-p="forces">Forces<span class="n" id="nF"></span></button>
+      <button class="tab" role="tab" aria-selected="false" data-p="state">State &amp; fiscal code</button>
+      <button class="tab" role="tab" aria-selected="false" data-p="statement">Statement</button>
+    </div>
+
+    <section id="p-overview">
+      <div class="group">
+        <h2>Stockpiles</h2>
+        <p class="note" id="stockNote"></p>
+        <div class="res" id="main4"></div>
+      </div>
+      <div class="group">
+        <h2>Strategic resources</h2>
+        <div id="strat"></div>
+      </div>
+      <div class="group">
+        <h2>Orders this turn</h2>
+        <div id="orderList"></div>
+      </div>
+      <div class="group">
+        <h2>Vital signs</h2>
+        <div class="vit" id="vitals"></div>
+      </div>
+      <div class="group">
+        <h2>Under way</h2>
+        <div id="works"></div>
+      </div>
+    </section>
+
+    <section id="p-realm" hidden>
+      <div class="group"><h2>Systems held</h2><div id="systems"></div></div>
+      <div class="group"><h2>Worlds</h2><div id="worlds"></div></div>
+    </section>
+
+    <section id="p-forces" hidden>
+      <div class="group"><h2>Fleets and armies</h2><div id="forces"></div></div>
+    </section>
+
+    <section id="p-state" hidden>
+      <div class="group"><h2>The state</h2><div class="id" id="identity"></div></div>
+      <div class="group"><h2>Technology</h2><div class="tiers" id="tiers"></div></div>
+      <div class="group"><h2>Fiscal code</h2><div id="fiscal"></div></div>
+    </section>
+
+    <section id="p-statement" hidden>
+      <div class="group">
+        <h2>Statement</h2>
+        <p class="note">Every change to your stockpiles over the last three turns, newest first.</p>
+        <div id="statement"></div>
+      </div>
+    </section>
+  </div>
+  <p class="foot">Lore decides who you are; your choices decide what you become.</p>
+</main>
+<script src="assets/symbols.js"></script>
+<script>
+(function () {
+  'use strict';
+  var $ = function (s) { return document.querySelector(s); };
+  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function num(v) { var n = parseFloat(String(v == null ? '' : v).replace(/[, ]/g, '')); return isFinite(n) ? n : 0; }
+  function fmt(n, sign) {
+    n = Math.round(n * 10) / 10;
+    var s = Math.abs(n).toLocaleString(undefined, { maximumFractionDigits: 1 });
+    if (sign) return (n > 0 ? '+' : n < 0 ? '−' : '±') + s;
+    return (n < 0 ? '−' : '') + s;
+  }
+  function ico(name, cls) { return window.SISym ? SISym.icon(name, cls) : ''; }
+  function chips(list) { return window.SISym ? SISym.chips(esc(list)) : esc(list); }
+
+  /* ---------- the key ---------- */
+  function feedKey() {
+    var k = null;
+    try { k = new URLSearchParams(location.search).get('feed'); } catch (e) {}
+    if (k && /^[\w-]{20,}$/.test(k)) { try { localStorage.setItem('si-feed', k); } catch (e) {} return k; }
+    try { k = localStorage.getItem('si-feed'); } catch (e) {}
+    return k && /^[\w-]{20,}$/.test(k) ? k : null;
+  }
+  var KEY = feedKey();
+  if (!KEY) { $('#gate').hidden = false; return; }
+  $('#sheet').hidden = false;
+  $('#mapNav').href = 'map.html?feed=' + encodeURIComponent(KEY);
+
+  /* ---------- reading ---------- */
+  function parseCSV(text) {
+    var rows = [], row = [], cur = '', q = false;
+    for (var i = 0; i < text.length; i++) {
+      var ch = text[i];
+      if (q) { if (ch === '"') { if (text[i + 1] === '"') { cur += '"'; i++; } else q = false; } else cur += ch; }
+      else if (ch === '"') q = true;
+      else if (ch === ',') { row.push(cur); cur = ''; }
+      else if (ch === '\n' || ch === '\r') { if (ch === '\r' && text[i + 1] === '\n') i++; row.push(cur); rows.push(row); row = []; cur = ''; }
+      else cur += ch;
+    }
+    if (cur || row.length) { row.push(cur); rows.push(row); }
+    return rows.map(function (r) { return r.map(function (v) { return v.trim(); }); });
+  }
+  function objects(rows) {
+    var h = rows[0] || [];
+    return rows.slice(1).filter(function (r) { return r.some(function (v) { return v !== ''; }); })
+      .map(function (r) { var o = {}; h.forEach(function (k, i) { o[k] = r[i] == null ? '' : r[i]; }); return o; });
+  }
+  function get(tab) {
+    return fetch('https://docs.google.com/spreadsheets/d/' + KEY + '/gviz/tq?tqx=out:csv&headers=1&sheet=' + encodeURIComponent(tab) + '&t=' + Date.now())
+      .then(function (r) { if (!r.ok) throw r.status; return r.text(); })
+      .then(function (t) { if (/^\s*</.test(t)) throw 'not shared'; return objects(parseCSV(t)); });
+  }
+  function soft(tab) { return get(tab).catch(function () { return []; }); }
+
+  /* ---------- drawing ---------- */
+  function table(rows, cols, opts) {
+    opts = opts || {};
+    if (!rows.length) return '<div class="none">' + esc(opts.empty || 'Nothing here yet.') + '</div>';
+    return '<div class="tbl"><table><thead><tr>' + cols.map(function (c) { return '<th' + (c.n ? ' class="n"' : '') + '>' + esc(c.t || c.k) + '</th>'; }).join('') +
+      '</tr></thead><tbody>' + rows.map(function (r) {
+        return '<tr>' + cols.map(function (c) {
+          var v = r[c.k];
+          var html = c.f ? c.f(v, r) : esc(v);
+          return '<td' + (c.n ? ' class="n"' : '') + '>' + html + '</td>';
+        }).join('') + '</tr>';
+      }).join('') + '</tbody></table></div>';
+  }
+  function delta(n) { var c = n > 0.05 ? 'up' : n < -0.05 ? 'down' : 'flat'; return '<span class="d ' + c + '">' + fmt(n, true) + '</span>'; }
+
+  var S = {};
+  function kv(k) { return S[k] == null ? '' : S[k]; }
+
+  function drawHero() {
+    var id = kv('Nation ID'), nm = kv('Nation');
+    document.title = nm + ' · Nation Sheet · Starverse Infinitas';
+    $('#name').textContent = nm;
+    var em = $('#emblem');
+    em.innerHTML = '<span>' + esc(id) + '</span>';
+    var im = new Image(); im.alt = nm + ' emblem';
+    im.onload = function () { em.innerHTML = ''; em.appendChild(im); };
+    im.src = 'assets/emblems/' + encodeURIComponent(id) + '.png';
+    var prepared = kv('Orders prepared') === 'Yes';
+    $('#kick').textContent = 'Nation sheet · ' + (num(kv('Turn')) > 0 ? 'after turn ' + kv('Turn') : 'before the first turn') +
+      ' · orders for turn ' + kv('Orders open for turn') + (prepared ? ' prepared' : ' open');
+    $('#lede').innerHTML = (kv('Government') ? '<span>' + ico(kv('Government')) + esc(kv('Government')) + '</span>' : '') +
+      (kv('Player') ? '<span class="p">Led by ' + esc(kv('Player')) + '</span>' : '') +
+      (kv('Status') && kv('Status') !== 'Active' ? '<span class="pill wait">' + esc(kv('Status')) + '</span>' : '');
+    var o = $('#orders');
+    if (kv('Order form link')) { o.href = kv('Order form link'); o.removeAttribute('aria-disabled'); }
+    var m = $('#pmap');
+    m.href = 'map.html?feed=' + encodeURIComponent(KEY); m.removeAttribute('aria-disabled');
+  }
+
+  var MAIN = ['Industry', 'Energy', 'Research', 'Influence'];
+  function drawStock(rows) {
+    var by = {}; rows.forEach(function (r) { by[r['Resource']] = r; });
+    var prepared = kv('Orders prepared') === 'Yes';
+    $('#stockNote').textContent = prepared
+      ? 'Projected stockpiles take this turn\'s income, upkeep and the orders already costed for turn ' + kv('Orders open for turn') + '.'
+      : 'Projected stockpiles take this turn\'s income and upkeep. Your orders are costed once the turn is prepared, Sunday 18:00 (SGT), and then appear here.';
+    $('#main4').innerHTML = MAIN.map(function (k) {
+      var r = by[k] || {}, s = num(r['Stockpile']), inc = num(r['Income']), up = num(r['Upkeep']), com = num(r['Committed']), p = num(r['Projected']);
+      var short = p < 0, top = Math.max(s, p, 1);
+      return '<div class="rc' + (short ? ' short' : '') + '">' + (short ? '<span class="flag">Short</span>' : '') +
+        '<div class="hd">' + ico(k, 'lg') + esc(k) + '</div>' +
+        '<div class="big">' + fmt(s) + '</div><div class="sub">In store</div>' +
+        '<dl><dt>Income</dt><dd>' + fmt(inc, true) + '</dd>' +
+        '<dt>Upkeep</dt><dd>' + (up ? fmt(-up, true) : '—') + '</dd>' +
+        '<dt>Orders</dt><dd>' + (com ? fmt(-com, true) : prepared ? '—' : 'not yet costed') + '</dd></dl>' +
+        '<div class="bar" title="Now and projected"><i class="p" style="width:' + Math.max(0, p) / top * 100 + '%"></i><i style="width:' + Math.min(s, Math.max(p, 0)) / top * 100 + '%"></i></div>' +
+        '<div class="proj"><span class="sub">Projected</span><span><b>' + fmt(p) + '</b>' + delta(p - s) + '</span></div></div>';
+    }).join('');
+    var st = rows.filter(function (r) { return r['Kind'] === 'Strategic' && ['Stockpile', 'Income', 'Upkeep', 'Committed', 'Projected'].some(function (c) { return num(r[c]); }); });
+    $('#strat').innerHTML = st.length ? table(st, [
+      { k: 'Resource', f: function (v) { return ico(v) + esc(v); } },
+      { k: 'Stockpile', n: 1, f: function (v) { return fmt(num(v)); } },
+      { k: 'Income', n: 1, f: function (v) { return fmt(num(v), true); } },
+      { k: 'Upkeep', n: 1, f: function (v) { return num(v) ? fmt(-num(v), true) : '—'; } },
+      { k: 'Committed', t: 'Orders', n: 1, f: function (v) { return num(v) ? fmt(-num(v), true) : '—'; } },
+      { k: 'Projected', n: 1, f: function (v, r) { return '<b>' + fmt(num(v)) + '</b>' + delta(num(v) - num(r['Stockpile'])); } }
+    ]) : '<div class="none">No strategic resources held or worked yet.</div>';
+  }
+
+  function meter(v, max, opts) {
+    opts = opts || {};
+    var w = max > 0 ? Math.min(100, Math.max(0, v / max * 100)) : 0;
+    return '<div class="meter"><i' + (opts.hot ? ' class="hot"' : '') + ' style="width:' + w + '%"></i>' +
+      (opts.mark != null && max > 0 ? '<b style="left:calc(' + Math.min(100, opts.mark / max * 100) + '% - 1px)"></b>' : '') + '</div>';
+  }
+  function drawVitals() {
+    var stab = num(kv('Stability')), tgt = num(kv('Stability target'));
+    var adm = num(kv('Administrative Capacity')), over = num(kv('Capacity over'));
+    var fcap = num(kv('Fleet Capacity')), fuse = num(kv('Ship capacity used'));
+    var acap = num(kv('Army Capacity')), gp = num(kv('Ground Power'));
+    var v = [];
+    v.push('<div class="vc"><div class="t">' + ico('Stability') + 'Stability</div><div class="v">' + fmt(stab) + ' <small>drifting toward ' + fmt(tgt) + '</small></div>' +
+      meter(stab, 20, { mark: tgt }) + '<div class="s">' + (stab < tgt ? 'Rising' : stab > tgt ? 'Falling' : 'Steady') + ' by one a turn toward its target</div></div>');
+    v.push('<div class="vc"><div class="t">' + ico('Development') + 'Administrative Capacity</div><div class="v">' + fmt(adm) + '</div>' +
+      '<div class="s">' + (over > 0 ? '<span class="pill no">' + fmt(over) + ' over capacity</span>' : 'Within capacity') + ' · ' + esc(kv('Systems held') || 0) + ' systems held</div></div>');
+    v.push('<div class="vc"><div class="t">' + ico('Fleet Power') + 'Fleet</div><div class="v">' + fmt(fuse) + ' <small>of ' + fmt(fcap) + ' capacity</small></div>' +
+      meter(fuse, fcap, { hot: fuse > fcap }) + '<div class="s">Fleet Power ' + fmt(num(kv('Fleet Power'))) + '</div></div>');
+    v.push('<div class="vc"><div class="t">' + ico('Ground Power') + 'Army</div><div class="v">' + fmt(gp) + ' <small>of ' + fmt(acap) + ' capacity</small></div>' +
+      meter(gp, acap, { hot: gp > acap }) + '<div class="s">Ground Power</div></div>');
+    v.push('<div class="vc"><div class="t">' + ico('Population') + 'Population</div><div class="v">' + fmt(num(kv('Population (bn)'))) + ' <small>billion</small></div>' +
+      '<div class="s">Workforce needed ' + fmt(num(kv('Workforce needed (bn)'))) + ' bn</div></div>');
+    v.push('<div class="vc"><div class="t">' + ico('Stellar Mark') + 'Economy</div><div class="v">' + fmt(num(kv('GDP (SM)'))) + ' <small>SM GDP</small></div>' +
+      '<div class="s">Revenue ' + fmt(num(kv('Revenue (SM)'))) + ' SM · Debt ' + fmt(num(kv('Debt (SM)'))) + ' SM · Credit ' + esc(kv('Credit rating') || '—') + '</div></div>');
+    v.push('<div class="vc"><div class="t">' + ico('Renown') + 'Standing</div><div class="v" style="font-size:18px">' + esc(kv('Renown standing') || '—') + '</div>' +
+      '<div class="s">' + ico('Infamy') + esc(kv('Infamy standing') || '—') + ' · ' + esc(kv('Active treaties') || 0) + ' treaties · ' + esc(kv('Trade agreements') || 0) + ' of ' + esc(kv('Trade slots') || 0) + ' trade slots</div></div>');
+    $('#vitals').innerHTML = v.join('');
+  }
+
+  function drawOrders(rows) {
+    var prepared = kv('Orders prepared') === 'Yes';
+    if (!rows.length) {
+      $('#orderList').innerHTML = '<div class="none">' + (prepared ? 'No orders were costed for this turn.' : 'Your orders for turn ' + esc(kv('Orders open for turn')) + ' are costed when the turn is prepared. Until then, send them with the button above; your latest submission replaces every earlier one.') + '</div>';
+      return;
+    }
+    $('#orderList').innerHTML = table(rows, [
+      { k: 'Order' },
+      { k: 'Status', f: function (v) { var c = v === 'Ready' || v === 'Applied' ? 'ok' : v === 'Rejected' ? 'no' : 'wait'; return '<span class="pill ' + c + '">' + esc(v) + '</span>'; } },
+      { k: 'Industry', n: 1 }, { k: 'Energy', n: 1 }, { k: 'Research', n: 1 }, { k: 'Influence', n: 1 }, { k: 'Strategic' }
+    ]);
+  }
+
+  function drawWorks(rows) {
+    $('#works').innerHTML = table(rows, [{ k: 'Kind' }, { k: 'Item' }, { k: 'System' }, { k: 'Turn ordered', n: 1 }, { k: 'Completes at end of turn', t: 'Completes after turn', n: 1 }], { empty: 'Nothing is under construction.' });
+  }
+
+  function drawRealm(sys, worlds) {
+    $('#nS').textContent = sys.length || '';
+    $('#systems').innerHTML = table(sys, [
+      { k: 'Name', f: function (v, r) { return '<b>' + esc(v || r['System ID']) + '</b> <span class="muted">' + esc(r['System ID']) + '</span>'; } },
+      { k: 'Designation' }, { k: 'Development', n: 1, f: function (v, r) { return esc(v) + (r['Development cap'] ? ' <span class="muted">/ ' + esc(r['Development cap']) + '</span>' : ''); } },
+      { k: 'Buildings' }, { k: 'Condition' },
+      { k: 'Population (bn)', t: 'Pop. (bn)', n: 1 },
+      { k: 'Industry', n: 1 }, { k: 'Energy', n: 1 }, { k: 'Research', n: 1 }, { k: 'Influence', n: 1 }
+    ], { empty: 'No systems held.' });
+    $('#worlds').innerHTML = table(worlds, [
+      { k: 'World', f: function (v, r) { return '<b>' + esc(v) + '</b> <span class="muted">' + esc(r['System'] || r['System ID']) + (r['Orbit'] ? ' · orbit ' + esc(r['Orbit']) : '') + '</span>'; } },
+      { k: 'Kind' }, { k: 'Environment' }, { k: 'Population (bn)', t: 'Pop. (bn)', n: 1 }, { k: 'Buildings here', t: 'Buildings' },
+      { k: 'Industry', n: 1 }, { k: 'Energy', n: 1 }, { k: 'Research', n: 1 }, { k: 'Influence', n: 1 }
+    ], { empty: 'No worlds recorded.' });
+  }
+
+  function drawForces(rows) {
+    $('#nF').textContent = rows.length || '';
+    var SH = ['Escorts', 'Cruisers', 'Battleships', 'Dreadnoughts', 'Transports'];
+    $('#forces').innerHTML = table(rows, [
+      { k: 'Name', f: function (v, r) { return '<b>' + esc(v || r['Force ID']) + '</b> <span class="muted">' + esc(r['Force ID']) + '</span>'; } },
+      { k: 'Location', f: function (v, r) { return esc(r['Location name'] ? r['Location name'] + ' · ' + v : v); } },
+      { k: 'Ships', f: function (v, r) { return SH.filter(function (k) { return num(r[k]); }).map(function (k) { return '<span style="white-space:nowrap">' + ico(k.replace(/es$|s$/, '')) + esc(r[k]) + ' ' + esc(k) + '</span>'; }).join(' · ') || '<span class="muted">—</span>'; } },
+      { k: 'Fleet Power', n: 1 }, { k: 'Ground Power', n: 1 }, { k: 'Capacity', n: 1 }
+    ], { empty: 'No forces raised.' });
+  }
+
+  function drawState(fiscal) {
+    var ideo = ['Order–Liberty', 'Sacred–Secular', 'Martial–Pacific', 'Outward–Inward'].map(function (k) { return kv(k); }).filter(Boolean).join(', ');
+    function row(k, v, html) { return v ? '<dt>' + esc(k) + '</dt><dd>' + (html || esc(v)) + '</dd>' : ''; }
+    $('#identity').innerHTML =
+      '<div class="panel"><dl class="kv">' + row('Government', kv('Government'), chips(kv('Government'))) + row('Ideology', ideo, chips(ideo)) + row('Civics', kv('Civics'), chips(kv('Civics'))) + '</dl></div>' +
+      '<div class="panel"><dl class="kv">' + row('Biology', kv('Biology')) + row('Habitat', kv('Habitat')) + row('Traits', kv('Traits'), chips(kv('Traits'))) +
+        row('Self and group', kv('Self and group')) + row('The beyond', kv('The beyond')) + row('Adaptation', kv('Signature adaptation')) + '</dl></div>';
+    $('#tiers').innerHTML = ['Military', 'Industry', 'Society', 'Logistics'].map(function (t) {
+      return '<div class="tier"><b>' + esc(kv(t + ' tier') || '1') + '</b><span>' + esc(t) + '</span></div>';
+    }).join('');
+    $('#fiscal').innerHTML = table(fiscal, [{ k: 'Instrument', f: function (v) { return '<b>' + esc(v) + '</b>'; } }, { k: 'Intensity' }, { k: 'As written', f: function (v) { return '<span class="muted">' + esc(v) + '</span>'; } }, { k: 'Since turn', n: 1 }], { empty: 'No fiscal code recorded.' });
+  }
+
+  function drawStatement(rows) {
+    $('#statement').innerHTML = table(rows, [
+      { k: 'Turn', n: 1 }, { k: 'Phase' },
+      { k: 'Resource', f: function (v) { return ico(v) + esc(v); } },
+      { k: 'Amount', n: 1, f: function (v) { return delta(num(v)); } },
+      { k: 'Reason' }, { k: 'Balance after', n: 1 }
+    ], { empty: 'No entries yet.' });
+  }
+
+  function stamp(kind, text, retry) {
+    $('#stamp').className = 'stamp ' + kind; $('#stampText').textContent = text;
+    var old = $('#stamp button'); if (old) old.remove();
+    if (retry) { var b = document.createElement('button'); b.textContent = 'Retry'; b.onclick = load; $('#stamp').appendChild(b); }
+  }
+  var loaded = false;
+  function load() {
+    Promise.all([get('Sheet'), get('Stockpiles'), soft('Orders'), soft('Works'), soft('Systems'), soft('Worlds'), soft('Forces'), soft('Fiscal'), soft('Statement')])
+      .then(function (r) {
+        S = {}; r[0].forEach(function (o) { S[o['Key']] = o['Value']; });
+        drawHero(); drawStock(r[1]); drawOrders(r[2]); drawVitals(); drawWorks(r[3]);
+        drawRealm(r[4], r[5]); drawForces(r[6]); drawState(r[7]); drawStatement(r[8]);
+        loaded = true;
+        stamp('live', 'Record of ' + (kv('Updated') || 'just now') + ' · read ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
+      })
+      .catch(function () {
+        if (!loaded) { $('#name').textContent = 'Your record'; $('#main4').innerHTML = '<div class="none">Your record could not be read just now. Please try again shortly.</div>'; }
+        stamp('err', loaded ? 'Could not refresh; showing the last reading' : 'Your record could not be read', true);
+      });
+  }
+
+  document.querySelectorAll('.tab').forEach(function (t) {
+    t.onclick = function () {
+      document.querySelectorAll('.tab').forEach(function (x) { x.setAttribute('aria-selected', x === t); });
+      ['overview', 'realm', 'forces', 'state', 'statement'].forEach(function (p) { $('#p-' + p).hidden = p !== t.dataset.p; });
+      history.replaceState(null, '', location.search + (t.dataset.p === 'overview' ? '' : '#' + t.dataset.p));
+    };
+  });
+  var h = location.hash.slice(1); var ht = document.querySelector('.tab[data-p="' + h + '"]'); if (ht) ht.click();
+  document.addEventListener('mouseover', function (e) {
+    var t = e.target.closest && e.target.closest('.rc,.vc,.btn,.tab');
+    if (t && t !== document.__siLast) { document.__siLast = t; if (window.SISound) SISound.fx('hover'); }
+  });
+  load(); setInterval(load, 5 * 60 * 1000);
+})();
+</script>
+<script src="assets/sound.js"></script>
+<script>SISound.init({ page: 'nation', buttons: true, fx: { button: 'fx-button.mp3', hover: 'fx-hover.mp3', select: 'fx-select.mp3' }, music: { calm: { tracks: [['map-1-hopes-and-dreams.mp3', 'Hopes and Dreams'], ['map-2-to-the-stars.mp3', 'To the Stars'], ['map-4-plans-in-motion.mp3', 'Plans in Motion']] } } });</script>
+</body>
+</html>
