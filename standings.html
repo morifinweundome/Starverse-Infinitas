@@ -108,7 +108,7 @@ tbody tr:nth-child(even){background:var(--band2)}
 <script src="assets/symbols.js"></script>
 <script>
 (function () {
-  var SID = '1tZyLl3OV1e-KIRukMT3QKZg-dm4MxNYzfA4-bwV0rPw';
+  var SID = (function(){try{var s=new URLSearchParams(location.search).get('sheet');if(s&&/^[\w-]{30,}$/.test(s))return s;}catch(e){}return '1tZyLl3OV1e-KIRukMT3QKZg-dm4MxNYzfA4-bwV0rPw';})();
   var PALETTE = ['#D7263D','#F49D37','#F6D743','#9BE564','#1B998B','#2EC4B6','#3FC1F0','#2F6FED','#5B4BDB','#9B5DE5','#E040A0','#F78FB3','#FF7F6B','#B5532A','#8A9A3B','#4FBF7A','#BDE6F7','#C3B1E1','#D9C089','#C77D4A','#7E3F8F','#6C8EA4','#EDE6D6','#FF4E1F','#A3E4D7','#F5B7B1','#D2B4DE','#AED6F1','#F9E79F','#ABEBC6'];
   var GROUPS = [
     ['The great powers', ['Economy', 'Military', 'Stability', 'Systems held', 'Research', 'Technology']],
