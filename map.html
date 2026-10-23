@@ -550,12 +550,14 @@ function worksSection(s) {
   const orb = all.filter(b => ORBITAL.includes(b)), ground = all.filter(b => !ORBITAL.includes(b));
   const slots = num(o.slots), used = num(o.used) + (o.wip || []).filter(b => !ORBITAL.includes(b)).length, free = Math.max(0, slots - used);
   const chips = l => l.map(b => `<span class="wk">${esc(b)}</span>`).join('');
+  const oSlots = o.oslots !== undefined && o.oslots !== '' ? num(o.oslots) : 1 + (num(o.dev) >= 4 ? 1 : 0);
+  const oFree = Math.max(0, oSlots - orb.length - (o.wip || []).filter(b => ORBITAL.includes(b)).length);
   return `<div class="sec"><h4>Works${o.dev ? ' · Development ' + esc(o.dev) : ''}</h4>
-    <div class="slots"><span><b>${free}</b> of ${slots} building slot${slots === 1 ? '' : 's'} free</span>${orb.length ? '' : '<span>Orbit clear</span>'}</div>
+    <div class="slots"><span><b>${free}</b> of ${slots} building slot${slots === 1 ? '' : 's'} free</span><span><b>${oFree}</b> of ${oSlots} orbital slot${oSlots === 1 ? '' : 's'} free</span></div>
     ${ground.length ? `<div class="wks">${chips(ground)}</div>` : '<p class="wnote" style="margin:4px 0 0">No buildings yet.</p>'}
     ${orb.length ? `<div class="wks"><span class="ok">In orbit</span>${chips(orb)}</div>` : ''}
     ${o.wip ? `<div class="wks"><span class="ok">Under way</span>${chips(o.wip)}</div>` : ''}
-    <p class="wnote">An orbital work takes no slot; each building stands once per system.</p></div>`;
+    <p class="wnote">Orbital works take an orbital slot: one per system, two from Development 4. Each building stands once per system.</p></div>`;
 }
 function worldTip(w) {
   const row = (k, v) => v ? `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>` : '';
@@ -779,7 +781,7 @@ async function privateFeed() {
       if (/^\s*</.test(sy)) return;
       const wip = {};
       if (wk && !/^\s*</.test(wk)) objects(parseCSV(wk)).forEach(o => { if (o['System'] && o['Kind'] === 'Building') (wip[o['System']] = wip[o['System']] || []).push(o['Item']); });
-      WORKS = new Map(objects(parseCSV(sy)).filter(o => o['System ID']).map(o => [o['System ID'], { buildings: o['Buildings'], slots: o['Slots'], used: o['Slots used'], dev: o['Development'], wip: wip[o['System ID']] }]));
+      WORKS = new Map(objects(parseCSV(sy)).filter(o => o['System ID']).map(o => [o['System ID'], { buildings: o['Buildings'], slots: o['Slots'], used: o['Slots used'], dev: o['Development'], oslots: o['Orbital slots'], wip: wip[o['System ID']] }]));
       if (selected && byId.get(selected)) card(byId.get(selected));
     }).catch(() => {});
     const t = await g('Worlds');
