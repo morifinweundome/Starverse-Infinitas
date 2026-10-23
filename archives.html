@@ -72,6 +72,11 @@ h1{margin:4px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.1;color:var(--b
 .cols{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:28px;align-items:start}
 .prose{font-size:16px;line-height:1.75;max-width:720px}
 .prose p{margin:0 0 14px}
+.prose h2{font-family:"Cormorant Garamond",Georgia,serif;font-size:26px;font-weight:600;color:var(--bright);margin:0 0 4px}
+.prose .asof{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--steel);font-weight:700;margin:0 0 12px}
+.prose h3{font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--steel);margin:22px 0 8px}
+.prose .origins{margin-top:30px;padding-top:20px;border-top:1px solid var(--line2)}
+.sbx{background:#3a2a08;border-bottom:1px solid #8a6a2a;color:#FBE7B5;text-align:center;font-size:13px;padding:6px 12px;letter-spacing:.04em}
 .facts{border:1px solid var(--line2);border-radius:12px;background:var(--band1);padding:16px 18px}
 .facts h4{margin:0 0 10px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--steel)}
 .facts dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:14px}
@@ -107,6 +112,7 @@ h1{margin:4px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.1;color:var(--b
 </style>
 </head>
 <body>
+<div class="sbx" id="sbx" hidden>Sandbox Archives: the test game, not the live galaxy.</div>
 <header class="top"><div class="in">
   <a href="./"><img src="assets/wordmark.png" alt="Starverse Infinitas" width="1000" height="235"></a>
   <nav><a href="rules.html" target="si-rules">Rules</a><a href="map.html" target="si-map">Star map</a><a href="standings.html" target="si-standings">Standings</a><a href="archives.html" class="on">Archives</a><a href="herald.html" target="si-herald">Herald</a></nav>
@@ -115,11 +121,13 @@ h1{margin:4px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.1;color:var(--b
 <script src="assets/symbols.js"></script>
 <script>
 (function () {
-  var SID = '1tZyLl3OV1e-KIRukMT3QKZg-dm4MxNYzfA4-bwV0rPw';
+  var SANDBOX = /[?&]game=(starverse-)?sandbox\b/.test(location.search);
+  var SID = SANDBOX ? '1woIj4IuxBaoEg05mTVEV9GI17D0TdpqH4162N8ypytI' : '1tZyLl3OV1e-KIRukMT3QKZg-dm4MxNYzfA4-bwV0rPw';
+  if (SANDBOX) document.getElementById('sbx').hidden = false;
   var PALETTE = ['#D7263D','#F49D37','#F6D743','#9BE564','#1B998B','#2EC4B6','#3FC1F0','#2F6FED','#5B4BDB','#9B5DE5','#E040A0','#F78FB3','#FF7F6B','#B5532A','#8A9A3B','#4FBF7A','#BDE6F7','#C3B1E1','#D9C089','#C77D4A','#7E3F8F','#6C8EA4','#EDE6D6','#FF4E1F','#A3E4D7','#F5B7B1','#D2B4DE','#AED6F1','#F9E79F','#ABEBC6'];
   var LORE = ['History', 'Legend or myth', 'Faith and philosophy', 'Custom and daily life', 'Language'];
   var main = document.getElementById('main');
-  var D = { civs: [], works: [], chron: [], wars: [], loaded: false, error: false };
+  var D = { civs: [], works: [], chron: [], wars: [], realm: [], loaded: false, error: false };
   function esc(s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
   function paras(s) { return String(s || '').split(/\n\s*\n|\r\n\s*\r\n/).map(function (p) { return '<p>' + esc(p.trim()).replace(/\n/g, '<br>') + '</p>'; }).join(''); }
   function parseCSV(text) {
@@ -181,7 +189,9 @@ h1{margin:4px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.1;color:var(--b
     document.title = c['Nation'] + ' · Galactic Archives';
     var col = civColour(c), works = D.works.filter(function (w) { return w['Nation'] === c['Nation']; });
     var lore = works.filter(function (w) { return LORE.indexOf(w['Kind']) > -1; }), arts = works.filter(function (w) { return LORE.indexOf(w['Kind']) < 0; });
-    var chron = D.chron.filter(function (e) { return e['Nation'] === c['Nation']; });
+    var chron = D.chron.filter(function (e) { return e['Nation'] === c['Nation']; }).map(function (e, i) { return [e, i]; })
+      .sort(function (a, b) { return Number(a[0]['Turn']) - Number(b[0]['Turn']) || a[1] - b[1]; }).map(function (x) { return x[0]; });
+    var now = D.realm.filter(function (r) { return r['Realm'] === id; })[0];
     tab = tab || 'overview';
     var inW = function (w) { return (w['Side A'] + ',' + w['Side B'] + ',' + w['Joined later']).split(/[,;:]/).map(function (x) { return x.trim(); }).indexOf(id) > -1; };
     var cwars = D.wars.filter(inW);
@@ -193,7 +203,11 @@ h1{margin:4px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.1;color:var(--b
     if (tab === 'overview') {
       var row = function (k, v) { return v ? '<dt>' + esc(k) + '</dt><dd>' + esc(v) + '</dd>' : ''; };
       var rowH = function (k, h) { return h ? '<dt>' + esc(k) + '</dt><dd>' + h + '</dd>' : ''; };
-      html += '<div class="cols"><div class="prose">' + (c['Brief history'] ? paras(c['Brief history']) : '<p class="none">Its history has yet to be written.</p>') + '</div><aside>' +
+      var hist = c['Brief history'] ? paras(c['Brief history']) : '<p class="none">Its history has yet to be written.</p>';
+      var today = now && now['Account'] ? '<h2>The realm today</h2><div class="asof">As of turn ' + esc(now['As of turn']) + '</div>' + paras(now['Account']) +
+        (now['The people'] ? '<h3>The people</h3>' + paras(now['The people']) : '') + '<div class="origins"><h3>Origins</h3>' + hist + '</div>' : hist;
+      html += '<div class="cols"><div class="prose">' + today + '</div><aside>' +
+        (now ? '<div class="facts"><h4>Now</h4><dl>' + row('Reigning', now['Ruler']) + row('Advancement', now['Advancement']) + row('Systems held', c['Systems held']) + row('As of', now['As of turn'] ? 'Turn ' + now['As of turn'] : '') + '</dl></div>' : '') +
         '<div class="facts"><h4>The state</h4><dl>' + row('Known as', c['Nation']) + row('Capital', c['Capital']) + rowH('Government', c['Government'] ? SISym.icon(c['Government']) + esc(c['Government']) : '') + row('Head of state', c['Head of state title']) + row('Founded', c['Founded'] ? 'Turn ' + c['Founded'] : '') + row('Systems held', c['Systems held']) + row('Status', c['Status']) + '</dl></div>' +
         '<div class="facts"><h4>The people</h4><dl>' + row('Species', c['Species name']) + row('Demonym', c['Demonym']) + row('Biology', c['Biology']) + rowH('Traits', c['Traits'] ? SISym.chips(esc(c['Traits'])) : '') + '</dl></div>' +
         '<div class="facts"><h4>Beliefs</h4><dl>' + rowH('Order–Liberty', c['Order-Liberty'] ? SISym.ideology(c['Order-Liberty']) + esc(c['Order-Liberty']) : '') + rowH('Sacred–Secular', c['Sacred-Secular'] ? SISym.ideology(c['Sacred-Secular']) + esc(c['Sacred-Secular']) : '') + rowH('Martial–Pacific', c['Martial-Pacific'] ? SISym.ideology(c['Martial-Pacific']) + esc(c['Martial-Pacific']) : '') + rowH('Outward–Inward', c['Outward-Inward'] ? SISym.ideology(c['Outward-Inward']) + esc(c['Outward-Inward']) : '') + rowH('Civics', c['Civics'] ? SISym.chips(esc(c['Civics'])) : '') + row('Flag', c['Flag']) + '</dl></div>' +
@@ -246,9 +260,9 @@ h1{margin:4px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.1;color:var(--b
   }
   addEventListener('hashchange', route);
   route();
-  Promise.all([get('A1:Z200'), get('AB1:AH3000'), get('AJ1:AL5000'), get('V1:AF300', 'Herald Feed').catch(function () { return []; })]).then(function (r) {
+  Promise.all([get('A1:Z200'), get('AB1:AH3000'), get('AJ1:AL5000'), get('V1:AF300', 'Herald Feed').catch(function () { return []; }), get('AN1:AS200').catch(function () { return []; })]).then(function (r) {
     D.civs = r[0].sort(function (a, b) { return (a['Status'] === 'Fallen') - (b['Status'] === 'Fallen') || a['Nation'].localeCompare(b['Nation']); });
-    D.works = r[1]; D.chron = r[2]; D.wars = r[3] || []; D.loaded = true; route();
+    D.works = r[1]; D.chron = r[2]; D.wars = r[3] || []; D.realm = r[4] || []; D.loaded = true; route();
   }).catch(function () { D.error = true; route(); });
 })();
 </script>
