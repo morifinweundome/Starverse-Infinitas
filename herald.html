@@ -209,12 +209,12 @@ main{max-width:1180px;margin:0 auto;padding:30px 20px 80px}
     if (t) { var i = all.indexOf(t); head += '<div class="nav"><a class="' + (i < all.length - 1 ? '' : 'off') + '" href="#turn/' + all[i + 1] + '">← Earlier</a><a class="' + (i > 0 ? '' : 'off') + '" href="' + (i === 1 ? '#' : '#turn/' + all[i - 1]) + '">Later →</a></div>'; }
     head += '</div>';
     if (!t) { view.innerHTML = head + '<div class="none">' + (D.loaded ? 'The first edition goes to press when the first turn opens.' : D.error ? 'Please try again shortly.' : 'Gathering dispatches…') + '</div>'; return; }
-    var news = D.news.filter(function (n) { return Number(n['Turn']) === t; }), lead = news.filter(function (n) { return n['Kind'] === 'Headline'; })[0] || news.filter(function (n) { return n['Kind'] === 'News'; })[0];
+    var news = D.news.filter(function (n) { return Number(n['Turn']) === t; }), lead = news.filter(function (n) { return n['Kind'] === 'Headline'; })[0] || news.filter(function (n) { return n['Kind'] === 'News' || n['Kind'] === 'Story'; })[0] || news.filter(function (n) { return n['Kind'] !== 'Result'; })[0];
     var rest = news.filter(function (n) { return n !== lead && n['Kind'] !== 'Result'; }), results = news.filter(function (n) { return n['Kind'] === 'Result' && n !== lead; });
     var bats = D.battles.filter(function (b) { return Number(b['Turn']) === t; });
     var chips = function (n) { return '<div class="chips">' + ids(n['Nations']).map(party).join('') + ids(n['Systems']).map(sysPill).join('') + '</div>'; };
     var html = head;
-    if (lead) html += '<section class="lead"><div><span class="kicker">' + esc(lead['Kind'] === 'Headline' ? 'Headline' : 'News') + '</span><h1>' + esc(lead['Headline']) + '</h1><div class="body">' + paras(lead['Body']) + '</div>' + chips(lead) + '</div>' +
+    if (lead) html += '<section class="lead"><div><span class="kicker">' + esc(lead['Kind'] === 'Headline' ? 'Headline' : lead['Kind'] === 'Battle' ? 'Battle' : 'News') + '</span><h1>' + esc(lead['Headline']) + '</h1><div class="body">' + paras(lead['Body']) + '</div>' + chips(lead) + '</div>' +
       '<div class="col"><h2>Also this turn</h2>' + (rest.length ? rest.map(function (n) { return '<div class="story"><h3>' + esc(n['Headline']) + '</h3>' + paras(n['Body']) + chips(n) + '</div>'; }).join('') : '<p style="color:var(--muted)">No further dispatches.</p>') + '</div></section>';
     if (bats.length) html += '<section class="blk"><h2>Battle reports · ' + bats.length + '</h2><div class="battles">' + bats.map(battleCard).join('') + '</div></section>';
     if (results.length) html += '<section class="blk"><h2>Results</h2><div class="results">' + results.map(function (n) { return '<div class="result"><b>' + esc(n['Headline']) + '</b>' + paras(n['Body']) + chips(n) + '</div>'; }).join('') + '</div></section>';
@@ -273,7 +273,7 @@ main{max-width:1180px;margin:0 auto;padding:30px 20px 80px}
       if (w['Status'] === 'Ended' && w['End turn']) ev.push({ t: Number(w['End turn']), k: 'Peace', html: link + ' ends' + (w['Outcome'] ? ': ' + esc(w['Outcome']) : '') + '.', n: all, c: '#8FB3D4' });
     });
     D.tl.forEach(function (e) { ev.push({ t: Number(e['Turn']), k: 'Event', html: esc(e['Event']), n: ids(e['Nations']) }); });
-    D.news.filter(function (n) { return n['Kind'] === 'Headline'; }).forEach(function (n) { ev.push({ t: Number(n['Turn']), k: 'Headline', html: '<a href="#turn/' + n['Turn'] + '">' + esc(n['Headline']) + '</a>', n: ids(n['Nations']) }); });
+    D.news.filter(function (n) { return n['Kind'] === 'Headline' || n['Kind'] === 'Story' || n['Kind'] === 'Battle'; }).forEach(function (n) { ev.push({ t: Number(n['Turn']), k: 'Headline', html: '<a href="#turn/' + n['Turn'] + '">' + esc(n['Headline']) + '</a>', n: ids(n['Nations']) }); });
     var nations = Object.keys(D.civs);
     var html = '<div class="issue"><div><b>The Galactic Timeline</b> · Year ' + esc(D.cal.y1) + ' ' + esc(D.cal.era) + ' is the first turn; each turn is ' + esc(D.cal.ypt) + ' years &nbsp; ' + stamp() + '</div></div>';
     if (nations.length) html += '<div class="filters"><button class="chip" aria-pressed="' + (!tlFilter) + '" data-n="">All the galaxy</button>' + nations.map(function (k) { var c = D.civs[k]; return '<button class="chip" aria-pressed="' + (tlFilter === k) + '" data-n="' + esc(k) + '"><span class="sw" style="background:' + c.colour + ';color:' + c.colour + '"></span>' + esc(c.name) + '</button>'; }).join('') + '</div>';
