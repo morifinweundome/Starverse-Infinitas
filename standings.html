@@ -76,9 +76,11 @@ tbody tr:nth-child(even){background:var(--band2)}
 .foot{margin-top:40px;color:var(--muted);font-size:13px;text-align:center}
 @media (max-width:640px){.top img{height:24px}.top nav a{padding:6px 8px;font-size:13px}.find{margin-left:0;width:100%}.grid{grid-template-columns:1fr}}
 @media (min-width:1280px){body{font-size:16.5px}}
+.sbx{background:#3a2a08;border-bottom:1px solid #8a6a2a;color:#FBE7B5;text-align:center;font-size:13px;padding:6px 12px;letter-spacing:.04em}
 </style>
 </head>
 <body>
+<div class="sbx" id="sbx" hidden>Sandbox edition: the test game, not the live galaxy.</div>
 <header class="top"><div class="in">
   <a href="./"><img src="assets/wordmark.png" alt="Starverse Infinitas" width="1000" height="235"></a>
   <nav><a href="rules.html" target="si-rules">Rules</a><a href="map.html" target="si-map">Star map</a><a href="standings.html" class="on">Standings</a><a href="archives.html" target="si-archives">Archives</a><a href="herald.html" target="si-herald">Herald</a></nav>
@@ -108,7 +110,7 @@ tbody tr:nth-child(even){background:var(--band2)}
 <script src="assets/symbols.js"></script>
 <script>
 (function () {
-  var SID = (function(){try{var s=new URLSearchParams(location.search).get('sheet');if(s&&/^[\w-]{30,}$/.test(s))return s;}catch(e){}return '1tZyLl3OV1e-KIRukMT3QKZg-dm4MxNYzfA4-bwV0rPw';})();
+  var SID = (function(){try{var q=new URLSearchParams(location.search),s=q.get('sheet');if(s&&/^[\w-]{30,}$/.test(s))return s;if(/^(starverse-)?sandbox$/.test(q.get('game')||''))return '1S7qeGMG_7X6faBHySAMNPAY8H4H2wji8B5we36WxT1g';}catch(e){}return '1tZyLl3OV1e-KIRukMT3QKZg-dm4MxNYzfA4-bwV0rPw';})();
   var PALETTE = ['#D7263D','#F49D37','#F6D743','#9BE564','#1B998B','#2EC4B6','#3FC1F0','#2F6FED','#5B4BDB','#9B5DE5','#E040A0','#F78FB3','#FF7F6B','#B5532A','#8A9A3B','#4FBF7A','#BDE6F7','#C3B1E1','#D9C089','#C77D4A','#7E3F8F','#6C8EA4','#EDE6D6','#FF4E1F','#A3E4D7','#F5B7B1','#D2B4DE','#AED6F1','#F9E79F','#ABEBC6'];
   var GROUPS = [
     ['The great powers', ['Economy', 'Military', 'Stability', 'Systems held', 'Research', 'Technology']],
@@ -223,5 +225,6 @@ tbody tr:nth-child(even){background:var(--band2)}
 </script>
 <script src="assets/sound.js"></script>
 <script>SISound.init({ page: 'standings', buttons: true, fx: { button: 'fx-button.mp3' } });</script>
+<script>(function(){if(!/[?&]game=(starverse-)?sandbox\b/.test(location.search))return;var b=document.getElementById('sbx');if(b)b.hidden=false;document.querySelectorAll('a[href]').forEach(function(a){var h=a.getAttribute('href');var m=h.match(/^(archives|herald|standings)\.html(#.*)?$/);if(m)a.setAttribute('href',m[1]+'.html?game=sandbox'+(m[2]||''));});})();</script>
 </body>
 </html>

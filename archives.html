@@ -268,5 +268,6 @@ h1{margin:4px 0 6px;font-size:clamp(30px,5vw,44px);line-height:1.1;color:var(--b
 </script>
 <script src="assets/sound.js"></script>
 <script>SISound.init({ page: 'archives', buttons: true, fx: { button: 'fx-button.mp3' }, music: { archives: { tracks: [['archives-1-mystery-and-wonder.mp3', 'Mystery and Wonder'], ['archives-2-ancient-memory.mp3', 'Ancient Memory']] } } });</script>
+<script>(function(){if(!/[?&]game=(starverse-)?sandbox\b/.test(location.search))return;var b=document.getElementById('sbx');if(b)b.hidden=false;document.querySelectorAll('a[href]').forEach(function(a){var h=a.getAttribute('href');var m=h.match(/^(archives|herald|standings)\.html(#.*)?$/);if(m)a.setAttribute('href',m[1]+'.html?game=sandbox'+(m[2]||''));});})();</script>
 </body>
 </html>
