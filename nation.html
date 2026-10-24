@@ -231,6 +231,7 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
 
     <section id="p-realm" hidden>
       <div class="group"><h2>Systems held</h2><div id="systems"></div></div>
+      <div class="group" id="leasedOutG" hidden><h2>Leased out</h2><p class="note">Systems we lease to another nation. We keep sovereignty; the lessee governs them, and they count against its Administrative Capacity. Each returns to us when its lease ends.</p><div id="leasedOut"></div></div>
       <div class="group"><h2>Worlds</h2><div id="worlds"></div></div>
     </section>
 
@@ -430,10 +431,21 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
     $('#works').innerHTML = table(rows, [{ k: 'Kind' }, { k: 'Item' }, { k: 'System' }, { k: 'Turn ordered', n: 1 }, { k: 'Completes at end of turn', t: 'Completes after turn', n: 1 }], { empty: 'Nothing is under construction.' });
   }
 
+  function drawLeasedOut(rows) {
+    rows = (rows || []).filter(function (r) { return r['System ID'] && r['Lessee'] !== undefined; });   // an older record has no such tab
+    $('#leasedOutG').hidden = !rows.length;
+    $('#leasedOut').innerHTML = table(rows, [
+      { k: 'Name', t: 'System', f: function (v, r) { return '<b>' + esc(v || r['System ID']) + '</b> <span class="muted">' + esc(r['System ID']) + '</span>'; } },
+      { k: 'Lessee' }, { k: 'Payment', f: function (v, r) { return esc(v || '—') + (r['Rent per turn'] ? '<br><span class="muted" style="font-size:12.5px">Rent ' + esc(r['Rent per turn']) + ' a turn</span>' : ''); } },
+      { k: 'Ends (turn)', t: 'Ends', f: function (v) { return /^\d/.test(v) ? 'End of Turn ' + esc(v) : esc(v || 'Indefinite'); } }, { k: 'Treaty' }
+    ], { empty: 'No systems leased out.' });
+  }
+
   function drawRealm(sys, worlds) {
     $('#nS').textContent = sys.length || '';
     $('#systems').innerHTML = table(sys, [
-      { k: 'Name', f: function (v, r) { return '<b>' + esc(v || r['System ID']) + '</b> <span class="muted">' + esc(r['System ID']) + '</span>'; } },
+      { k: 'Name', f: function (v, r) { return '<b>' + esc(v || r['System ID']) + '</b> <span class="muted">' + esc(r['System ID']) + '</span>' +
+          (r['Lease'] ? '<br><span class="muted" style="font-size:12.5px" title="We govern it in the sovereign\'s name">' + esc(r['Lease']) + '</span>' : ''); } },
       { k: 'Designation' }, { k: 'Development', n: 1, f: function (v, r) { return esc(v) + (r['Development cap'] ? ' <span class="muted">/ ' + esc(r['Development cap']) + '</span>' : ''); } },
       { k: 'Buildings' }, { k: 'Condition' },
       { k: 'Population (bn)', t: 'Pop. (bn)', n: 1 },
@@ -638,12 +650,12 @@ td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
   var loaded = false;
   function load() {
     Promise.all([get('Sheet'), get('Stockpiles'), soft('Orders'), soft('Works'), soft('Systems'), soft('Worlds'), soft('Forces'), soft('Fiscal'), soft('Statement'),
-      soft('Reach'), soft('Prices'), soft('Upkeep'), soft('Stability'), soft('Receipt'), soft('Contacts'), soft('Treaties'), soft('Debts'), soft('History')])
+      soft('Reach'), soft('Prices'), soft('Upkeep'), soft('Stability'), soft('Receipt'), soft('Contacts'), soft('Treaties'), soft('Debts'), soft('History'), soft('Leased out')])
       .then(function (r) {
         S = {}; r[0].forEach(function (o) { S[o['Key']] = o['Value']; });
         STOCK = {}; r[1].forEach(function (o) { STOCK[o['Resource']] = o; });
         drawHero(); drawStock(r[1]); drawOrders(r[2]); drawVitals(); drawWorks(r[3]);
-        drawRealm(r[4], r[5]); drawForces(r[6]); drawState(r[7]); drawStatement(r[8]);
+        drawRealm(r[4], r[5]); drawLeasedOut(r[18]); drawForces(r[6]); drawState(r[7]); drawStatement(r[8]);
         drawSince(r[17]); drawClock(); drawReceipt(r[13]); drawOutlook(r[1]); drawHeadroom(r[4]);
         drawStability(r[12]); drawUpkeep(r[11]); drawWarnings(r[4], r[1]);
         reachRows = r[9]; drawReach(); priceRows = r[10]; drawPrices(); drawDiplomacy(r[14], r[15], r[16]);
