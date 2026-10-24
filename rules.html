@@ -460,6 +460,10 @@ COLONIZE Kepler's Reach</code></pre><div class="tbl"><table>
 <td>Treaties proposed, state policies and other initiatives, in the nation's own words</td>
 </tr>
 <tr>
+<td>SETTLE, RESETTLE</td>
+<td>Settling a further world in a held system; moving people between its worlds</td>
+</tr>
+<tr>
 <td>NAME</td>
 <td>Naming a system the nation holds, or a world within it, free: <code>NAME C-04 AS Ēlvaris</code> or <code>NAME IV @ C-04 AS Aerith</code>. A name is 2 to 40 characters and may not repeat another system's or world's. Worlds still called by their system's ID take the system's new name.</td>
 </tr>
@@ -1522,7 +1526,7 @@ COLONIZE Kepler's Reach</code></pre><div class="tbl"><table>
 <thead>
 <tr>
 <th>Carrying Capacity =</th>
-<th>Environment</th>
+<th>Settled worlds</th>
 <th>+ Planets</th>
 <th>× Habitat</th>
 <th>× Condition</th>
@@ -1533,8 +1537,8 @@ COLONIZE Kepler's Reach</code></pre><div class="tbl"><table>
 <tbody>
 <tr>
 <td data-l="Carrying Capacity =">What each part adds</td>
-<td data-l="Environment">Garden 12, Oceanic 10, Arid 6, Frozen 4, Toxic 2, Volcanic 1.5, Barren 0.4 (billions)</td>
-<td data-l="+ Planets">+1 for each habitable planet beyond the first</td>
+<td data-l="Settled worlds">Each settled world by its environment, times the habitat factor for that world: Garden 12, Oceanic 10, Arid 6, Frozen 4, Toxic 2, Volcanic 1.5, Barren 0.4 (billions)</td>
+<td data-l="+ Planets">+1 for each habitable planet not yet settled</td>
 <td data-l="× Habitat">Surface ×1; Aquatic ×1.4 on Oceanic worlds, ×0.8 elsewhere; Subterranean ×1.8 on Barren, Volcanic, Toxic, Frozen and Arid worlds, ×0.9 on Garden and Oceanic</td>
 <td data-l="× Condition">Clean ×1, Strained ×0.9, Degraded ×0.7, Ruined ×0.4</td>
 <td data-l="× Society Technology">+5% per Society tier above 1</td>
@@ -1573,7 +1577,7 @@ COLONIZE Kepler's Reach</code></pre><div class="tbl"><table>
 <td data-l="× Reductions">−10% per Industry tier above 1, and as workforce policies, Cybernetic biology and the Synthetic Directive reduce it; reductions multiply; at least a quarter of the unreduced workforce is always needed</td>
 </tr>
 </tbody>
-</table></div><p><strong>Understaffed worlds.</strong> A world with fewer people than its workforce produces between 50% and 100% of its output, in proportion to its staffing.</p><p><strong>Development waits for people.</strong> A world may not rise a Development level until it holds at least half the workforce that level needs, after reductions (see Development).</p><h3 id="settlement-and-migration">Settlement And Migration<a class="hl" href="#settlement-and-migration" aria-label="Link to this rule">#</a></h3><p><strong>Within a nation.</strong> Each turn, 3% of the people of crowded worlds move to the nation's emptier worlds.</p><p><strong>Between nations.</strong> At peace, people drift from a poorer nation toward a richer neighbour within 3 lanes whose per-capita <a class="term" data-tip="Everything a nation produces in a turn, in Stellar Marks: four times its output, before the revenue effect of its fiscal code." href="#gdp-and-the-stellar-mark">GDP</a> is at least 30% higher: 0.2% of the poorer nation's population a turn. The receiving nation's immigration policy decides how many it admits.</p><p><strong>Refugees.</strong> When a world is occupied, 5% of its people are killed and 10% flee. Half the refugees move to their own nation's other worlds; the rest flee to neighbours within 3 lanes, who admit them according to their refugee policy. A host that takes in more than 3% of its own population loses 1 <a class="term" data-tip="How stable a civilization is, from 0 to 10. It moves one point a turn toward its target." href="#stability">Stability</a> for two turns.</p><p><strong>Policies and events.</strong> Each nation sets standing immigration and refugee policies in its fiscal code: open, selective or closed. Flows too large for policy alone arrive as events, which the nation answers in its orders.</p><h3 id="per-capita-gdp">Per-Capita GDP<a class="hl" href="#per-capita-gdp" aria-label="Link to this rule">#</a></h3><p>A nation's GDP divided by its population is its per-capita GDP, in Marks per billion. A nation at 1.5 times the galactic median or more gains +1 Stability target; one at 0.6 times or less loses 1.</p><h3 id="workforce-policies">Workforce Policies<a class="hl" href="#workforce-policies" aria-label="Link to this rule">#</a></h3><p>A nation may meet its need for people by means other than growth. Each policy is a line in its fiscal code, at Light, Moderate or Heavy intensity.</p><div class="tbl"><table>
+</table></div><p><strong>Understaffed worlds.</strong> A world with fewer people than its workforce produces between 50% and 100% of its output, in proportion to its staffing.</p><p><strong>Development waits for people.</strong> A world may not rise a Development level until it holds at least half the workforce that level needs, after reductions (see Development).</p><h3 id="settlement-and-migration">Settlement And Migration<a class="hl" href="#settlement-and-migration" aria-label="Link to this rule">#</a></h3><p><strong>Worlds within a system.</strong> A system's first colony settles its main world. Its other habitable worlds can be settled in turn: <code>SETTLE &lt;world&gt; @ &lt;system&gt;</code> costs half a colony of that world's environment and sends 0.3 billion settlers from the system's own worlds; one world a turn in each system, and not in Unrest. Each settled world then adds its own carrying capacity. <code>RESETTLE &lt;n&gt; bn FROM &lt;world&gt; TO &lt;world&gt; @ &lt;system&gt;</code> moves people between settled worlds of one system, free, up to 10% of the source world a turn. Settling a further world adds no system, so it costs no Administrative Capacity: it is how a tall nation finds the workers its higher Development levels need.</p><p><strong>Within a nation.</strong> Each turn, 3% of the people of crowded worlds move to the nation's emptier worlds.</p><p><strong>Between nations.</strong> At peace, people drift from a poorer nation toward a richer neighbour within 3 lanes whose per-capita <a class="term" data-tip="Everything a nation produces in a turn, in Stellar Marks: four times its output, before the revenue effect of its fiscal code." href="#gdp-and-the-stellar-mark">GDP</a> is at least 30% higher: 0.2% of the poorer nation's population a turn. The receiving nation's immigration policy decides how many it admits.</p><p><strong>Refugees.</strong> When a world is occupied, 5% of its people are killed and 10% flee. Half the refugees move to their own nation's other worlds; the rest flee to neighbours within 3 lanes, who admit them according to their refugee policy. A host that takes in more than 3% of its own population loses 1 <a class="term" data-tip="How stable a civilization is, from 0 to 10. It moves one point a turn toward its target." href="#stability">Stability</a> for two turns.</p><p><strong>Policies and events.</strong> Each nation sets standing immigration and refugee policies in its fiscal code: open, selective or closed. Flows too large for policy alone arrive as events, which the nation answers in its orders.</p><h3 id="per-capita-gdp">Per-Capita GDP<a class="hl" href="#per-capita-gdp" aria-label="Link to this rule">#</a></h3><p>A nation's GDP divided by its population is its per-capita GDP, in Marks per billion. A nation at 1.5 times the galactic median or more gains +1 Stability target; one at 0.6 times or less loses 1.</p><h3 id="workforce-policies">Workforce Policies<a class="hl" href="#workforce-policies" aria-label="Link to this rule">#</a></h3><p>A nation may meet its need for people by means other than growth. Each policy is a line in its fiscal code, at Light, Moderate or Heavy intensity.</p><div class="tbl"><table>
 <thead>
 <tr>
 <th>Policy</th>
